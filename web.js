@@ -1,12 +1,11 @@
-var express = require('express');
+var staticFiles = new (static.Server)("static");
 
-var app = express.createServer(express.logger());
-
-app.get('/', function(request, response) {
-  response.send('Hello World!');
+server = http.createServer(function(request, response) {
+ request.addListener('end', function() {
+  staticFiles.serve(request, response);
+ });
 });
 
-var port = process.env.PORT || 5000;
-app.listen(port, function() {
-  console.log("Listening on " + port);
-});
+var port = process.env.PORT || 3000;
+server.listen(port);
+console.log("Static Content Server Started");
