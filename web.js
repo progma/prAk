@@ -1,3 +1,4 @@
+var static = require('node-static'), http = require('http');
 var staticFiles = new (static.Server)("static");
 
 server = http.createServer(function(request, response) {
