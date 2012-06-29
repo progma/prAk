@@ -1,0 +1,11 @@
+{
+  "name": "progma-node",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "2.5.x",
+    "node-static": "0.5.x"
+  },
+  "engines": {
+    "node": "0.6.x"
+  }
+}
