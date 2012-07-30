@@ -1,0 +1,57 @@
+.slides
+{
+    width: 100%;
+    background-color: rgb(236,208,120);
+}
+
+.slideList
+{
+    width: 100%;
+    height: 38px;
+    background-color: rgb(217,91,67);
+    text-align: center;
+}
+
+.slideIcon
+{
+    display: inline-block;
+    border: solid 4px rgb(217,91,67);
+    margin-top: 3px;
+    margin-left: 5px; margin-right: 5px;
+    width: 40px;
+    height: 24px;
+}
+
+.slideIconActive
+{
+    border: solid 4px rgb(255, 234, 168);
+}
+
+.innerSlides
+{
+    width: 890px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.slide
+{
+    display: inline-block;
+    background-color: rgb(255, 234, 168);
+    width: 400px;
+    height: 247px;
+    margin-left: 10px; margin-right: 10px;
+    text-align: left;
+    padding: 10px;
+}
+
+.slideNot
+{
+    display: none;
+}
+
+.textIcon
+{
+    background-image: url("icons/html.png");
+}
