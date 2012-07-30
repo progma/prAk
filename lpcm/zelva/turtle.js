@@ -1,12 +1,10 @@
-poziceX = 0;
-poziceY = 0;
-uhel = 0;
-
 function jdi(n)
 {
     var novaPoziceX = poziceX + n*Math.sin(uhel/360*Math.PI*2);
-    var novaPoziceY = poziceY + n*Math.cos(uhel/360*Math.PI*2);
+    var novaPoziceY = poziceY - n*Math.cos(uhel/360*Math.PI*2);
     turtle.drawLine(poziceX, poziceY, novaPoziceX, novaPoziceY);
+    poziceX = novaPoziceX;
+    poziceY = novaPoziceY;
 }
 
 function doprava(u)
@@ -16,6 +14,15 @@ function doprava(u)
 
 turtle = {
     run: function(code, canvas) {
+        poziceX = 0;
+        poziceY = 0;
+        uhel = 0;
+
+        if (turtle.paper)
+        {
+            turtle.paper.remove();
+        }
+
         var paper = Raphael(canvas, 200, 200);
         turtle.paper = paper;
         eval(code);

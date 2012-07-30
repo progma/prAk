@@ -1,3 +1,3 @@
 jdi(50);
 doprava(90);
-jdi(50);
+jdi(100);
