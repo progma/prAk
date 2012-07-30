@@ -84,6 +84,18 @@ noNameLib = {
                         id: "textboxOf" + name,
                         style: "width: 80%; height: 200px;"
                     }).appendTo($("#" + name));
+                    $.ajax({
+                        url: noNameLib.slidesName+"/"+val["defaultCode"],
+                        dataType: "text"
+                    }).done(function(data){
+                        $("#textboxOf" + name).val(data);
+                    });
+                    $("<button>", {
+                        text: "Run",
+                        click: function(){
+                            eval(val["run"] + "($('#" + "textboxOf" + name + "').val(), " + val["drawTo"] + ")");
+                        }
+                    }).appendTo($("#" + name));
                 }
             }
         });
