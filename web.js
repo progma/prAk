@@ -11,7 +11,7 @@ http.createServer(function(req, res) {
   req.addListener('end', function() {
     if (req["url"] === "/")
     {
-        req["url"] = "/mockup.html";
+        req["url"] = "/index.html";
     }
     file.serve(req, res, function(err, result) {
       if (err) {
