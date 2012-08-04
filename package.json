@@ -7,7 +7,8 @@
   },
   "dependencies": {
     "express": "3.0.x",
-    "markdown": "*"
+    "markdown": "*",
+    "jade": "*"
   },
   "engines": {
     "node": "0.8.x",
