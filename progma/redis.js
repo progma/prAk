@@ -7,7 +7,7 @@ exports.createClient = function () {
     var rtg = require('url').parse(process.env.REDISTOGO_URL);
     var client = redis.createClient(rtg.port, rtg.hostname);
 
-    client.auth(rtg.auth.split(":"[1]));
+    client.auth(rtg.auth.split(":")[1]);
     return client;
   } else {
     return redis.createClient();
