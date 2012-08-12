@@ -8,7 +8,11 @@
   "dependencies": {
     "express": "3.0.x",
     "markdown": "*",
-    "jade": "*"
+    "jade": "*",
+    "redis": "*",
+    "hiredis": "*",
+    "passport": "*",
+    "passport-google": "*"
   },
   "engines": {
     "node": "0.8.x",

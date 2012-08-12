@@ -8,3 +8,12 @@ body {
   width: 100%;
   height: 315px;
 }
+
+.login {
+  margin: 5px;
+}
+
+.login:hover {
+  color: white;
+  text-decoration: none;
+}
