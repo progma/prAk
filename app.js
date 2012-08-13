@@ -10,7 +10,8 @@ var express = require('express'),
   redisClient = redis.createClient(),
   RedisStore = require('connect-redis')(express),
   passport = require('passport'),
-  GoogleStrategy = require('passport-google').Strategy;
+  GoogleStrategy = require('passport-google').Strategy,
+  FacebookStrategy = require('passport-facebook').Strategy;
 
 var app = express();
 
@@ -26,6 +27,17 @@ passport.use(new GoogleStrategy({
     console.log(identifier);
     console.log(profile);
     profile.id = identifier;
+    done(null, profile);
+  }
+));
+
+passport.use(new FacebookStrategy({
+    clientID: "274343352671549",
+    clientSecret: "6241e9f761c99945de8c0b24fd1558ba",
+    callbackURL: process.env.URL + '/auth/facebook/return',
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
     done(null, profile);
   }
 ));
@@ -92,6 +104,14 @@ app.get('/lukas', routes.lukas);
 
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/return', passport.authenticate('google',
+  {
+    successRedirect: '/',
+    failureRedirect: '/login',
+  }
+));
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/return', passport.authenticate('facebook',
   {
     successRedirect: '/',
     failureRedirect: '/login',
