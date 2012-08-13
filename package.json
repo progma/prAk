@@ -11,6 +11,7 @@
     "jade": "*",
     "redis": "*",
     "hiredis": "*",
+    "connect-redis": "*",
     "passport": "*",
     "passport-google": "*"
   },

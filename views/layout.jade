@@ -35,8 +35,13 @@ html(lang="en")
                 li.active: a(href="/lukas") Lukas
               else
                 li: a(href="/lukas") Lukas
-          a.zocial.googleplus.pull-right.login(href="/auth/google").
-            Sign in with Google+
+          if user
+            ul.nav.pull-right
+              li: a(href="/account") #{user.displayName}
+              li: a(href="/logout") logout
+          else
+            a.zocial.googleplus.pull-right.login(href="/auth/google").
+              Sign in with Google+
 
     .container
       block body

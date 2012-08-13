@@ -8,10 +8,15 @@ var express = require('express'),
   http = require('http'),
   redis = require('./progma/redis'),
   redisClient = redis.createClient(),
+  RedisStore = require('connect-redis')(express),
   passport = require('passport'),
   GoogleStrategy = require('passport-google').Strategy;
 
 var app = express();
+
+/**
+ * Set up passport.
+ */
 
 passport.use(new GoogleStrategy({
     returnURL: process.env.URL + '/auth/google/return',
@@ -42,6 +47,10 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+/**
+ * Configure application.
+ */
+
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -50,7 +59,12 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.cookieParser());
   app.use(express.bodyParser());
-  app.use(express.session({ secret: "a184395e6926a87cf6d5fbeeb7e18bee" }));
+  app.use(express.session({
+    secret: "a184395e6926a87cf6d5fbeeb7e18bee",
+    store: new RedisStore({
+      client: redisClient,
+    }),
+  }));
   app.use(express.methodOverride());
 
   app.use(passport.initialize());
@@ -64,9 +78,17 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+/**
+ * Routes
+ */
+
 app.get('/', routes.index);
 app.get('/lecture', routes.lecture);
 app.get('/lukas', routes.lukas);
+
+/**
+ * Passport routes.
+ */
 
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/return', passport.authenticate('google',
@@ -75,6 +97,15 @@ app.get('/auth/google/return', passport.authenticate('google',
     failureRedirect: '/login',
   }
 ));
+
+app.get('/logout', function(req, res) {
+  req.logOut();
+  res.redirect('/');
+});
+
+/**
+ * Create server.
+ */
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
