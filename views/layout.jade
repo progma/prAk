@@ -35,15 +35,24 @@ html(lang="en")
                 li.active: a(href="/lukas") Lukas
               else
                 li: a(href="/lukas") Lukas
-          if user
+
             ul.nav.pull-right
-              li: a(href="/account") #{user.displayName}
-              li: a(href="/logout") logout
-          else
-            a.zocial.googleplus.pull-right.login(href="/auth/google").
-              Sign in with Google+
-            a.zocial.facebook.pull-right.login(href="/auth/facebook").
-              Sign in with Facebook
+              if user
+                li: a(href="/account") #{user.displayName}
+                li: a(href="/logout") logout
+              else
+                li.dropdown#loginMenu
+                  a.dropdown-toggle(data-toggle="dropdown", href="#loginMenu").
+                    Sign in <b class="caret"></b>
+                  .dropdown-menu
+                    form.well.form-vertical(style="margin: 0",action="/login", method="post")
+                      input(type="text", name="email", placeholder="Email")
+                      input(type="password", name="password", placeholder="Password")
+                      button.btn(type="submit", name="submit") Login
+                      a.zocial.icon.googleplus.pull-right.login(href="/auth/google").
+                        Sign in with Google+
+                      a.zocial.icon.facebook.pull-right.login(href="/auth/facebook").
+                        Sign in with Facebook
 
     .container
       block body
@@ -55,6 +64,11 @@ html(lang="en")
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
     script(src="javascripts/bootstrap.min.js")
+    script
+      $('.dropdown-toggle').dropdown();
+      $('.dropdown-menu').find('form').click(function (e) {
+        e.stopPropagation();
+      });
 
     block scripts
 
