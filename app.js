@@ -3,15 +3,16 @@
  * Module dependencies.
  */
 
-var express = require('express'),
-  routes = require('./routes'),
-  http = require('http'),
-  redis = require('./progma/redis'),
-  redisClient = redis.createClient(),
-  RedisStore = require('connect-redis')(express),
-  passport = require('passport'),
-  GoogleStrategy = require('passport-google').Strategy,
-  FacebookStrategy = require('passport-facebook').Strategy;
+var crypto = require('crypto');
+var express = require('express');
+var flash = require('connect-flash');
+var http = require('http');
+var mongo = require('./progma/mongo').db;
+var MongoStore = require('connect-mongo')(express);
+var passport = require('passport');
+var passportUtils = require('./progma/passport');
+var routes = require('./routes');
+var settings = require('./progma/settings');
 
 var app = express();
 
@@ -19,62 +20,30 @@ var app = express();
  * Set up passport.
  */
 
-passport.use(new GoogleStrategy({
-    returnURL: process.env.URL + '/auth/google/return',
-    realm: process.env.URL,
-  },
-  function(identifier, profile, done) {
-    console.log(identifier);
-    console.log(profile);
-    profile.id = identifier;
-    done(null, profile);
-  }
-));
+passport.use(passportUtils.googleAuth());
+passport.use(passportUtils.facebookAuth());
+passport.use(passportUtils.localAuth());
 
-passport.use(new FacebookStrategy({
-    clientID: "274343352671549",
-    clientSecret: "6241e9f761c99945de8c0b24fd1558ba",
-    callbackURL: process.env.URL + '/auth/facebook/return',
-  },
-  function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
-    done(null, profile);
-  }
-));
-
-passport.serializeUser(function(user, done) {
-  redisClient.set(user.id, JSON.stringify(user), function(err, reply) {
-    done(err, user.id);
-  });
-});
-
-passport.deserializeUser(function(id, done) {
-  redisClient.get(id, function(err, reply) {
-    var user = JSON.parse(reply);
-    if (user == null) {
-      done(null, false);
-    } else {
-      done(err, user);
-    }
-  });
-});
+passport.serializeUser(passportUtils.serializeUser);
+passport.deserializeUser(passportUtils.deserializeUser);
 
 /**
  * Configure application.
  */
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', settings.PORT);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.cookieParser());
   app.use(express.bodyParser());
+  app.use(flash());
   app.use(express.session({
     secret: "a184395e6926a87cf6d5fbeeb7e18bee",
-    store: new RedisStore({
-      client: redisClient,
+    store: new MongoStore({
+      db: settings.MONGO_DB,
     }),
   }));
   app.use(express.methodOverride());
@@ -98,35 +67,41 @@ app.get('/', routes.index);
 app.get('/lecture', routes.lecture);
 app.get('/lukas', routes.lukas);
 
-/**
- * Passport routes.
- */
+app.get('/login', routes.login);
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true,
+}));
 
-app.get('/auth/google', passport.authenticate('google'));
-app.get('/auth/google/return', passport.authenticate('google',
-  {
-    successRedirect: '/',
-    failureRedirect: '/login',
-  }
-));
-
-app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/auth/facebook/return', passport.authenticate('facebook',
-  {
-    successRedirect: '/',
-    failureRedirect: '/login',
-  }
-));
+app.get('/register', routes.get_register);
+app.post('/register', function(req, res, next) {
+  routes.post_register(req, res, next, passport);
+});
 
 app.get('/logout', function(req, res) {
   req.logOut();
   res.redirect('/');
 });
 
+app.get('/auth/google', passport.authenticate('google'));
+app.get('/auth/google/return', passport.authenticate('google', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true,
+}));
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/return', passport.authenticate('facebook', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true,
+}));
+
 /**
  * Create server.
  */
 
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), function() {
   console.log("Express server listening on port " + app.get('port'));
 });

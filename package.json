@@ -6,15 +6,16 @@
     "start": "node app"
   },
   "dependencies": {
+    "connect-flash": "*",
+    "connect-mongo": "*",
     "express": "3.0.x",
-    "markdown": "*",
     "jade": "*",
-    "redis": "*",
-    "hiredis": "*",
-    "connect-redis": "*",
+    "markdown": "*",
+    "mongoskin": "*",
     "passport": "*",
+    "passport-facebook": "*",
     "passport-google": "*",
-    "passport-facebook": "*"
+    "passport-local": "*"
   },
   "engines": {
     "node": "0.8.x",

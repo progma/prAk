@@ -45,16 +45,16 @@ html(lang="en")
                   a.dropdown-toggle(data-toggle="dropdown", href="#loginMenu").
                     Sign in <b class="caret"></b>
                   .dropdown-menu
-                    form.well.form-vertical(style="margin: 0",action="/login", method="post")
-                      input(type="text", name="email", placeholder="Email")
-                      input(type="password", name="password", placeholder="Password")
-                      button.btn(type="submit", name="submit") Login
-                      a.zocial.icon.googleplus.pull-right.login(href="/auth/google").
-                        Sign in with Google+
-                      a.zocial.icon.facebook.pull-right.login(href="/auth/facebook").
-                        Sign in with Facebook
+                    form.well.form-vertical(style="margin: 0", action="/login", method="post")
+                      fieldset
+                            input(type="text", name="username", placeholder="Email")
+                            input(type="password", name="password", placeholder="Password")
+                            button.btn(type="submit", name="submit") Login
+                a.zocial.icon.googleplus.login(href="/auth/google")
+                a.zocial.icon.facebook.login(href="/auth/facebook")
 
     .container
+      p #{errors}
       block body
 
       hr

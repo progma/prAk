@@ -10,10 +10,11 @@ body {
 }
 
 .login {
-  margin: 5px;
+  color: white !important;
+  margin: 5px !important;
 }
 
 .login:hover {
-  color: white;
+  color: white !important;
   text-decoration: none;
 }

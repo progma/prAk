@@ -1,0 +1,10 @@
+extends layout
+
+block body
+  .row
+    .span4.offset4
+      form.well.form-vertical(action="/register", method="post")
+        fieldset
+          input(type="text", name="username", placeholder="Email")
+          input(type="password", name="password", placeholder="Password")
+          button.btn(type="submit", name="submit") Register
