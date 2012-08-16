@@ -43,6 +43,7 @@ app.configure(function(){
   app.use(express.session({
     secret: "a184395e6926a87cf6d5fbeeb7e18bee",
     store: new MongoStore({
+      url: settings.MONGO_URI,
       db: settings.MONGO_DB,
     }),
   }));
