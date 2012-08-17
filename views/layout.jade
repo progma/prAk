@@ -44,14 +44,31 @@ html(lang="en")
                 li.dropdown#loginMenu
                   a.dropdown-toggle(data-toggle="dropdown", href="#loginMenu").
                     Sign in <b class="caret"></b>
-                  .dropdown-menu
-                    form.well.form-vertical(style="margin: 0", action="/login", method="post")
-                      fieldset
-                            input(type="text", name="username", placeholder="Email")
-                            input(type="password", name="password", placeholder="Password")
-                            button.btn(type="submit", name="submit") Login
-                a.zocial.icon.googleplus.login(href="/auth/google")
-                a.zocial.icon.facebook.login(href="/auth/facebook")
+                  .dropdown-menu(style="padding: 15px; padding-bottom: 0px;")
+                    form(action="/login", method="post")
+                      input#username(style="margin-bottom: 15px;",
+                                     type="text",
+                                     name="username",
+                                     size="30",
+                                     placeholder="E-mail")
+                      input#password(style="margin-bottom: 15px;",
+                                     type="password",
+                                     name="password",
+                                     size="30",
+                                     placeholder="Password")
+                      input#remember_me(style="float: left; margin-right: 10px;",
+                                        type="checkbox",
+                                        name="remember_me",
+                                        value="1")
+                      label.string.optional(for="remember_me") Remember me
+                      input.btn.btn-primary(style="clear: left; height: 32px; font-size: 13px;",
+                                            type="submit",
+                                            name="commit",
+                                            value="Sign In")
+                      a.btn(style="clear: left; height: 32px; font-size: 13px;",
+                                        href="/register") Create new account
+                li: span: a.zocial.icon.googleplus.login(href="/auth/google")
+                li: span: a.zocial.icon.facebook.login(href="/auth/facebook")
 
     .container
       p #{errors}
