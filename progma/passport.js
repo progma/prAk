@@ -11,9 +11,21 @@ exports.googleAuth = function() {
     realm: settings.URL,
   };
 
-  return new GoogleStrategy(googleOptions, function(identifier, user, done) {
-    user.id = identifier;
-    return done(null, user);
+  return new GoogleStrategy(googleOptions, function(identifier, profile, done) {
+    mongo.collection('users').findOne({
+      id: identifier,
+    }, function (err, user) {
+      if (err) {
+        return done(err);
+      }
+
+      if (user) {
+        return done(null, user);
+      }
+
+      profile.id = identifier;
+      return done(null, profile);
+    });
   });
 };
 
@@ -26,7 +38,19 @@ exports.facebookAuth = function() {
 
   return new FacebookStrategy(facebookOptions,
     function(accessToken, refreshToken, profile, done) {
-      return done(null, profile);
+      mongo.collection('users').findOne({
+        id: profile.id,
+      }, function (err, user) {
+        if (err) {
+          return done(err);
+        }
+
+        if (user) {
+          return done(null, user);
+        }
+
+        return done(null, profile);
+      });
     });
 };
 
@@ -56,7 +80,7 @@ exports.localAuth = function() {
 };
 
 exports.serializeUser = function(user, done) {
-  mongo.collection('users').insert(user, function(err, result) {
+  mongo.collection('users').save(user, function(err, result) {
     return done(err, user.id);
   });
 };
