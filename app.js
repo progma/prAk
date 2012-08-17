@@ -1,3 +1,4 @@
+'use strict';
 
 /**
  * Module dependencies.
@@ -31,7 +32,7 @@ passport.deserializeUser(passportUtils.deserializeUser);
  * Configure application.
  */
 
-app.configure(function(){
+app.configure(function () {
   app.set('port', settings.PORT);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -56,7 +57,7 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));
 });
 
-app.configure('development', function(){
+app.configure('development', function () {
   app.use(express.errorHandler());
 });
 
@@ -76,11 +77,11 @@ app.post('/login', passport.authenticate('local', {
 }));
 
 app.get('/register', routes.get_register);
-app.post('/register', function(req, res, next) {
+app.post('/register', function (req, res, next) {
   routes.post_register(req, res, next, passport);
 });
 
-app.get('/logout', function(req, res) {
+app.get('/logout', function (req, res) {
   req.logOut();
   res.redirect('/');
 });
@@ -103,6 +104,6 @@ app.get('/auth/facebook/return', passport.authenticate('facebook', {
  * Create server.
  */
 
-http.createServer(app).listen(app.get('port'), function() {
+http.createServer(app).listen(app.get('port'), function () {
   console.log("Express server listening on port " + app.get('port'));
 });
