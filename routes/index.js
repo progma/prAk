@@ -52,7 +52,7 @@ exports.get_register = function(req, res) {
 
 exports.post_register = function(req, res, next, passport) {
   mongo.collection('user').findOne({
-      id: req.body.username,
+      id: req.body.username.toLowerCase(),
     },
     function(err, user) {
       if (err) {

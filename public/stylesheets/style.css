@@ -1,20 +1,24 @@
 body {
   padding-top: 60px;
-  padding-bottom: 40px;
 }
 
-#editor {
-  position: relative;
-  width: 100%;
-  height: 315px;
+@media (max-width: 979px) {
+  body { padding-top: 0; }
+}
+
+.btn {
+  box-sizing: border-box;
+}
+
+a.btn-primary {
+  color:white;
 }
 
 .login {
-  color: white !important;
-  margin: 5px !important;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
 .login:hover {
-  color: white !important;
-  text-decoration: none;
+  color: white;
 }
