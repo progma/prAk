@@ -8,9 +8,9 @@ html(lang="en")
     meta(name="description", content="")
     meta(name="author", content="")
 
-    link(href="stylesheets/css-social-buttons/zocial.css", rel="stylesheet")
     link(href="stylesheets/bootstrap.min.css", rel="stylesheet")
     link(href="stylesheets/bootstrap-responsive.min.css", rel="stylesheet")
+    link(href="stylesheets/css-social-buttons/zocial.css", rel="stylesheet")
     link(href="stylesheets/style.css", rel="stylesheet")
 
     block styles
@@ -36,11 +36,12 @@ html(lang="en")
               else
                 li: a(href="/lukas") Lukas
 
-            ul.nav.pull-right
-              if user
+            if user
+              ul.nav.pull-right
                 li: a(href="/account") #{user.displayName}
                 li: a(href="/logout") logout
-              else
+            else
+              ul.nav.pull-right(style="background-color: #222")
                 li.dropdown#loginMenu
                   a.dropdown-toggle(data-toggle="dropdown", href="#loginMenu").
                     Sign in <b class="caret"></b>
