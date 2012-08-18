@@ -6,6 +6,7 @@
     "start": "node app"
   },
   "dependencies": {
+    "coffee-script": "*",
     "connect-flash": "*",
     "connect-mongo": "*",
     "express": "3.0.x",
