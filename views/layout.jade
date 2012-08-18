@@ -72,7 +72,10 @@ html(lang="en")
                 li: span: a.zocial.icon.facebook.login(href="/auth/facebook")
 
     .container
-      p #{errors}
+      each error in errors
+        .alert.alert-error
+          button.close(data-dismiss="alert") ×
+          span #{error}
       block body
 
       hr
