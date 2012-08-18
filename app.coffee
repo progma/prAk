@@ -45,7 +45,7 @@ app.configure ->
   app.use flash()
 
   app.use express.session
-    secret: "a184395e6926a87cf6d5fbeeb7e18bee"
+    secret: settings.SECRET
     store: new MongoStore
       url: settings.MONGO_URI
       db: settings.MONGO_DB
