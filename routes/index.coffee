@@ -42,7 +42,7 @@ exports.post_register = (req, res, next, passport) ->
   username = req.body.username.toLowerCase()
 
   # Check if the username already exists.
-  mongo.collection('user').findOne { id: username }, (err, user) ->
+  mongo.collection('users').findOne { id: username }, (err, user) ->
     # Server error.
     if err?
       return res.redirect 500
@@ -63,7 +63,7 @@ exports.post_register = (req, res, next, passport) ->
       password: shasum.digest 'hex'
 
     # Insert new user to database.
-    mongo.collection('users').insert new_user, (err, result) ->
+    mongo.collection('users').save new_user, (err, result) ->
       # Server error.
       if err?
         return res.redirect 500

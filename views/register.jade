@@ -5,16 +5,24 @@ block body
     .page-header
       h1 Registration
     .row
-      .span4.offset3
+      .span4.offset4
         form.well(action="/register", method="post")
           fieldset
             .control-group
               label.control-label(for="username") E-mail:
               .controls
-                input(type="text", name="username", placeholder="email")
+                input(style="height: 35px; box-sizing:border-box; width: 100%;",
+                      type="text",
+                      name="username",
+                      placeholder="email")
             .control-group
               label.control-label(for="password") Password:
               .controls
-                input(type="password", name="password", placeholder="password")
+                input(style="height: 35px; box-sizing:border-box; width: 100%;",
+                      type="password",
+                      name="password",
+                      placeholder="password")
             .control-group
-              button.btn.btn-primary(type="submit") Submit
+              .controls
+                button.btn.btn-large.btn-primary(style="width:100%;",
+                                                 type="submit") Submit
