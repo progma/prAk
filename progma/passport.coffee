@@ -36,7 +36,7 @@ exports.facebookAuth = ->
     # Our application ID.
     clientID: "274343352671549"
     # Our application secret.
-    clientSecret: process.env.FACEBOOK_SECRET
+    clientSecret: settings.FACEBOOK_SECRET
     # Where should user return after confirming authentification.
     callbackURL: settings.URL + '/auth/facebook/return'
 
