@@ -16,8 +16,8 @@ describe 'Users', ->
         'hunter2',
         'john@example.com',
         (err, user) ->
-          users.enrollUserInCourse user, 'course1', (err) ->
-            users.enrollUserInCourse user, 'course2', (err) ->
+          users.enrollUserInCourse user, 'course1', (err, user) ->
+            users.enrollUserInCourse user, 'course2', (err, user) ->
               done(err)
 
 

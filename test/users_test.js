@@ -17,8 +17,8 @@
           done(err);
         }
         return users.createUser('john@example.com', 'John Doe', 'hunter2', 'john@example.com', function(err, user) {
-          return users.enrollUserInCourse(user, 'course1', function(err) {
-            return users.enrollUserInCourse(user, 'course2', function(err) {
+          return users.enrollUserInCourse(user, 'course1', function(err, user) {
+            return users.enrollUserInCourse(user, 'course2', function(err, user) {
               return done(err);
             });
           });
