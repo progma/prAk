@@ -16,7 +16,9 @@
     "passport": "*",
     "passport-facebook": "*",
     "passport-google": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "should": "*",
+    "mocha": "*"
   },
   "engines": {
     "node": "0.8.x",
