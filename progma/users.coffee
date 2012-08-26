@@ -1,10 +1,10 @@
-mongo = require('./mongo').db
+db = require('./mongo').db
 errors = require('./errors')
 crypto = require('crypto')
 
 # Check if user exists.
 exports.userExists = (userId, callback) ->
-  mongo.collection('users').findOne { id: userId },
+  db.collection('users').findOne { id: userId },
     (err, user) ->
       # Server error.
       if err?
@@ -17,7 +17,7 @@ exports.userExists = (userId, callback) ->
 # Get user if exists.
 exports.getUser = (userId, callback) ->
   # Find user in database.
-  mongo.collection('users').findOne { id: userId },
+  db.collection('users').findOne { id: userId },
     (err, user) ->
       # Server error.
       if err?
@@ -58,7 +58,7 @@ exports.createUser = (userId, displayName, password, email, callback) ->
         achievements: []
 
       # Save new user in database.
-      mongo.collection('users').insert user,
+      db.collection('users').insert user,
         (err, result) ->
           # Check that the number of results is 1.
           if result.length != 1
@@ -70,12 +70,12 @@ exports.createUser = (userId, displayName, password, email, callback) ->
 
 # Update user.
 exports.updateUser = (user, callback) ->
-  mongo.collection('users').update({ id: user.id }, user, callback)
+  db.collection('users').update({ id: user.id }, user, callback)
 
 
 # Delete user.
 exports.deleteUser = (user, callback) ->
-  mongo.collection('users').remove({ id: user.id }, callback)
+  db.collection('users').remove({ id: user.id }, callback)
 
 
 # Check password.
