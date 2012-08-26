@@ -39,6 +39,7 @@ exports.createUser = (userId, displayName, password, email, callback) ->
       if err?
         return callback(err, null)
 
+      # User already exists.
       if exists
         return callback(new errors.UserAlreadyExistsError(), null)
 
@@ -56,7 +57,7 @@ exports.createUser = (userId, displayName, password, email, callback) ->
         courses: []
         achievements: []
 
-      # Create new user in database.
+      # Save new user in database.
       mongo.collection('users').insert user,
         (err, result) ->
           # Check that the number of results is 1.
@@ -67,12 +68,12 @@ exports.createUser = (userId, displayName, password, email, callback) ->
           callback(err, result[0])
 
 
-# Save updated user.
+# Update user.
 exports.updateUser = (user, callback) ->
   mongo.collection('users').update({ id: user.id }, user, callback)
 
 
-# Delete the user.
+# Delete user.
 exports.deleteUser = (user, callback) ->
   mongo.collection('users').remove({ id: user.id }, callback)
 
@@ -100,7 +101,7 @@ exports.enrollUserInCourse = (user, courseId, callback) ->
     if courseId in user.courses
       return callback(new errors.UserAlreadyEnrolledError(), user)
 
-    # Append the course id to list of courses.
+    # Append the course id to the list of courses.
     user.courses.push(courseId)
 
     # Save the changes.
