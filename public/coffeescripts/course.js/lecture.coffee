@@ -166,8 +166,6 @@ class Lecture
   # Set arrows to their possition according to number of slides and empty
   # error area
   resetElements: ->
-    pageDesign.showArrows (if @currentSlides.length > 1 then 2 else 1)
-                        , @fullName
     @errorDiv.html ""
 
   # Previews!
