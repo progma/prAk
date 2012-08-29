@@ -59,23 +59,6 @@ moveSlide = (slide, toLeft) ->
   slide.div.animate { "margin-left": if toLeft then "-=440px" else "+=440px" }
                   , 1000
 
-# Arrows!
-showArrows = (slidesNo, fullName) ->
-  if slidesNo == 2
-    $("#" + fullName + "backArrow").css "margin-left", "-490px"
-    $("#" + fullName + "forwardArrow").css "margin-left", "430px"
-  else if slidesNo == 1
-    $("#" + fullName + "backArrow").css "margin-left", "-260px"
-    $("#" + fullName + "forwardArrow").css "margin-left", "220px"
-
-  $("#" + fullName + "backArrow").fadeIn 200
-  $("#" + fullName + "forwardArrow").fadeIn 200
-
-hideArrows = (slidesNo, fullName) ->
-  $("#" + fullName + "backArrow").fadeOut 200
-  $("#" + fullName + "forwardArrow").fadeOut 200
-
-
 addPlayer = (div, clickHandler, seekHandler) ->
   div.addClass "playSlide"
   player = $("<div>",
@@ -120,10 +103,6 @@ courseNAProblem = (name) -> """
   hideSlide: hideSlide
   moveSlide: moveSlide
 
-  # Arrows!
-  showArrows: showArrows
-  hideArrows: hideArrows
-  
   addPlayer: addPlayer
 
   testResultPage: testResultPage

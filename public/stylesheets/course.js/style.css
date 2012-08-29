@@ -75,16 +75,16 @@
 
 
 .arrow-e, .arrow-w{
-    position: absolute;
-    left: 50%;
     margin-top: 220px;
     width: 42px; height: 42px;
     opacity: .5;
 }
 
 .arrow-e {
+    position: absolute;
+    right: 10px;
+    z-index: 20;
     background-image: url("/images/eastArrow.png");
-    margin-left: 220px;
 
     opacity: .5;
     transition: opacity .5s ease-in-out;
@@ -98,8 +98,10 @@
 }
 
 .arrow-w {
+    position: absolute;
+    left: 10px;
+    z-index: 20;
     background-image: url("/images/westArrow.png");
-    margin-left: -260px;
 
     opacity: .5;
     transition: opacity .5s ease-in-out;
