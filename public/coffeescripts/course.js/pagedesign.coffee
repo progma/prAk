@@ -9,7 +9,7 @@ lectureAdd = (newLecture, container, slideList) ->
       slideIcon = $("<div>",
         id: "iconOf" + newLecture.fullName + slide.name
         class: "slideIcon"
-        style: (if slide.icon then "background-image: url('" + name + "/" + slide.icon + "')" else "background-image: url('icons/" + slide.type + ".png')")
+        style: "background-image: url('/images/icons/" + slide.type + ".png')"
         mouseover: -> newLecture.showPreview(slide)
         mouseout: -> newLecture.hidePreview(slide)
       ).appendTo(slideList)

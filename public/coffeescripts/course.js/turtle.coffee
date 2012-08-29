@@ -18,7 +18,7 @@ settings =
   paperWidth : 380
   paperHeight: 480
 
-  turtleImage: "examples/zelva/zelva.png"
+  turtleImage: "/images/zelva.png"
   turtleImageCorrection:
     x: 10
     y: 16

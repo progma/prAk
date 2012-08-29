@@ -20,15 +20,14 @@ class Lecture
     slide.div.html ""
 
     if slide.type == "html" and slide.source?
-      loadText @name + "/" + slide.source
-      , (data) =>
-        slide.div.html data
-        @loadSound slide
-      , => slide.div.html pageDesign.loadProblem
+        loadText @name + "/" + slide.source
+        , (data) =>
+          slide.div.html data
+        , => slide.div.html pageDesign.loadProblem
 
     # Display drawing areay with expected result
     else if slide.type == "turtleDen"
-      loadText @name + "/" + slide.expected, (data) =>
+      loadText @name + "/" + slide.lectureName + "/expected.turtle", (data) =>
         @runCode data, @fullName + slide.name, true
 
         @expectedResult =
@@ -38,10 +37,9 @@ class Lecture
       textDiv = $("<div>")
       textDiv.appendTo slide.div
 
-      if slide.text?
-        loadText @name + "/" + slide.text, (data) =>
-          textDiv.html data
-          textDiv.height "80px"
+      loadText @name + "/" + slide.lectureName + "/text.html", (data) =>
+        textDiv.html data
+        textDiv.height "80px"
 
       cm = new CodeMirror slide.div.get(0),
             lineNumbers: true
@@ -65,7 +63,8 @@ class Lecture
           @runCode cm.getValue(), @fullName + slide.drawTo
       ).appendTo slide.div
 
-      @loadSound slide
+      if slide.talk?
+        sound.playTalk slide, @data.mediaRoot, @fullName
 
     else if slide.type == "test"
       slide.div.html pageDesign.testResultPage
@@ -87,8 +86,6 @@ class Lecture
       @forward()
 
   loadSound: (slide) ->
-    if slide.sound?
-      sound.playSound slide, @data.mediaRoot, @fullName
 
   # Following three functions moves slides' DIVs to proper places.
   showSlide: (slideName, order, isThereSecond, toRight) ->

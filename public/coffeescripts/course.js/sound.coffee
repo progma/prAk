@@ -13,7 +13,7 @@ tracks = [
 ]
 
 # Plays sound and, moreover, plugs saved events to the proper place.
-playSound = (sl, mediaRoot, fullName) ->
+playTalk = (sl, mediaRoot, fullName) ->
   slide = sl
   
   unless slide.soundObject?
@@ -26,10 +26,10 @@ playSound = (sl, mediaRoot, fullName) ->
 
 createSoundManager = (slide, mediaRoot, fullName) ->
   slide.soundObject = soundManager.createSound
-    id : slide.sound
-    url: mediaRoot + "/" + slide.sound
+    id : slide.talk[0].file
+    url: mediaRoot + "/" + slide.talk[0].file + ".mp3"
 
-  $.getJSON mediaRoot + "/" + slide.talk, (recordingTracks) ->
+  $.getJSON mediaRoot + "/" + slide.talk[0].file + ".json", (recordingTracks) ->
     jsonTracks = recordingTracks
     for t in tracks
       addEventsToManager slide, t, recordingTracks[t], fullName
@@ -74,5 +74,5 @@ stopSound = (slide) ->
 
 
 (exports ? this).sound =
-  playSound: playSound
+  playTalk: playTalk
   stopSound: stopSound

@@ -83,7 +83,7 @@
 }
 
 .arrow-e {
-    background-image: url("icons/eastArrow.png");
+    background-image: url("/images/eastArrow.png");
     margin-left: 220px;
 
     opacity: .5;
@@ -98,7 +98,7 @@
 }
 
 .arrow-w {
-    background-image: url("icons/westArrow.png");
+    background-image: url("/images/westArrow.png");
     margin-left: -260px;
 
     opacity: .5;

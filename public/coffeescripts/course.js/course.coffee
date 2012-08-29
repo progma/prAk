@@ -1,5 +1,5 @@
 $(document).ready(->
-  soundManager.setup url: "lib/external/soundManagerSwf"
+  soundManager.setup url: "/javascripts/soundManagerSwf"
   $.ajaxSetup
     cache: false
   $("div[slidedata]").each (i, div) ->
@@ -15,35 +15,36 @@ TurtleSlidesHelper =
   turtleTalk: (slide) ->
     [
       name: slide.name + "TextPad"
+      lectureName: slide.name
       type: "code"
       talk: slide.talk
-      sound: slide.sound
       run: "turtle.run"
       drawTo: slide.name + "TurtleDen"
     ,
       name: slide.name + "TurtleDen"
+      lectureName: slide.name
       type: "html"
-      source: "screen.html"
       go: slide.go
     ]
 
   turtleTask: (slide) ->
     [
       name: slide.name + "TextPad"
+      lectureName: slide.name
       type: "code"
       text: slide.text
       code: slide.code
       drawTo: slide.name + "TurtleDen"
     ,
       name: slide.name + "TurtleDen"
+      lectureName: slide.name
       type: "turtleDen"
       go: "move"
-      expected: slide.expected
     ,
       name: slide.name + "Test"
+      lectureName: slide.name
       type: "test"
       code: slide.name + "TextPad"
-      expected: slide.expected
       go: slide.go
     ]
 
@@ -76,6 +77,6 @@ lectures =
       pageDesign.lectureAdd newLecture, innerSlides, slideList
       @ls.push newLecture
       newLecture.showSlide `undefined`, 0, false, true
-    ).error ->
-      slideList.html pageDesign.courseNAProblem name
-      slideList.appendTo theDiv
+    ) # .error ->
+      # slideList.html pageDesign.courseNAProblem name
+      # slideList.appendTo theDiv
