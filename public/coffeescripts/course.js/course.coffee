@@ -77,6 +77,6 @@ lectures =
       pageDesign.lectureAdd newLecture, innerSlides, slideList
       @ls.push newLecture
       newLecture.showSlide `undefined`, 0, false, true
-    ) # .error ->
-      # slideList.html pageDesign.courseNAProblem name
-      # slideList.appendTo theDiv
+    ).error ->
+      slideList.html pageDesign.courseNAProblem name
+      slideList.appendTo theDiv

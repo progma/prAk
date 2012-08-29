@@ -13,7 +13,7 @@ exports.course = (req, res) ->
     title: 'prAk » název kurzu'
     page: 'course'
     user: req.user
-    courseName: req.courseName
+    courseName: req.param('courseName')
     errors: req.flash 'error'
 
 exports.login = (req, res) ->
