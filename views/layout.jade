@@ -8,10 +8,11 @@ html(lang="en")
     meta(name="description", content="")
     meta(name="author", content="")
 
-    link(href="stylesheets/bootstrap.min.css", rel="stylesheet")
-    link(href="stylesheets/bootstrap-responsive.min.css", rel="stylesheet")
-    link(href="stylesheets/css-social-buttons/zocial.css", rel="stylesheet")
-    link(href="stylesheets/style.css", rel="stylesheet")
+    link(href="/stylesheets/bootstrap.min.css", rel="stylesheet")
+    link(href="/stylesheets/bootstrap-responsive.min.css", rel="stylesheet")
+    link(href="/stylesheets/css-social-buttons/zocial.css", rel="stylesheet")
+    link(href="/stylesheets/style.css", rel="stylesheet")
+    link(href="/stylesheets/course.js/style.css", rel="stylesheet")
 
     block styles
 
@@ -23,18 +24,18 @@ html(lang="en")
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.brand(href="/") Project name
+          a.brand(href="/") prAk
           .nav-collapse
             ul.nav
-              if page == 'lecture'
-                li.active: a(href="/lecture") Dave
+              if page == 'courses'
+                li.active: a(href="/courses") Přehled kurzů
               else
-                li: a(href="/lecture") Dave
+                li: a(href="/courses") Přehled kurzů
 
-              if page == 'lukas'
-                li.active: a(href="/lukas") Lukas
+              if page == 'profil'
+                li.active: a(href="/blog") Blog
               else
-                li: a(href="/lukas") Lukas
+                li: a(href="/blog") Blog
 
             if user
               ul.nav.pull-right
@@ -81,15 +82,32 @@ html(lang="en")
       hr
 
       footer
-        p &copy; Company 2012
+        div(style='float: right')
+            a(href="https://github.com/progma")
+                | prAk na GitHubu
+        p
+            span(style="-webkit-transform: scaleX(-1); display: inline-block") &copy;
+            |  Tomáš Jakl, Lukáš Lánský, David Marek a Jirka Maršík; 2012
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
-    script(src="javascripts/bootstrap.min.js")
+    script(src="/javascripts/bootstrap.min.js")
     script
       $('.dropdown-toggle').dropdown();
       $('.dropdown-menu').find('form').click(function (e) {
         e.stopPropagation();
       });
+    script(src="/javascripts/raphael-min.js")
+    script(src="/javascripts/soundmanager2-jsmin.js")
+    script(src="/javascripts/underscore-min.js")
+
+    script(src="/javascripts/course.js/playbook.js")
+    script(src="/javascripts/course.js/quickcheck.js")
+    script(src="/javascripts/course.js/examine.js")
+    script(src="/javascripts/course.js/turtle.js")
+    script(src="/javascripts/course.js/pagedesign.js")
+    script(src="/javascripts/course.js/lecture.js")
+    script(src="/javascripts/course.js/sound.js")
+    script(src="/javascripts/course.js/course.js")
 
     block scripts
 

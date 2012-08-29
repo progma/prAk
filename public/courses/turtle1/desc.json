@@ -1,0 +1,61 @@
+{
+    "mediaRoot": "/media/turtle1/",
+    "slides": [
+        {
+            "name": "intro",
+            "type": "html",
+            "source": "intro.html",
+        },
+        {
+            "name": "ctverec",
+            "type": "turtleTalk",
+            "sound": [
+                "01-ctverec-01",
+                "01-ctverec-02-take03",
+                "01-ctverec-03-take01"
+            ],
+        },
+        {
+            "name": "sestiuhelnik",
+            "type": "turtleTask",
+        },
+        {
+            "name": "function",
+            "type": "turtleTalk",
+            "sound": [
+                "02-function-01-take01",
+                "02-function-02-take01",
+                "03-repeat-01-take01",
+                "03-repeat-02-take01"
+            ],
+        },
+        {
+            "name": "cell",
+            "type": "turtleTask",
+        },
+        {
+            "name": "argument",
+            "type": "turtleTalk",
+            "sound": [
+                "04-argument-01-take01",
+                "04-argument-02-take01"
+            ]
+        },
+        {
+            "name": "polygon",
+            "type": "turtleTask",
+        },
+        {
+            "name": "kruznice",
+            "type": "turtleTalk",
+            "sound": [
+                "05-kruznice-01-take01"
+            ],
+        },
+        {
+            "name": "wellDone",
+            "type": "html",
+            "source": "wellDone.html"
+        }
+    ]
+}

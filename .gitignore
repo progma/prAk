@@ -1,3 +1,7 @@
+public/media/*
+public/javascripts/course.js/*
+node_modules/*
+
 *.py[co]
 
 # Packages

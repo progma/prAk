@@ -1,0 +1,10 @@
+function nuhelnik(n, delka) {
+  repeat(n, jdioto, delka, 360/n);
+}
+
+function jdioto(delka, uhel) {
+  go(delka);
+  right(uhel);
+}
+
+nuhelnik(5, 60);

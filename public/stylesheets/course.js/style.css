@@ -1,0 +1,148 @@
+.slides
+{
+    width: 100%;
+    background-color: rgb(236,208,120);
+}
+
+.slideList
+{
+    width: 100%;
+    height: 38px;
+    background-color: rgb(217,91,67);
+    text-align: center;
+}
+
+.slideIcon
+{
+    display: inline-block;
+    border: solid 4px rgb(217,91,67);
+    margin-top: 3px;
+    margin-left: 5px; margin-right: 5px;
+    width: 40px;
+    height: 24px;
+}
+
+.slideIconActive
+{
+    border: solid 4px rgb(255, 234, 168);
+}
+
+.innerSlides
+{
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.errorOutput
+{
+	position: absolute;
+	width: 200px;
+	background-color: rgb(217,1,7);
+	text-align: center;
+	color: white;
+	margin-top: 50px;
+	margin-left: 10px;
+}
+
+.slide
+{
+    position: absolute;
+    left: 50%;
+    display: block;
+    background-color: rgb(255, 234, 168);
+    width: 400px;
+    height: 500px;
+    margin-left: -210px; margin-right: 10px;
+    padding: 10px;
+    text-align: left;
+}
+
+.playSlide
+{
+    padding-top: 42px;
+}
+
+.textIcon
+{
+    background-image: url("icons/html.png");
+}
+
+
+.arrow-e, .arrow-w{
+    position: absolute;
+    left: 50%;
+    margin-top: 220px;
+    width: 42px; height: 42px;
+    opacity: .5;
+}
+
+.arrow-e {
+    background-image: url("icons/eastArrow.png");
+    margin-left: 220px;
+
+    opacity: .5;
+    transition: opacity .5s ease-in-out;
+    -webkit-transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    -ms-transition: opacity .5s ease-in-out;
+}
+
+.arrow-e:hover {
+    opacity: 1;
+}
+
+.arrow-w {
+    background-image: url("icons/westArrow.png");
+    margin-left: -260px;
+
+    opacity: .5;
+    transition: opacity .5s ease-in-out;
+    -webkit-transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    -ms-transition: opacity .5s ease-in-out;
+}
+
+.arrow-w:hover {
+    opacity: 1;
+}
+
+.player {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 32px;
+}
+
+.pause {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 5%;
+    height: 32px;
+    background-color: navy;  
+}
+
+.seek {
+    position: absolute;
+    top: 0px;
+    left: 5%;
+    width: 95%;
+    height: 32px;
+    background-color: green;
+}
+
+.inseek {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0%;
+    height: 32px;
+    background-color: yellow;
+}

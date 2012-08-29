@@ -65,8 +65,8 @@ app.configure 'development', ->
 #
 
 app.get '/', routes.index
-app.get '/lecture', routes.lecture
-app.get '/lukas', routes.lukas
+
+app.get '/course/:courseName', routes.course
 
 app.get '/login', routes.login
 app.post '/login', passport.authenticate 'local',
@@ -98,5 +98,6 @@ app.get '/auth/facebook/return', passport.authenticate 'facebook',
 # Create server.
 #
 
-http.createServer(app).listen app.get('port'), ->
+server = http.createServer(app)
+server.listen app.get('port'), ->
   console.log "Express server listening on port " + app.get 'port'
