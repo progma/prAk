@@ -107,9 +107,9 @@ testResultPage = """
 loadProblem = """
   <center>There was an unusual accident during the load.</center>
   """
-courseNAProblem = """
+courseNAProblem = (name) -> """
   <p style='position: relative; top: 0.5em'>
-    Course at '" + name + "' == not available.
+    Course at '""" + name + """' is not available.
   """
 
 (exports ? this).pageDesign =
