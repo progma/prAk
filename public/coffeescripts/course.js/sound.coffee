@@ -12,35 +12,51 @@ tracks = [
   "bufferContents"
 ]
 
-# Plays sound and, moreover, plugs saved events to the proper place.
+# So, what is a ''talk''? Basically, it's just a combination of a speech recording in
+# mp3 or/and ogg format, and a corresponding recording of speaker's keyboard typing.
+# Things get little complicated by the fact that one slide posses multiple
+# tuples of speech/keyboard recording that are to be played consequently, "as one".
+
 playTalk = (sl, mediaRoot, fullName) ->
   slide = sl
   
-  unless slide.soundObject?
-    createSoundManager slide, mediaRoot, fullName
+  unless slide.soundObjects?
+    createSoundObjects slide, mediaRoot, fullName
 
-  slide.soundObject.play(
-    whileplaying: updateSeekbar
-  )
+  slide.activeSoundObjectI = -1
+  slide.soundObject = ->
+    this.soundObjects[this.activeSoundObjectI]
+  playSound slide
+
   pageDesign.addPlayer slide.div, pauseSound, seekSound
 
-createSoundManager = (slide, mediaRoot, fullName) ->
-  slide.soundObject = soundManager.createSound
-    id : slide.talk[0].file
-    url: mediaRoot + "/" + slide.talk[0].file + ".mp3"
+createSoundObjects = (slide, mediaRoot, fullName) ->
+  slide.soundObjects = []
+  
+  for own sound of slide.talk
+    slide.soundObjects.push soundManager.createSound
+      id : sound.file
+      url: mediaRoot + "/" + sound.file + ".mp3"
 
-  $.getJSON mediaRoot + "/" + slide.talk[0].file + ".json", (recordingTracks) ->
-    jsonTracks = recordingTracks
-    for t in tracks
-      addEventsToManager slide, t, recordingTracks[t], fullName
+    $.getJSON mediaRoot + "/" + sound.file + ".json", (recordingTracks) ->
+      jsonTracks = recordingTracks
+      for t in tracks
+        addEventsToManager slide, t, recordingTracks[t], fullName, _.last slide.soundObjects
 
-addEventsToManager = (slide, name, track, fullName) ->
+addEventsToManager = (slide, trackName, track, fullName, soundObject) ->
   $.map track, (event) =>
-    slide.soundObject.onPosition event.time, ->
-      playbook.playbook[name] event.value,
+    soundObject.onPosition event.time, ->
+      playbook.playbook[trackName] event.value,
         codeMirror: codeMirror=slide.cm
         turtleDiv: turtleDiv=document.getElementById("#{fullName}#{slide.drawTo}")
 
+playSound = (slide) ->
+  slide.activeSoundObjectI++
+  if slide.activeSoundObjectI < slide.soundObjects.length
+    slide.soundObjects[0].play(
+      whileplaying: updateSeekbar
+      onfinish: playSound slide
+    )
 
 pauseSound = (e) ->
   if slide.soundObject.paused
@@ -69,7 +85,6 @@ updateSeekbar = ->
 
 # Only visible slides should be able to play sounds.
 stopSound = (slide) ->
-  # slide.soundObject.destruct()
   slide.soundObject.stop()
 
 
