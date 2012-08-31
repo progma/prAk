@@ -5,7 +5,6 @@ $ ->
   myCodeMirror = CodeMirror.fromTextArea $('#editorArea').get(0),
             lineNumbers: true
 
-  # Eval nemerime pri eventech, ale sbirame pri kliknuti tlacitka 'Eval!'.
   $('#evalButton').click ->
     currentCode = myCodeMirror.getValue()
 
