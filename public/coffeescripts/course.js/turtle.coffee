@@ -1,7 +1,8 @@
 ##
 ## Imports
 ##
-ex = (exports ? this).examine
+ex = @examine ? require './examine'
+{Position, EmbeddedGraph} = @graph ? require './graph'
 
 ##
 ## Settings
@@ -18,7 +19,7 @@ settings =
   paperWidth : 380
   paperHeight: 480
 
-  turtleImage: "/images/zelva.png"
+  turtleImage: "examples/zelva/zelva.png"
   turtleImageCorrection:
     x: 10
     y: 16
@@ -65,7 +66,7 @@ class Turtle
     @actions = []
 
     # Graph for actual relative coordinates
-    @graph = new EmbeddedGraphWithGo(0, 0, @angle)
+    @graph = new EmbeddedGraph(0, 0, @angle)
 
     @im = turtle.paper.image settings.turtleImage
                            , @startX - settings.turtleImageCorrection.x
@@ -126,64 +127,6 @@ class Turtle
               , "linear"
               , => @runActions(callback, pos)
 
-class Position
-  constructor: (@x, @y, @angle, @penDown = true) ->
-
-  go: (steps) ->
-    [@x, @y] = computeCoords @x, @y, steps, @angle
-
-  rotate: (a) ->
-    @angle += a
-
-class EmbeddedGraphWithGo
-  constructor: (startX, startY, startAngle) ->
-    @vertices = []
-    @newVertex startX, startY
-
-    # Actual position
-    @pos = new Position startX, startY, startAngle
-
-  # Structure representing vertex on space
-  newVertex: (x, y) ->
-    newV =
-      x: x
-      y: y
-      edges: []
-    @vertices.push newV
-    newV
-
-  findVertex: (x, y) ->
-    _.find @vertices, (v) -> Math.abs(v.x - x) < 0.0001 and Math.abs(v.y - y) < 0.0001
-
-  go: (steps) ->
-    [oldX, oldY] = [@pos.x, @pos.y]
-    [newX, newY] = @pos.go steps
-    return unless @pos.penDown
-
-    oldV = @findVertex(oldX, oldY)
-    newV = @findVertex(newX, newY)
-
-    unless oldV?
-      oldV = @newVertex oldX, oldY
-
-    unless newV?
-      newV = @newVertex newX, newY
-
-    oldV.edges.push newV
-    newV.edges.push oldV
-
-  rotate: (a) ->
-    @pos.rotate a
-
-  degreeSequence: ->
-    (_.map @vertices, (v) -> v.edges.length).sort()
-
-
-computeCoords = (x,y,len,angle) ->
-  newX = x + len * Math.sin(angle / 360 * Math.PI * 2)
-  newY = y - len * Math.cos(angle / 360 * Math.PI * 2)
-  [newX,newY]
-
 environment =
   go: (steps) ->
     activeTurtle.addAction (MV steps)
@@ -202,11 +145,11 @@ environment =
 
   penUp: ->
     activeTurtle.addAction PU
-    activeTurtle.graph.pos.penDown = false
+    activeTurtle.graph.penUp()
 
   penDown: ->
     activeTurtle.addAction PD
-    activeTurtle.graph.pos.penDown = true
+    activeTurtle.graph.penDown()
 
   color: (col) ->
     activeTurtle.addAction (CO col)
@@ -265,7 +208,7 @@ run = (code, canvas, shadow) ->
 
   try
     activeTurtle.countTime()
-    turtle.lastDegreeSequence = activeTurtle.graph.degreeSequence()
+    turtle.lastDegreeSequence = activeTurtle.graph.sequences().degreeSequence
     activeTurtle.runActions (->)
   catch e
     turtle.lastDegreeSequence = undefined
@@ -274,8 +217,12 @@ run = (code, canvas, shadow) ->
   finally
     return result
 
-(exports ? this).turtle = {
+##
+## Exports
+##
+@turtle = {
   lastDegreeSequence: null
   settings
   run
 }
+module?.exports = @turtle

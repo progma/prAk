@@ -1,5 +1,3 @@
-
-
 ##
 ## Helpers
 ##
@@ -251,7 +249,7 @@ run = (property) ->
 ##
 ## Exports
 ##
-(exports ? this).quickCheck = {
+@quickCheck = {
   # Arbitrary object generators
   arbBool
   arbByte
@@ -277,3 +275,4 @@ run = (property) ->
   runWith
   stdArgs
 }
+module?.exports = @quickCheck
