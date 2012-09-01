@@ -1,5 +1,4 @@
-root = exports ? this
-qc = root.quickCheck
+qc = @quickCheck ? require './quickcheck'
 
 ##
 ## Settings
@@ -183,7 +182,7 @@ setEnvironment = (to, from) ->
   to.__STOP = -> to.__STOP = true
 
 stopExecution = (iframeID = sandboxID) ->
-  $("#"+iframeID)
+  $?("#"+iframeID)
     .detach().end()
     .get(0)?.contentWindow?.__STOP()
 
@@ -191,7 +190,7 @@ stopExecution = (iframeID = sandboxID) ->
 ##
 ## Exports
 ##
-(exports ? this).examine = {
+@examine = {
   deepeq
   T
   Tn
@@ -199,3 +198,4 @@ stopExecution = (iframeID = sandboxID) ->
   sandboxID
   stopExecution
 }
+module?.exports = @examine
