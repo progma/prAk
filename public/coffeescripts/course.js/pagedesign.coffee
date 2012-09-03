@@ -8,7 +8,7 @@ lectureAdd = (newLecture, container, slideList) ->
     $.each newLecture.data["slides"], (i, slide) ->
       slideIcon = $("<div>",
         id: "iconOf" + newLecture.fullName + slide.name
-        class: "slideIcon"
+        class: if slide.type == "code" then "slideIconFirst" else "slideIcon"
         style: "background-image: url('/images/icons/" + slide.type + ".png')"
         mouseover: -> newLecture.showPreview(slide)
         mouseout: -> newLecture.hidePreview(slide)
