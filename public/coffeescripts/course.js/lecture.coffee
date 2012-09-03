@@ -18,6 +18,7 @@ class Lecture
   # Loads content to one slide.
   loadSlide: (slide) ->
     slide.div.html ""
+    slide.isActive = true
 
     if slide.type == "html" and slide.source?
         loadText @name + "/" + slide.source
@@ -43,20 +44,24 @@ class Lecture
 
       cm = new CodeMirror slide.div.get(0),
             lineNumbers: true
+            readOnly: slide.talk?
             # autofocus: true
             # indentWithTabs: true
             # tabSize: 2
-            # readOnly = false # TODO
 
-      if slide.code
-        loadText @name + "/" + slide.code, (data) => cm.setValue data
+      if slide.userCode
+        cm.setValue slide.userCode
+      else if slide.code
+        loadText @name + "/" + slide.code, (data) =>
+          cm.setValue data
+          slide.userCode = data
 
       cm.setSize 380, 360
       slide.cm = cm
 
       $("<button>",
-        text: "Run"
-        class: "btn"
+        text: "Spustit kód"
+        class: if slide.talk? then "hidden" else "btn"
         click: =>
           # TODO:  this should be more universal
           #      + post code to the server
@@ -85,8 +90,6 @@ class Lecture
     if _.isEqual @expectedResult.degreeSequence, turtle.lastDegreeSequence
       @forward()
 
-  loadSound: (slide) ->
-
   # Following three functions moves slides' DIVs to proper places.
   showSlide: (slideName, order, isThereSecond, toRight) ->
     if (!slideName)
@@ -99,7 +102,12 @@ class Lecture
 
   hideSlide: (slideName, toLeft) ->
     slide = @findSlide slideName
+
+    # Deactivate slide
     sound.stopSound slide if slide.soundObject
+    slide.userCode = slide.cm.getValue() if slide.cm?
+    slide.isActive = false
+
     pageDesign.hideSlide slide, toLeft
 
   moveSlide: (slideName, toLeft) ->
@@ -163,8 +171,7 @@ class Lecture
 
     @resetElements()
 
-  # Set arrows to their possition according to number of slides and empty
-  # error area
+  # Empty error area
   resetElements: ->
     @errorDiv.html ""
 
