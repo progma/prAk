@@ -137,7 +137,7 @@ environment =
     activeTurtle.graph.rotate angle
 
   left: (angle) ->
-    right -angle
+    @right -angle
 
   repeat: (n, f, args...) ->
     i = 0
