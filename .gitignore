@@ -1,5 +1,6 @@
 public/media/*
 public/javascripts/course.js/*
+public/stylesheets/course.js/style.css
 node_modules/*
 
 *.py[co]

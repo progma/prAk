@@ -51,8 +51,9 @@ showSlide = (slide, order, isThereSecond, toRight) ->
 hideSlide = (slide, toLeft) ->
   slide.div.animate { left: if toLeft then "-=100%" else "+=100%" }
                    , 1000
-                   , -> slide.div.css "display"
-                   , "none"
+                   , ->
+                     slide.div.css "display", "none"
+                     slide.div.html "" unless slide.isActive
   slide.iconDiv.removeClass "slideIconActive"
 
 moveSlide = (slide, toLeft) ->
