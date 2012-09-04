@@ -31,7 +31,7 @@ exports.course = (req, res) ->
   console.log "req"
   if req.user?
     userCodeCollection.group ["lecture"]
-      , { course: 'turtle1' }
+      , { course: req.param('courseName') }
       , { code: "", date: 0 }
       , reduceUC.toString()
       , true
