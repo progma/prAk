@@ -11,6 +11,7 @@ MongoStore = require('connect-mongo')(express)
 passport = require('passport')
 passportUtils = require('./progma/passport')
 routes = require('./routes')
+ajaxRoute = require('./routes/ajax')
 settings = require('./progma/settings')
 
 app = express()
@@ -94,6 +95,9 @@ app.get '/auth/facebook/return', passport.authenticate 'facebook',
   successRedirect: '/'
   failureRedirect: '/login'
   failureFlash: true
+
+app.post '/ajax/userCode', ajaxRoute.userCode
+
 
 #
 # Create server.

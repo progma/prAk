@@ -1,3 +1,5 @@
+userCode = window.userCode ? {}
+
 $(document).ready(->
   soundManager.setup url: "/javascripts/soundManagerSwf"
   $.ajaxSetup
@@ -34,6 +36,7 @@ TurtleSlidesHelper =
       type: "code"
       text: slide.text
       code: slide.code
+      userCode: userCode[slide.name]
       drawTo: slide.name + "TurtleDen"
     ,
       name: slide.name + "TurtleDen"

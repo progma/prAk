@@ -1,5 +1,7 @@
 crypto = require('crypto')
-mongo = require('../progma/mongo').db
+db = require('../progma/mongo').db
+userCodeCollection = db.collection('userCode')
+
 
 exports.index = (req, res) ->
   res.render 'index',
@@ -8,13 +10,37 @@ exports.index = (req, res) ->
     user: req.user
     errors: req.flash 'error'
 
-exports.course = (req, res) ->
+#
+# Course page
+#
+reduceUC = (obj, prev) ->
+  if obj.date > prev.date
+    prev.date = obj.date
+    prev.code = obj.code
+
+renderCourse = (req, res, codes) ->
   res.render 'course',
     title: 'prAk » název kurzu'
     page: 'course'
     user: req.user
+    codes: codes
     courseName: req.param('courseName')
     errors: req.flash 'error'
+
+exports.course = (req, res) ->
+  console.log "req"
+  if req.user?
+    userCodeCollection.group ["lecture"]
+      , { course: 'turtle1' }
+      , { code: "", date: 0 }
+      , reduceUC.toString()
+      , true
+      , (err, codes) ->
+        codesN = {}
+        codesN[o.lecture] = o.code for o in codes
+        renderCourse req, res, JSON.stringify(codesN)
+  else
+    renderCourse req, res, {}
 
 exports.login = (req, res) ->
   res.render 'login',
@@ -36,7 +62,7 @@ exports.post_register = (req, res, next, passport) ->
   username = req.body.username.toLowerCase()
 
   # Check if the username already exists.
-  mongo.collection('users').findOne { id: username }, (err, user) ->
+  db.collection('users').findOne { id: username }, (err, user) ->
     # Server error.
     if err?
       return res.redirect 500
@@ -57,7 +83,7 @@ exports.post_register = (req, res, next, passport) ->
       password: shasum.digest 'hex'
 
     # Insert new user to database.
-    mongo.collection('users').save new_user, (err, result) ->
+    db.collection('users').save new_user, (err, result) ->
       # Server error.
       if err?
         return res.redirect 500

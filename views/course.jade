@@ -1,4 +1,6 @@
 extends layout
 
 block body
+    script
+        window.userCode = !{codes}
     div(id='courseDiv', class='slides', slidedata='/courses/#{courseName}/')
