@@ -1,0 +1,18 @@
+function sestisoto() {
+  go(50);
+  right(60);
+  go(50);
+  right(60);
+  go(50);
+  right(60);
+  go(50);
+  right(60);
+  go(50);
+  right(60);
+  go(50);
+  right(180);
+  go(50);
+  left(60);
+}
+
+repeat(6, sestisoto);

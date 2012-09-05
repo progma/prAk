@@ -3,23 +3,17 @@ mongo = require('../progma/mongo').db
 
 exports.index = (req, res) ->
   res.render 'index',
-    title: 'Express'
+    title: 'prAk – programátorská akademie'
     page: 'index'
     user: req.user
     errors: req.flash 'error'
 
-exports.lecture = (req, res) ->
-  res.render 'lecture',
-    title: 'Lecture'
-    page: 'lecture'
+exports.course = (req, res) ->
+  res.render 'course',
+    title: 'prAk » název kurzu'
+    page: 'course'
     user: req.user
-    errors: req.flash 'error'
-
-exports.lukas = (req, res) ->
-  res.render 'lukas',
-    title: 'Lukasuv mockup'
-    page: 'lukas'
-    user: req.user
+    courseName: req.param('courseName')
     errors: req.flash 'error'
 
 exports.login = (req, res) ->
