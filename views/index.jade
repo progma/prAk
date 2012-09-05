@@ -2,37 +2,27 @@ extends layout
 
 block body
   .hero-unit
-    h1 Hello, world!
+    img(src='/images/strom.png', style='float: right')
+    h1 Želva na stromě.
     p.
-      This is a template for a simple marketing or informational website. It
-      includes a large callout called the hero unit and three supporting pieces
-      of content. Use it as a starting point to create something more unique.
+        Programování vystavuje světu nesčetně tváří a některé z nich jsou opravdu
+        přístupné. Třeba želví grafika.
+    p.
+        Dostanete želvu se štětcem na břichu a budete jí psát příkazy, složitějí
+        a složitější, až budete umět kreslit vcelku složité a zvláštní útvary a,
+        jen tak mimochodem, docela dobře programovat.
     p
-      a.btn.btn-primary.btn-large Learn more &raquo;
+      a.btn.btn-primary.btn-large(href='course/turtle1', style='float:right') OK. Tak jak ji dostat na strom? &raquo;
 
   .row
     .span12
-      h1 Dostupne kurzy
+        h1 Až budete mít hotový hlavní kurz…
 
   .row
-    .span4
-      a(href="/lecture"): h2 Daveuv cervnovy mockup
+    .span6
+      a(href="/course/fractal"): h2 Fraktály
       p.
-        (DČM) demonstrující vkládání videa, editoru a SVG canvasu a interakce
-        mezi těmito.
 
-    .span4
-      a(href="/lukas"): h2 Lukasuv pozdne cervencovy mockup
+    .span6
+      a(href="/course/turtleGame"): h2 Želví gamesa
       p.
-        (LPČM) nadhazující především design lekce.
-
-    .span4
-      h2 Zaklady javascriptu s grafikou
-      p.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        tempus, diam ac fermentum placerat, felis risus ultrices turpis,
-        vitae tempor leo sem sit amet lacus. Curabitur quis nunc lorem.
-        Aenean vitae lectus diam. Duis lobortis ante quis felis viverra
-        egestas. Proin vel purus ante. Nulla aliquam condimentum tortor,
-        adipiscing eleifend metus fringilla sit amet. Donec at purus enim,
-        eget consequat risus.

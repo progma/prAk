@@ -1,0 +1,140 @@
+{
+    "mediaRoot": "/media/turtle1/",
+    "slides": [
+        {
+            "name": "intro",
+            "type": "html",
+            "source": "intro.html",
+            "go": "nextTwo"
+        },
+        {
+            "name": "ctverec",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "01-ctverec-01",
+                    "time": 38
+                },
+                {
+                    "file": "01-ctverec-02-take03",
+                    "time": 89
+                },
+                {
+                    "file": "01-ctverec-03-take01",
+                    "time": 76
+                }
+            ],
+            "go": "nextTwo"
+        },
+        {
+            "name": "sestiuhelnik",
+            "type": "turtleTask",
+            "text": "01-sestiuhelnik.html",
+            "expected": "01-sestiuhelnik.turtle",
+            "go": "nextTwo"
+        },
+        {
+            "name": "function",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "01-ctverec-01",
+                    "time": 38
+                },
+                {
+                    "file": "01-ctverec-02-take03",
+                    "time": 89
+                },
+                {
+                    "file": "01-ctverec-03-take01",
+                    "time": 76
+                }
+            ],
+            "go": "nextTwo"
+        },
+        {
+            "name": "repeat",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "01-ctverec-01",
+                    "time": 38
+                },
+                {
+                    "file": "01-ctverec-02-take03",
+                    "time": 89
+                },
+                {
+                    "file": "01-ctverec-03-take01",
+                    "time": 76
+                }
+            ],
+            "go": "nextTwo"
+        },
+        {
+            "name": "cell",
+            "type": "turtleTask",
+            "text": "03-cell.html",
+            "expected": "03-cell.turtle",
+            "go": "nextTwo"
+        },
+        {
+            "name": "argument",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "01-ctverec-01",
+                    "time": 38
+                },
+                {
+                    "file": "01-ctverec-02-take03",
+                    "time": 89
+                },
+                {
+                    "file": "01-ctverec-03-take01",
+                    "time": 76
+                }
+            ],
+            "go": "nextTwo"
+        },
+        {
+            "name": "house",
+            "type": "turtleTask",
+            "text": "04-house.html",
+            "code": "04-house.start.turtle",
+            "expected": "04-house.turtle",
+            "go": "nextTwo"
+        },
+        {
+            "name": "polygon",
+            "type": "turtleTask",
+            "text": "04-polygon.html",
+            "expected": "04-polygon.turtle",
+            "go": "nextTwo"
+        },
+        {
+            "name": "kruznice",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "01-ctverec-01",
+                    "time": 38
+                },
+                {
+                    "file": "01-ctverec-02-take03",
+                    "time": 89
+                },
+                {
+                    "file": "01-ctverec-03-take01",
+                    "time": 76
+                }
+            ],
+            "go": "nextOne"
+        },
+        {
+            "name": "wellDone",
+            "type": "html",
+            "source": "wellDone.html"
+        }
+    ]
+}
