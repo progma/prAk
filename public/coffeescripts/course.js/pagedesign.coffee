@@ -8,7 +8,7 @@ lectureAdd = (newLecture, container, slideList) ->
     $.each newLecture.data["slides"], (i, slide) ->
       slideIcon = $("<div>",
         id: "iconOf" + newLecture.fullName + slide.name
-        class: "slideIcon"
+        class: if slide.type == "code" then "slideIconFirst" else "slideIcon"
         style: "background-image: url('/images/icons/" + slide.type + ".png')"
         mouseover: -> newLecture.showPreview(slide)
         mouseout: -> newLecture.hidePreview(slide)
@@ -51,8 +51,9 @@ showSlide = (slide, order, isThereSecond, toRight) ->
 hideSlide = (slide, toLeft) ->
   slide.div.animate { left: if toLeft then "-=100%" else "+=100%" }
                    , 1000
-                   , -> slide.div.css "display"
-                   , "none"
+                   , ->
+                     slide.div.css "display", "none"
+                     slide.div.html "" unless slide.isActive
   slide.iconDiv.removeClass "slideIconActive"
 
 moveSlide = (slide, toLeft) ->
