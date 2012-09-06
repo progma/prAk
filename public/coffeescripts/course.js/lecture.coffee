@@ -8,7 +8,7 @@ loadText = (name, callback, errorHandler = null) ->
 
 class Lecture
   constructor: (@name, @data, @div, @errorDiv) ->
-    @plainName = _.last _.filter @name.split("/"), (el) -> el != ""
+    @courseName = _.last _.filter @name.split("/"), (el) -> el != ""
     @fullName = (@div.attr "id") + @name.replace "/", ""
 
     # This is where we keep notion about what to do if a user hit the back
@@ -72,19 +72,23 @@ class Lecture
         sound.playTalk slide, @data.mediaRoot, @fullName
 
     else if slide.type == "test"
-      slide.div.html pageDesign.testResultPage
+      if slide.testDone
+        slide.div.html pageDesign.testDoneResultPage
+      else
+        slide.div.html pageDesign.testNotDoneResultPage
 
   runCode: (code, outputDivID, isUserCode = true) ->
     if isUserCode
       connection.sendUserCode
         code: code
-        course: @plainName
+        course: @courseName
         lecture: @findSlide(@currentSlide).lectureName
 
     @errorDiv.html ""
     output = document.getElementById outputDivID
     @lastResult = turtle.run code, output, isUserCode == false
 
+    # Is @lastResult true or an error object explaining failure of user code?
     unless @lastResult == true
       console.log @lastResult.errObj
       @errorDiv.html @lastResult.reason
@@ -94,6 +98,13 @@ class Lecture
 
   performTest: ->
     if _.isEqual @expectedResult.degreeSequence, turtle.lastDegreeSequence
+      slide = @findSlide @currentSlide
+      slideI = _.indexOf @data.slides, slide
+
+      unless @data.slides[slideI+1].testDone
+        connection.lectureDone @courseName, slide.lectureName
+
+      @data.slides[slideI+1].testDone = true
       @forward()
 
   # Following three functions moves slides' DIVs to proper places.

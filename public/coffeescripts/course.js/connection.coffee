@@ -1,4 +1,4 @@
-url = "http://localhost:3000/" # TODO make universal? (from server side?)
+url = window.serverURL ? "http://localhost:3000/"
 
 # Example of usage:
 #
@@ -14,9 +14,21 @@ sendUserCode = (data) ->
     dataType: "json"
 
 giveBadget = (name) ->
+  $.ajax
+    type: 'POST'
+    url: url + "ajax/badget"
+    data: { name }
+    dataType: "json"
 
 lectureDone = (course, lecture) ->
-
+  $.ajax
+    type: 'POST'
+    url: url + "ajax/lectureDone"
+    data: {
+      course
+      lecture
+    }
+    dataType: "json"
 
 @connection = {
   sendUserCode

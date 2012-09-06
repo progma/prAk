@@ -1,4 +1,5 @@
 crypto = require('crypto')
+settings = require('../progma/settings')
 db = require('../progma/mongo').db
 userCodeCollection = db.collection('userCode')
 
@@ -24,11 +25,12 @@ renderCourse = (req, res, codes) ->
     page: 'course'
     user: req.user
     codes: codes
+    serverURL: settings.URL
     courseName: req.param('courseName')
     errors: req.flash 'error'
 
 exports.course = (req, res) ->
-  console.log "req"
+  console.log "requesting course"
   if req.user?
     userCodeCollection.group ["lecture"]
       , { course: req.param('courseName') }

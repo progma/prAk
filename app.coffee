@@ -97,6 +97,8 @@ app.get '/auth/facebook/return', passport.authenticate 'facebook',
   failureFlash: true
 
 app.post '/ajax/userCode', ajaxRoute.userCode
+app.post '/ajax/badget', ajaxRoute.badget
+app.post '/ajax/lectureDone', ajaxRoute.lectureDone
 
 
 #

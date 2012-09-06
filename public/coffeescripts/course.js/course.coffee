@@ -1,4 +1,5 @@
 userCode = window.userCode ? {}
+lecturesDone = window.lecturesDone ? []
 
 $(document).ready(->
   soundManager.setup url: "/javascripts/soundManagerSwf"
@@ -49,6 +50,7 @@ TurtleSlidesHelper =
       type: "test"
       code: slide.name + "TextPad"
       go: slide.go
+      testDone: slide.name in lecturesDone
     ]
 
 
