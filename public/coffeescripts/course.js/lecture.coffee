@@ -1,4 +1,3 @@
-
 loadText = (name, callback, errorHandler = null) ->
     $.ajax(
       url: name
@@ -9,6 +8,7 @@ loadText = (name, callback, errorHandler = null) ->
 
 class Lecture
   constructor: (@name, @data, @div, @errorDiv) ->
+    @courseName = _.last _.filter @name.split("/"), (el) -> el != ""
     @fullName = (@div.attr "id") + @name.replace "/", ""
 
     # This is where we keep notion about what to do if a user hit the back
@@ -29,7 +29,7 @@ class Lecture
     # Display drawing areay with expected result
     else if slide.type == "turtleDen"
       loadText @name + "/" + slide.lectureName + "/expected.turtle", (data) =>
-        @runCode data, @fullName + slide.name, true
+        @runCode data, @fullName + slide.name, false
 
         @expectedResult =
           degreeSequence: turtle.lastDegreeSequence
@@ -72,22 +72,39 @@ class Lecture
         sound.playTalk slide, @data.mediaRoot, @fullName
 
     else if slide.type == "test"
-      slide.div.html pageDesign.testResultPage
+      if slide.testDone
+        slide.div.html pageDesign.testDoneResultPage
+      else
+        slide.div.html pageDesign.testNotDoneResultPage
 
-  runCode: (code, outputDivID, expectedCode = false) ->
+  runCode: (code, outputDivID, isUserCode = true) ->
+    if isUserCode
+      connection.sendUserCode
+        code: code
+        course: @courseName
+        lecture: @findSlide(@currentSlide).lectureName
+
     @errorDiv.html ""
     output = document.getElementById outputDivID
-    @lastResult = turtle.run code, output, expectedCode
+    @lastResult = turtle.run code, output, isUserCode == false
 
+    # Is @lastResult true or an error object explaining failure of user code?
     unless @lastResult == true
       console.log @lastResult.errObj
       @errorDiv.html @lastResult.reason
 
-    unless expectedCode
+    if isUserCode
       @performTest()
 
   performTest: ->
     if _.isEqual @expectedResult.degreeSequence, turtle.lastDegreeSequence
+      slide = @findSlide @currentSlide
+      slideI = _.indexOf @data.slides, slide
+
+      unless @data.slides[slideI+1].testDone
+        connection.lectureDone @courseName, slide.lectureName
+
+      @data.slides[slideI+1].testDone = true
       @forward()
 
   # Following three functions moves slides' DIVs to proper places.
@@ -190,5 +207,6 @@ class Lecture
       return @data.slides[i]  if @data.slides[i].name == slideName
       i++
 
-(exports ? this).lecture =
-  Lecture: Lecture
+@lecture = {
+  Lecture
+}

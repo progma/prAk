@@ -79,14 +79,20 @@ addPlayer = (div, clickHandler, seekHandler) ->
   ).appendTo(seek)
 
 
-testResultPage = """
+testDoneResultPage = """
   <p>Výborně!
   <h2>Správné řešení</h2>
-    <p>Nejen že jsi správně vyřešil danou úlohu -- mimoděk jsi stvořil veliké
+    <p>Nejen že jsi správně vyřešil/a danou úlohu -- mimoděk jsi stvořil/a veliké
     umělecké dílo, jež bude svou nádherou a noblesou okouzlovat spatřující
     stovky nadcházejících let.
     <p>Nechceš ho sdílet na Facebooku?
   """
+
+testNotDoneResultPage = """
+  <p>Počkat!
+  <h2>Ještě jsi neodeslal/a správné řešení.</h2>
+    <p>Chceš i přes to pokračovat dále v kurzu?
+"""
 
 loadProblem = """
   <center>There was an unusual accident during the load.</center>
@@ -96,16 +102,18 @@ courseNAProblem = (name) -> """
     Course at '""" + name + """' is not available.
   """
 
-(exports ? this).pageDesign =
-  lectureAdd: lectureAdd
+@pageDesign = {
+  lectureAdd
 
   # Following three functions moves slides' DIVs to proper places.
-  showSlide: showSlide
-  hideSlide: hideSlide
-  moveSlide: moveSlide
+  showSlide
+  hideSlide
+  moveSlide
 
-  addPlayer: addPlayer
+  addPlayer
 
-  testResultPage: testResultPage
-  loadProblem: loadProblem
-  courseNAProblem: courseNAProblem
+  testDoneResultPage
+  testNotDoneResultPage
+  loadProblem
+  courseNAProblem
+}
