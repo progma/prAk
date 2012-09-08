@@ -1,4 +1,8 @@
 extends layout
 
 block body
+    script
+        window.userCode = !{codes};
+        window.serverURL = "!{serverURL}";
+        window.lecturesDone = !{JSON.stringify(user ? user.lecturesDone[courseName] : [])};
     div(id='courseDiv', class='slides', slidedata='/courses/#{courseName}/')
