@@ -11,6 +11,13 @@ exports.index = (req, res) ->
     user: req.user
     errors: req.flash 'error'
 
+exports.sandbox = (req, res) ->
+  res.render 'sandbox',
+    title: 'prAk – programátorská akademie'
+    page: 'sandbox'
+    user: req.user
+    errors: req.flash 'error'
+
 #
 # Course page
 #
@@ -42,7 +49,7 @@ exports.course = (req, res) ->
         codesN[o.lecture] = o.code for o in codes
         renderCourse req, res, JSON.stringify(codesN)
   else
-    renderCourse req, res, {}
+    renderCourse req, res, "[]"
 
 exports.login = (req, res) ->
   res.render 'login',

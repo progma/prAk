@@ -1,0 +1,20 @@
+extends layout
+
+block body
+    div(class="innerSlides")
+        div(class="slide", style="display: block; margin-left: -440px; left: 50%;")
+            textarea(id="editorArea")
+            input(id="evalButton", type="button", value="Spustit/Zastavit")
+            p Mód:
+                select(name="mode")
+                    option(value="turtle2d") 2D Želva
+                    option(value="turtle3d") 3D Želva
+            p Další:
+                input(type="button", value="Obrázek/editor fullscrean?")
+                input(type="button", value="Sdílet")
+                input(type="button", value="Nápověda")
+        div(class="slide", style="display: block; margin-left: 1px; left: 50%;")
+            div(id="turtleSpace")
+
+block scripts
+    script(src="/javascripts/course.js/sandbox.js")

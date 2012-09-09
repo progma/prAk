@@ -70,6 +70,9 @@ app.get '/', routes.index
 
 app.get '/course/:courseName', routes.course
 
+app.get '/sandbox', routes.sandbox
+app.get '/sandbox/:codeID', routes.sandbox
+
 app.get '/login', routes.login
 app.post '/login', passport.authenticate 'local',
   successRedirect: '/'

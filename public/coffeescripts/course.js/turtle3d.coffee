@@ -1,4 +1,3 @@
-root = exports ? this
 
 parameters =
 # These parameters are read only in init.
@@ -299,10 +298,12 @@ run = (turtleCode) ->
   ambLight = new THREE.AmbientLight(parameters.AMB_LIGHT_COLOR)
   scene.add(ambLight)
 
-  return scene
+  return true
 
-root.turtle3d =
-  Turtle3D: Turtle3D
-  init: init
-  run: run
-  parameters: parameters
+@turtle3d = {
+  Turtle3D
+  init
+  run
+  parameters
+}
+module?.exports = @turtle3d
