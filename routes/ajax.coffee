@@ -10,6 +10,7 @@ exports.userCode = (req, res) ->
       code: req.body.code
       lecture: req.body.lecture
       course: req.body.course ? "sandbox"
+      mode: req.body.mode
       # name: ... TODO generate some if course is sandbox
 
     db.userCode.insert codeObj, (err) ->

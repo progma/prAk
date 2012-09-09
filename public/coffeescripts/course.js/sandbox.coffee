@@ -11,7 +11,7 @@ $ ->
     errorDiv.html ""
     output = document.getElementById "turtleSpace"
     turtle.settings.defaultTotalTime = 2000
-    result = turtle.run currentCode, output, true
+    result = turtle2d.run currentCode, output, false
 
     unless result == true
       console.log @lastResult.errObj

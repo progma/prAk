@@ -32,7 +32,7 @@ class Lecture
         @runCode data, @fullName + slide.name, false
 
         @expectedResult =
-          degreeSequence: turtle.lastDegreeSequence
+          degreeSequence: turtle2d.lastDegreeSequence
 
     else if slide.type == "code"
       textDiv = $("<div>")
@@ -45,8 +45,8 @@ class Lecture
       cm = new CodeMirror slide.div.get(0),
             lineNumbers: true
             readOnly: slide.talk?
+            indentWithTabs: false
             # autofocus: true
-            # indentWithTabs: true
             # tabSize: 2
 
       if slide.userCode
@@ -83,10 +83,11 @@ class Lecture
         code: code
         course: @courseName
         lecture: @findSlide(@currentSlide).lectureName
+        mode: "turtle2d"
 
     @errorDiv.html ""
     output = document.getElementById outputDivID
-    @lastResult = turtle.run code, output, isUserCode == false
+    @lastResult = turtle2d.run code, output, isUserCode == false
 
     # Is @lastResult true or an error object explaining failure of user code?
     unless @lastResult == true
@@ -97,7 +98,7 @@ class Lecture
       @performTest()
 
   performTest: ->
-    if _.isEqual @expectedResult.degreeSequence, turtle.lastDegreeSequence
+    if _.isEqual @expectedResult.degreeSequence, turtle2d.lastDegreeSequence
       slide = @findSlide @currentSlide
       slideI = _.indexOf @data.slides, slide
 
