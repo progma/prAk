@@ -8,11 +8,14 @@ $ ->
   myCodeMirror = CodeMirror.fromTextArea $('#editorArea').get(0),
             lineNumbers: true
 
+  turtle2d.settings.defaultTotalTime = 2000
+  turtle3d.parameters.BACKGROUND_COLOR = 0xFFFFFF
+  turtle.init output
 
   $('#evalButton').click ->
     currentCode = myCodeMirror.getValue()
     errorDiv.html ""
-    result = turtle.run currentCode, output, false
+    result = turtle.run currentCode, false
 
     unless result == true
       console.log "error occured"
@@ -27,12 +30,11 @@ $ ->
     switch obj.target.value
       when "turtle2d"
         console.log "turtle2d init"
-        turtle2d.settings.defaultTotalTime = 2000
         turtle = turtle2d
+        turtle.init output
       when "turtle3d"
         console.log "turtle3d init"
         turtle = turtle3d
-        turtle.parameters.BACKGROUND_COLOR = 0xFFFFFF
         $("#turtleSpace").append $("<canvas>", id: "turtle3dCanvas")
         turtle.init $('#turtle3dCanvas').get(0)
 

@@ -188,14 +188,22 @@ drawLine = (fromX, fromY, toX, toY, aniTime) ->
     .attr(stroke: activeTurtle.color)
     .animate { path: "M#{fromX + atSX} #{fromY + atSY}L#{toX + atSX} #{toY + atSY}" }, aniTime
 
+clearPaper = ->
+  turtle2d.paper.clear()
+  turtle2d.paper
+    .rect(0, 0, settings.paperWidth, settings.paperHeight)
+    .attr fill: settings.paperBackgroundColor
 
-run = (code, canvas, shadow) ->
+init = (canvas) ->
   turtle2d.paper.remove() if turtle2d.paper
+  turtle2d.paper = Raphael(canvas, settings.paperWidth, settings.paperHeight)
+  clearPaper()
 
-  paper = Raphael(canvas, settings.paperWidth, settings.paperHeight)
-  turtle2d.paper = paper
-  paper.rect(0, 0, settings.paperWidth, settings.paperHeight)
-       .attr fill: settings.paperBackgroundColor
+  # Show turtle at the beginning
+  (new Turtle()).runActions (->)
+
+run = (code, shadow) ->
+  clearPaper()
 
   activeTurtle = new Turtle()
   activeTurtle.color =
@@ -222,7 +230,9 @@ run = (code, canvas, shadow) ->
 ##
 @turtle2d = {
   lastDegreeSequence: null
+  paper: null
   settings
+  init
   run
 }
 module?.exports = @turtle2d

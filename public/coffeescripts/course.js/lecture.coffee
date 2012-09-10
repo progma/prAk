@@ -47,7 +47,6 @@ class Lecture
             readOnly: slide.talk?
             indentWithTabs: false
             # autofocus: true
-            # tabSize: 2
 
       if slide.userCode
         cm.setValue slide.userCode
@@ -63,8 +62,6 @@ class Lecture
         text: "Spustit kód"
         class: if slide.talk? then "hidden" else "btn"
         click: =>
-          # TODO:  this should be more universal
-          #      + post code to the server
           @runCode cm.getValue(), @fullName + slide.drawTo
       ).appendTo slide.div
 
@@ -87,7 +84,8 @@ class Lecture
 
     @errorDiv.html ""
     output = document.getElementById outputDivID
-    @lastResult = turtle2d.run code, output, isUserCode == false
+    turtle2d.init output
+    @lastResult = turtle2d.run code, isUserCode == false
 
     # Is @lastResult true or an error object explaining failure of user code?
     unless @lastResult == true
