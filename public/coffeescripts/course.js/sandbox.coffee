@@ -1,4 +1,5 @@
 turtle = turtle2d
+mode = "turtle2d"
 
 $ ->
   output = document.getElementById "turtleSpace"
@@ -16,6 +17,11 @@ $ ->
 
   $('#evalButton').click ->
     currentCode = myCodeMirror.getValue()
+
+    connection.sendUserCode
+      code: currentCode
+      mode: mode
+
     errorDiv.html ""
     result = turtle.run currentCode, false
 
@@ -32,11 +38,13 @@ $ ->
         console.log "turtle2d init"
         turtle = turtle2d
         turtle.init output
+        mode = "turtle2d"
       when "turtle3d"
         console.log "turtle3d init"
         turtle = turtle3d
         $("#turtleSpace").append canvas
         turtle.init $('#turtle3dCanvas').get(0)
+        mode = "turtle3d"
 
     errorDiv.prependTo output
 
