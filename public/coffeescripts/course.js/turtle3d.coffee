@@ -1,3 +1,4 @@
+ex = @examine ? require './examine'
 
 parameters =
 # These parameters are read only in init.
@@ -213,6 +214,47 @@ init = (canvas) ->
 
   return renderer.domElement
 
+# Since my Turtle3D is a nice object with its own fields and I
+# want to use its methods as global function in a global context,
+# I export them like this.
+environment = (myTurtle) ->
+  go: (distance) -> myTurtle.go(distance)
+  left: (angle) -> myTurtle.yaw(angle)
+  right: (angle) -> myTurtle.yaw(-angle)
+  up: (angle) -> myTurtle.pitch(angle)
+  down: (angle) -> myTurtle.pitch(-angle)
+  rollLeft: (angle) -> myTurtle.roll(-angle)
+  rollRight: (angle) -> myTurtle.roll(angle)
+  penUp: -> myTurtle.penUp()
+  penDown: -> myTurtle.penDown()
+  color: (hex) -> myTurtle.setColor(hex)
+  width: (width) -> myTurtle.setWidth(width)
+
+  repeat: (n, f, args...) ->
+    i = 0
+    f args... while i++ < n
+
+constants =
+  white: 0xFFFFFF
+  yellow: 0xFFFF00
+  fuchsia: 0xFF00FF
+  aqua: 0x00FFFF
+  red: 0xFF0000
+  lime: 0x00FF00
+  blue: 0x0000FF
+  black: 0x000000
+  green: 0x008000
+  maroon: 0x800000
+  olive: 0x808000
+  purple: 0x800080
+  gray: 0x808080
+  navy: 0x000080
+  teal: 0x008080
+  silver: 0xC0C0C0
+
+  brown: 0x552222
+  orange: 0xCC3232
+
 
 run = (turtleCode) ->
   material = new THREE.MeshLambertMaterial({ color: parameters.TURTLE_START_COLOR
@@ -224,81 +266,52 @@ run = (turtleCode) ->
                           material,
                           parameters.TURTLE_START_WIDTH)
 
-  # Since my Turtle3D is a nice object with its own fields and I
-  # want to use its methods as global function in a global context,
-  # I export them like this.
-  window.go = (distance) -> myTurtle.go(distance)
-  window.left = (angle) -> myTurtle.yaw(angle)
-  window.right = (angle) -> myTurtle.yaw(-angle)
-  window.up = (angle) -> myTurtle.pitch(angle)
-  window.down = (angle) -> myTurtle.pitch(-angle)
-  window.rollLeft = (angle) -> myTurtle.roll(-angle)
-  window.rollRight = (angle) -> myTurtle.roll(angle)
-  window.penUp = -> myTurtle.penUp()
-  window.penDown = -> myTurtle.penDown()
-  window.color = (hex) -> myTurtle.setColor(hex)
-  window.width = (width) -> myTurtle.setWidth(width)
+  result = ex.test
+    code: turtleCode
+    environment: environment(myTurtle)
+    constants: constants
 
-  window.white = 0xFFFFFF
-  window.yellow = 0xFFFF00
-  window.fuchsia = 0xFF00FF
-  window.aqua = 0x00FFFF
-  window.red = 0xFF0000
-  window.lime = 0x00FF00
-  window.blue = 0x0000FF
-  window.black = 0x000000
-  window.green = 0x008000
-  window.maroon = 0x800000
-  window.olive = 0x808000
-  window.purple = 0x800080
-  window.gray = 0x808080
-  window.navy = 0x000080
-  window.teal = 0x008080
-  window.silver = 0xC0C0C0
+  try
+    # We dump the old scene and populate a new one.
+    scene = new THREE.Scene()
 
-  window.brown = 0x552222
-  window.orange = 0xCC3232
+    meshes = myTurtle.retrieveMeshes()
+    for mesh in meshes
+      scene.add(mesh)
 
-  eval turtleCode
+    # simple helper
+    helper = new THREE.AxisHelper()
+    newZ = myTurtle.direction
+    newY = myTurtle.up
+    newX = new THREE.Vector3().cross(newZ, newY)
+    rotationMatrix = new THREE.Matrix4(newX.x, newY.x, newZ.x, 0,
+                                       newX.y, newY.y, newZ.y, 0,
+                                       newX.z, newY.z, newZ.z, 0,
+                                            0,      0,      0, 1)
+    helper.applyMatrix(rotationMatrix)
+    helper.position = myTurtle.position
+    scene.add(helper)
 
-  # We dump the old scene and populate a new one.
-  scene = new THREE.Scene()
+    centroid = new THREE.Vector3()
+    for mesh in meshes
+      centroid.addSelf(mesh.position)
+    centroid.divideScalar(meshes.length)
 
-  meshes = myTurtle.retrieveMeshes()
-  for mesh in meshes
-    scene.add(mesh)
+    # We center the camera around the centroid of the generated geometry.
+    camera.position = new THREE.Vector3(0, 0, parameters.CAMERA_DISTANCE).addSelf(centroid)
+    controls.center = centroid
 
-  # simple helper
-  helper = new THREE.AxisHelper()
-  newZ = myTurtle.direction
-  newY = myTurtle.up
-  newX = new THREE.Vector3().cross(newZ, newY)
-  rotationMatrix = new THREE.Matrix4(newX.x, newY.x, newZ.x, 0,
-                                     newX.y, newY.y, newZ.y, 0,
-                                     newX.z, newY.z, newZ.z, 0,
-                                          0,      0,      0, 1)
-  helper.applyMatrix(rotationMatrix)
-  helper.position = myTurtle.position
-  scene.add(helper)
+    dirLight = new THREE.DirectionalLight(parameters.DIR_LIGHT_COLOR)
+    dirLight.position = parameters.DIR_LIGHT_POS.clone()
+    dirLight.target.position = parameters.DIR_LIGHT_TARGET.clone()
+    scene.add(dirLight)
 
-  centroid = new THREE.Vector3()
-  for mesh in meshes
-    centroid.addSelf(mesh.position)
-  centroid.divideScalar(meshes.length)
-
-  # We center the camera around the centroid of the generated geometry.
-  camera.position = new THREE.Vector3(0, 0, parameters.CAMERA_DISTANCE).addSelf(centroid)
-  controls.center = centroid
-
-  dirLight = new THREE.DirectionalLight(parameters.DIR_LIGHT_COLOR)
-  dirLight.position = parameters.DIR_LIGHT_POS.clone()
-  dirLight.target.position = parameters.DIR_LIGHT_TARGET.clone()
-  scene.add(dirLight)
-
-  ambLight = new THREE.AmbientLight(parameters.AMB_LIGHT_COLOR)
-  scene.add(ambLight)
-
-  return true
+    ambLight = new THREE.AmbientLight(parameters.AMB_LIGHT_COLOR)
+    scene.add(ambLight)
+  catch e
+    console.log "Problem while turtle drawing."
+  finally
+    return result
 
 @turtle3d = {
   Turtle3D
