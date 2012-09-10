@@ -12,11 +12,28 @@ exports.index = (req, res) ->
     errors: req.flash 'error'
 
 exports.sandbox = (req, res) ->
-  res.render 'sandbox',
-    title: 'prAk – programátorská akademie'
-    page: 'sandbox'
-    user: req.user
-    errors: req.flash 'error'
+  codeID = req.param "codeID"
+  console.dir codeID
+  if codeID? && codeID != ""
+    userCodeCollection.findOne { _id: db.ObjectID.createFromHexString(codeID) }, (err, codeObj) ->
+      if err?
+        return res.redirect 404
+
+      res.render 'sandbox',
+        title: 'prAk – programátorská akademie'
+        page: 'sandbox'
+        code: codeObj.code
+        mode: codeObj.mode
+        user: req.user
+        errors: req.flash 'error'
+  else
+    res.render 'sandbox',
+      title: 'prAk – programátorská akademie'
+      page: 'sandbox'
+      code: ""
+      mode: ""
+      user: req.user
+      errors: req.flash 'error'
 
 #
 # Course page

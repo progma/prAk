@@ -19,6 +19,8 @@ exports.userCode = (req, res) ->
 
     # TODO dont discard code from nonregistered users
 
+  res.send 200
+
 exports.badget = (req, res) ->
   if req.user?
     unless req.user.achievements
@@ -28,6 +30,8 @@ exports.badget = (req, res) ->
       req.user.achievements.push req.body.name
 
     users.updateUser req.user
+
+  res.send 200
 
 exports.lectureDone = (req, res) ->
   if req.user?
@@ -41,5 +45,7 @@ exports.lectureDone = (req, res) ->
       req.user.lecturesDone[req.body.course].push req.body.lecture
 
     users.updateUser req.user
+
+  res.send 200
 
 # TODO deal with unregistered users via session
