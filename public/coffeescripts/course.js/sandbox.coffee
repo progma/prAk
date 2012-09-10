@@ -3,7 +3,8 @@ turtle = turtle2d
 $ ->
   output = document.getElementById "turtleSpace"
   errorDiv = $ "<div>", class: "errorOutput"
-  errorDiv.appendTo document.body
+  canvas = $("<div>", class: "canvasJacket")
+  canvas.append $ "<canvas>", id: "turtle3dCanvas"
 
   myCodeMirror = CodeMirror.fromTextArea $('#editorArea').get(0),
             lineNumbers: true
@@ -11,6 +12,7 @@ $ ->
   turtle2d.settings.defaultTotalTime = 2000
   turtle3d.parameters.BACKGROUND_COLOR = 0xFFFFFF
   turtle.init output
+  errorDiv.prependTo output
 
   $('#evalButton').click ->
     currentCode = myCodeMirror.getValue()
@@ -35,6 +37,8 @@ $ ->
       when "turtle3d"
         console.log "turtle3d init"
         turtle = turtle3d
-        $("#turtleSpace").append $("<canvas>", id: "turtle3dCanvas")
+        $("#turtleSpace").append canvas
         turtle.init $('#turtle3dCanvas').get(0)
+
+    errorDiv.prependTo output
 

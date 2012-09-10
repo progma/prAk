@@ -7,9 +7,10 @@ loadText = (name, callback, errorHandler = null) ->
 
 
 class Lecture
-  constructor: (@name, @data, @div, @errorDiv) ->
+  constructor: (@name, @data, @div) ->
     @courseName = _.last _.filter @name.split("/"), (el) -> el != ""
     @fullName = (@div.attr "id") + @name.replace "/", ""
+    @errorDiv = $ "<div>", class: "errorOutput"
 
     # This is where we keep notion about what to do if a user hit the back
     # arrow.
@@ -82,15 +83,17 @@ class Lecture
         lecture: @findSlide(@currentSlide).lectureName
         mode: "turtle2d"
 
-    @errorDiv.html ""
+    @errorDiv.detach()
     output = document.getElementById outputDivID
     turtle2d.init output
+
     @lastResult = turtle2d.run code, isUserCode == false
 
     # Is @lastResult true or an error object explaining failure of user code?
     unless @lastResult == true
       console.log @lastResult.errObj
       @errorDiv.html @lastResult.reason
+      @errorDiv.prependTo output
 
     if isUserCode
       @performTest()
@@ -161,7 +164,6 @@ class Lecture
       @currentSlide = slideName
 
     @currentSlides = slide.next
-    @resetElements()
 
   back: ->
     if @historyStack.length == 0
@@ -185,11 +187,6 @@ class Lecture
         @showSlide slideName, i, @currentSlides.length > 1, false
       @currentSlide = slideName
 
-    @resetElements()
-
-  # Empty error area
-  resetElements: ->
-    @errorDiv.html ""
 
   # Previews!
   showPreview: (slide) ->

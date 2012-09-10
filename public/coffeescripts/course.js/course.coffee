@@ -63,8 +63,6 @@ lectures =
   createLecture: (theDiv) ->
     slideList = $("<div>", { class: "slideList" })
     innerSlides = $("<div>", { class: "innerSlides" })
-    errorDiv = $ "<div>", class: "errorOutput"
-    errorDiv.appendTo theDiv
 
     name = @baseDir + theDiv.attr("slidedata")
 
@@ -77,7 +75,7 @@ lectures =
         return memo
       , []
 
-      newLecture = new lecture.Lecture name, data, theDiv, errorDiv
+      newLecture = new lecture.Lecture name, data, theDiv
 
       pageDesign.lectureAdd newLecture, innerSlides, slideList
       @ls.push newLecture
