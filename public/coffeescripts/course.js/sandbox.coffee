@@ -24,8 +24,6 @@ $ ->
       console.log result.errObj
       errorDiv.html result.reason
 
-    # console.log "turtle.lastDegreeSequence: #{turtle2d.lastDegreeSequence}"
-
   $("select[name='mode']").change (obj) ->
     $("#turtleSpace").html ""
 

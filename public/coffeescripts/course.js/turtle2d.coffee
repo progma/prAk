@@ -216,7 +216,7 @@ run = (code, shadow) ->
 
   try
     activeTurtle.countTime()
-    turtle2d.lastDegreeSequence = activeTurtle.graph.sequences().degreeSequence
+    turtle2d.sequences = activeTurtle.graph.sequences()
     activeTurtle.runActions (->)
   catch e
     turtle2d.lastDegreeSequence = undefined
@@ -229,7 +229,7 @@ run = (code, shadow) ->
 ## Exports
 ##
 @turtle2d = {
-  lastDegreeSequence: null
+  sequences: null
   paper: null
   settings
   init

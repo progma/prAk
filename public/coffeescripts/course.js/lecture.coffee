@@ -32,8 +32,7 @@ class Lecture
       loadText @name + "/" + slide.lectureName + "/expected.turtle", (data) =>
         @runCode data, @fullName + slide.name, false
 
-        @expectedResult =
-          degreeSequence: turtle2d.lastDegreeSequence
+        @expectedResult = turtle2d.sequences
 
     else if slide.type == "code"
       textDiv = $("<div>")
@@ -99,7 +98,13 @@ class Lecture
       @performTest()
 
   performTest: ->
-    if _.isEqual @expectedResult.degreeSequence, turtle2d.lastDegreeSequence
+    expected = @expectedResult
+    given = turtle2d.sequences
+    eq = graph.almostEqual
+
+    if  _.isEqual(expected.degreesSequence, given.degreesSequence) and
+        eq(expected.anglesSequence,    given.anglesSequence)       and
+        eq(expected.distancesSequence, given.distancesSequence)
       slide = @findSlide @currentSlide
       slideI = _.indexOf @data.slides, slide
 
