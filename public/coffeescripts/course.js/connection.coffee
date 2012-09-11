@@ -9,21 +9,21 @@ url = window.serverURL ? "http://localhost:3000/"
 sendUserCode = (data) ->
   $.ajax
     type: 'POST'
-    url: url + "ajax/userCode"
+    url: url + "/ajax/userCode"
     data: data
     dataType: "json"
 
 giveBadget = (name) ->
   $.ajax
     type: 'POST'
-    url: url + "ajax/badget"
+    url: url + "/ajax/badget"
     data: { name }
     dataType: "json"
 
 lectureDone = (course, lecture) ->
   $.ajax
     type: 'POST'
-    url: url + "ajax/lectureDone"
+    url: url + "/ajax/lectureDone"
     data: {
       course
       lecture

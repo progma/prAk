@@ -11,30 +11,31 @@ exports.index = (req, res) ->
     user: req.user
     errors: req.flash 'error'
 
+#
+# Sandbox
+#
+renderSandbox = (req, res, code, mode) ->
+  res.render 'sandbox',
+    title: 'prAk – programátorská akademie'
+    page: 'sandbox'
+    code: code
+    mode: mode
+    user: req.user
+    errors: req.flash 'error'
+
 exports.sandbox = (req, res) ->
   codeID = req.param "codeID"
   console.dir codeID
+
   if codeID? && codeID != ""
-    userCodeCollection.findOne { _id: db.ObjectID.createFromHexString(codeID) }, (err, codeObj) ->
+    userCodeCollection.findOne { _id: db.ObjectID.createFromHexString(codeID) }
+    , (err, codeObj) ->
       if err?
         return res.redirect 404
 
-      res.render 'sandbox',
-        title: 'prAk – programátorská akademie'
-        page: 'sandbox'
-        code: codeObj.code
-        mode: codeObj.mode
-        user: req.user
-        errors: req.flash 'error'
+      renderSandbox req, res, codeObj.code, codeObj.mode
   else
-    res.render 'sandbox',
-      title: 'prAk – programátorská akademie'
-      page: 'sandbox'
-      code: ""
-      mode: ""
-      user: req.user
-      errors: req.flash 'error'
-
+    renderSandbox req, res, "", ""
 #
 # Course page
 #
@@ -44,13 +45,20 @@ reduceUC = (obj, prev) ->
     prev.code = obj.code
 
 renderCourse = (req, res, codes) ->
+  courseName = req.param('courseName')
+  if req.user? && req.user.lecturesDone?
+    lecturesDone = req.user.lecturesDone[courseName]
+  else
+    lecturesDone = []
+
   res.render 'course',
     title: 'prAk » název kurzu'
     page: 'course'
     user: req.user
     codes: codes
+    lecturesDone: JSON.stringify(lecturesDone)
     serverURL: settings.URL
-    courseName: req.param('courseName')
+    courseName: courseName
     errors: req.flash 'error'
 
 exports.course = (req, res) ->
