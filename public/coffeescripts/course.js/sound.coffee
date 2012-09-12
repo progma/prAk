@@ -1,6 +1,6 @@
 slide      = undefined
 codeMirror = undefined
-turtleDiv  = undefined
+evaluationContext = undefined
 
 # Order matters!
 tracks = [
@@ -18,7 +18,7 @@ tracks = [
 
 playTalk = (sl, mediaRoot, fullName) ->
   slide = sl
-  
+
   unless slide.soundObjects?
     createSoundObjects slide, mediaRoot, fullName
 
@@ -51,9 +51,10 @@ createSoundObjects = (slide, mediaRoot, fullName) ->
 addEventsToManager = (slide, trackName, track, fullName, soundObject) ->
   $.map track, (event) =>
     soundObject.onPosition event.time, ->
-      playbook.playbook[trackName] event.value,
-        codeMirror: codeMirror=slide.cm
-        turtleDiv: turtleDiv=document.getElementById("#{fullName}#{slide.drawTo}")
+      codeMirror = slide.cm
+      evaluationContext = slide.lecture.mode
+
+      playbook.playbook[trackName] event.value, {codeMirror, evaluationContext}
 
 playSound = (slide, ith, pos) ->
   slide.activeSoundObjectI = ith
@@ -95,10 +96,8 @@ seekSound  = (e) ->
       if event.time < slide.soundObject().position
         theEvent = event
     continue unless theEvent?
-    
-    playbook.playbook[track] theEvent.value,
-      codeMirror: codeMirror
-      turtleDiv: turtleDiv
+
+    playbook.playbook[track] theEvent.value, {codeMirror, evaluationContext}
 
 updateSeekbar = ->
   tTime = totalTime()
@@ -111,6 +110,8 @@ stopSound = (slide) ->
   slide.soundObject().stop()
 
 
-(exports ? this).sound =
-  playTalk: playTalk
-  stopSound: stopSound
+@sound = {
+  playTalk
+  stopSound
+}
+module?.exports = @sound

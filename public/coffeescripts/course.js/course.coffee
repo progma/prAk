@@ -50,7 +50,7 @@ TurtleSlidesHelper =
     ,
       name: lecture.name + "TurtleDen"
       lecture: lecture
-      type: "html"
+      type: "turtleDen"
       go: lecture.go ? "nextLecture"
     ]
 

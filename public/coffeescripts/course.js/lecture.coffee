@@ -12,6 +12,11 @@ class Lecture
     @fullName = (@div.attr "id") + @name.replace "/", ""
     @errorDiv = $ "<div>", class: "errorOutput"
 
+    @turtle = null
+    @turtle3dDiv = $ "<div>", class: "canvasJacket"
+    @turtle3dCanvas = $ "<canvas>", id: "turtle3dCanvas"
+    @turtle3dDiv.append @turtle3dCanvas
+
     # This is where we keep notion about what to do if a user hit the back
     # arrow.
     @historyStack = new Array()
@@ -30,18 +35,29 @@ class Lecture
     # Display drawing areay with expected result
     else if slide.type == "turtleDen"
       output = document.getElementById @fullName + slide.name
-      turtle2d.init output
+
+      switch slide.lecture.mode
+        when "turtle3d"
+          @turtle = turtle3d
+          @turtle3dDiv.appendTo output
+          @turtle.init $('#turtle3dCanvas').get(0) # @turtle3dCanvas
+        # when "game" ...
+        else
+          @turtle = turtle2d
+          @turtle.init output
+
       @errorDiv.prependTo output
 
-      loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
-        @expectedCode = data
+      unless slide.lecture.talk?
+        loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
+          @expectedCode = data
 
-        if slide.lecture.test?
-          f = tests[slide.lecture.test+"Beforehand"]
-          f(data) if f?
-        else
-          @runCode data, false
-          @expectedResult = turtle2d.sequences
+          if slide.lecture.test?
+            f = tests[slide.lecture.test+"Beforehand"]
+            f(data) if f?
+          else
+            @runCode data, false
+            @expectedResult = turtle2d.sequences
 
     else if slide.type == "code"
       textDiv = $("<div>")
@@ -92,7 +108,7 @@ class Lecture
         code: code
         course: @courseName
         lecture: @findSlide(@currentSlide).lecture.name
-        mode: "turtle2d"
+        mode: slide.lecture.mode ? "turtle2d"
 
     @errorDiv.html pageDesign.codeIsRunning if isUserCode
 
@@ -106,7 +122,7 @@ class Lecture
             @handleFailure lastResult
         , 0
     else
-      lastResult = turtle2d.run code, isUserCode == false
+      lastResult = @turtle.run code, isUserCode == false
 
       if isUserCode
         expected = @expectedResult
