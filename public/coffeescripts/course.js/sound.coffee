@@ -25,13 +25,16 @@ playTalk = (sl, mediaRoot, fullName) ->
   slide.activeSoundObjectI = -1
   slide.soundObject = ->
     this.soundObjects[this.activeSoundObjectI]
-  playSound slide, 0
+  playSound slide, 0, 0
 
   pageDesign.addPlayer slide.div, pauseSound, seekSound
 
+  for i in [1...slide.soundObjects.length]
+    slide.soundObjects[i].load()
+
 createSoundObjects = (slide, mediaRoot, fullName) ->
   slide.soundObjects = []
-  
+
   for sound in slide.talk
     newSoundManager = soundManager.createSound
       id : sound.file
@@ -52,13 +55,16 @@ addEventsToManager = (slide, trackName, track, fullName, soundObject) ->
         codeMirror: codeMirror=slide.cm
         turtleDiv: turtleDiv=document.getElementById("#{fullName}#{slide.drawTo}")
 
-playSound = (slide, ith) ->
+playSound = (slide, ith, pos) ->
   slide.activeSoundObjectI = ith
-  if slide.activeSoundObjectI < slide.soundObjects.length
-    slide.soundObject().play(
-      whileplaying: updateSeekbar
-      onfinish: -> playSound slide, ith+1
-    )
+  for so in [0...slide.soundObjects.length]
+    slide.soundObjects[so].onfinish = undefined
+  slide.soundObject().play(
+    whileplaying: updateSeekbar
+    onfinish: ->
+      playSound slide, ith+1, 0
+    position: pos
+  )
 
 pauseSound = (e) ->
   if slide.soundObject().paused
@@ -66,11 +72,24 @@ pauseSound = (e) ->
   else
     slide.soundObject().pause()
 
+totalTime = ->
+  _.reduce slide.talk, ((memo, sound) -> memo+sound.time), 0
+
 seekSound  = (e) ->
   xcord = e.pageX - slide.div.offset().left  # 22-420
-  pos   = (xcord - 22) / 400 * slide.soundObject().duration
-  slide.soundObject().setPosition pos
-  
+  tTime = totalTime()
+  totalPos   = (xcord - 22) / 400 * tTime
+
+  remaining = 0
+  i = 0
+  while remaining + slide.talk[i].time < totalPos
+    remaining += slide.talk[i].time
+    i++
+  pos = totalPos - remaining
+
+  slide.soundObject().stop()
+  playSound slide, i, pos 
+
   for track in tracks
     for event in slide.talk[slide.activeSoundObjectI].tracks[track]
       if event.time < slide.soundObject().position
@@ -80,9 +99,11 @@ seekSound  = (e) ->
     playbook.playbook[track] theEvent.value,
       codeMirror: codeMirror
       turtleDiv: turtleDiv
-  
+
 updateSeekbar = ->
-  perc = slide.soundObject().position * 100 / slide.soundObject().duration
+  tTime = totalTime()
+  previousTime = _.reduce slide.talk.slice(0, slide.activeSoundObjectI), ((memo, sound) -> memo+sound.time), 0
+  perc = (previousTime + slide.soundObject().position) * 100 / tTime
   slide.div.find(".inseek").width(perc + "%")
 
 # Only visible slides should be able to play sounds.
