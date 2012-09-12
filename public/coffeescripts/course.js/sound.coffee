@@ -33,17 +33,17 @@ createSoundObjects = (slide, mediaRoot, fullName) ->
   slide.soundObjects = []
   
   for sound in slide.talk
-    newSound = soundManager.createSound
+    newSoundManager = soundManager.createSound
       id : sound.file
       url: mediaRoot + "/" + sound.file + ".mp3"
-    slide.soundObjects.push newSound
+    slide.soundObjects.push newSoundManager
 
-    $.getJSON mediaRoot + "/" + sound.file + ".json", (recordingTracks) ->
-      console.log "ok!" + sound.file
-      sound.tracks = recordingTracks
-      for t in tracks
-        addEventsToManager slide, t, recordingTracks[t], fullName, newSound
-    .error -> console.log "not ok!"
+    ((sound, newSoundManager) -> 
+      $.getJSON mediaRoot + "/" + sound.file + ".json", (recordingTracks) ->
+        sound.tracks = recordingTracks
+        for t in tracks
+          addEventsToManager slide, t, recordingTracks[t], fullName, newSoundManager
+    )(sound, newSoundManager)
 
 addEventsToManager = (slide, trackName, track, fullName, soundObject) ->
   $.map track, (event) =>
