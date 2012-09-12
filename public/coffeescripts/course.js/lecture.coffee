@@ -33,11 +33,11 @@ class Lecture
       turtle2d.init output
       @errorDiv.prependTo output
 
-      loadText @name + "/" + slide.lectureName + "/expected.turtle", (data) =>
+      loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
         @expectedCode = data
 
-        if slide.test?
-          f = tests[slide.test+"Beforehand"]
+        if slide.lecture.test?
+          f = tests[slide.lecture.test+"Beforehand"]
           f(data) if f?
         else
           @runCode data, false
@@ -47,7 +47,7 @@ class Lecture
       textDiv = $("<div>")
       textDiv.appendTo slide.div
 
-      loadText @name + "/" + slide.lectureName + "/text.html", (data) =>
+      loadText @name + "/" + slide.lecture.name + "/text.html", (data) =>
         textDiv.html data
         textDiv.height "80px"
 
@@ -59,8 +59,9 @@ class Lecture
 
       if slide.userCode
         cm.setValue slide.userCode
-      else if slide.code
-        loadText @name + "/#{slide.lectureName}/#{slide.code}", (data) =>
+      else if slide.lecture.code
+        loadText @name + "/#{slide.lecture.name}/#{slide.lecture.code}"
+        , (data) =>
           cm.setValue data
           slide.userCode = data
 
@@ -90,14 +91,14 @@ class Lecture
       connection.sendUserCode
         code: code
         course: @courseName
-        lecture: @findSlide(@currentSlide).lectureName
+        lecture: @findSlide(@currentSlide).lecture.name
         mode: "turtle2d"
 
     @errorDiv.html pageDesign.codeIsRunning if isUserCode
 
-    if isUserCode && slide.test?
+    if isUserCode && slide.lecture.test?
       setTimeout =>
-          lastResult = tests[slide.test](code, @expectedCode)
+          lastResult = tests[slide.lecture.test](code, @expectedCode)
           if lastResult == true
             @lectureDone slide
             @errorDiv.html ""
@@ -132,12 +133,10 @@ class Lecture
       @errorDiv.html pageDesign.wrongAnswer + failingResult.args.toString()
 
   lectureDone: (slide) ->
-    slideI = _.indexOf @data.slides, slide
+    unless slide.next.testDone
+      connection.lectureDone @courseName, slide.lecture.name
 
-    unless @data.slides[slideI+1].testDone
-      connection.lectureDone @courseName, slide.lectureName
-
-    @data.slides[slideI+1].testDone = true
+    slide.next.testDone = true
     @forward()
 
   # Following three functions moves slides' DIVs to proper places.
@@ -148,6 +147,7 @@ class Lecture
 
     slide = @findSlide slideName
     pageDesign.showSlide slide, order, isThereSecond, toRight
+    @updateHash slide.lecture
     @loadSlide slide
 
   hideSlide: (slideName, toLeft) ->
@@ -169,37 +169,45 @@ class Lecture
     slide = @findSlide @currentSlide
     slideI = _.indexOf @data.slides, slide
 
-    switch slide.go
-      when "nextOne"
-        slide.next = [@data.slides[slideI+1].name]
-      when "nextTwo"
-        slide.next = [@data.slides[slideI+1].name, @data.slides[slideI+2].name]
-      when "move"
-        slide.next = [@currentSlide, @data.slides[slideI+1].name]
+    if slide.go == "nextLecture"
+      if slide.lecture.next.slides.length > 1
+        go = "nextTwo"
       else
-        if !slide.next?
+        go = "nextOne"
+    else
+      go = slide.go
+
+    switch go
+      when "nextOne"
+        next = [slide.next.name]
+      when "nextTwo"
+        next = [slide.next.name, slide.next.next.name]
+      when "move"
+        next = [@currentSlide, slide.next.name]
+      else
+        if !next?
           alert "Toto je konec kurzu."
           return
 
     @historyStack.push @currentSlides
 
     $.each @currentSlides, (i, slideName) =>
-      if slideName == slide.next[0]
+      if slideName == next[0]
         @moveSlide slideName, true
       else
         @hideSlide slideName, true
 
-    $.each slide.next, (i, slideName) =>
+    $.each next, (i, slideName) =>
       if slideName != _.last @currentSlides
-        @showSlide slideName, i, slide.next.length > 1, true
+        @showSlide slideName, i, next.length > 1, true
       @currentSlide = slideName
 
-    @currentSlides = slide.next
+    @currentSlides = next
     @resetElements()
 
   back: ->
     if @historyStack.length == 0
-      alert "Toto je začátek kurzu."
+      alert "This is the beginning of the course. Try to move forward!"
       return
 
     nextSlides = @historyStack.pop()
@@ -224,6 +232,14 @@ class Lecture
   # Empty error area
   resetElements: ->
     @errorDiv.html ""
+
+  # Hash is the part of URL after #
+  # TODO: This is going to need more systematic handling with respect to
+  #       - other possible course instances
+  #       - other scripts on the page
+  #       Right now (for prAk) it works fine, though.
+  updateHash: (lecture) ->
+    location.hash = "#" + lecture.name
 
   # Previews!
   showPreview: (slide) ->

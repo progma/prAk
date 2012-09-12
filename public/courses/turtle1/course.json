@@ -1,11 +1,10 @@
 {
     "mediaRoot": "/media/turtle1/",
-    "slides": [
+    "lectures": [
         {
             "name": "intro",
             "type": "html",
-            "source": "intro.html",
-            "go": "nextTwo"
+            "source": "intro.html"
         },
         {
             "name": "ctverec",
@@ -13,25 +12,21 @@
             "talk": [
                 {
                     "file": "01-ctverec-01",
-                    "time": 38
+                    "time": 38000
                 },
                 {
                     "file": "01-ctverec-02-take03",
-                    "time": 89
+                    "time": 89000
                 },
                 {
                     "file": "01-ctverec-03-take01",
-                    "time": 76
+                    "time": 76000
                 }
-            ],
-            "go": "nextTwo"
+            ]
         },
         {
             "name": "sestiuhelnik",
-            "type": "turtleTask",
-            "text": "01-sestiuhelnik.html",
-            "expected": "01-sestiuhelnik.turtle",
-            "go": "nextTwo"
+            "type": "turtleTask"
         },
         {
             "name": "function",
@@ -39,18 +34,17 @@
             "talk": [
                 {
                     "file": "01-ctverec-01",
-                    "time": 38
+                    "time": 38000
                 },
                 {
                     "file": "01-ctverec-02-take03",
-                    "time": 89
+                    "time": 89000
                 },
                 {
                     "file": "01-ctverec-03-take01",
-                    "time": 76
+                    "time": 76000
                 }
-            ],
-            "go": "nextTwo"
+            ]
         },
         {
             "name": "repeat",
@@ -58,25 +52,21 @@
             "talk": [
                 {
                     "file": "01-ctverec-01",
-                    "time": 38
+                    "time": 38000
                 },
                 {
                     "file": "01-ctverec-02-take03",
-                    "time": 89
+                    "time": 89000
                 },
                 {
                     "file": "01-ctverec-03-take01",
-                    "time": 76
+                    "time": 76000
                 }
-            ],
-            "go": "nextTwo"
+            ]
         },
         {
             "name": "cell",
-            "type": "turtleTask",
-            "text": "03-cell.html",
-            "expected": "03-cell.turtle",
-            "go": "nextTwo"
+            "type": "turtleTask"
         },
         {
             "name": "argument",
@@ -84,35 +74,28 @@
             "talk": [
                 {
                     "file": "01-ctverec-01",
-                    "time": 38
+                    "time": 38000
                 },
                 {
                     "file": "01-ctverec-02-take03",
-                    "time": 89
+                    "time": 89000
                 },
                 {
                     "file": "01-ctverec-03-take01",
-                    "time": 76
+                    "time": 76000
                 }
-            ],
-            "go": "nextTwo"
+            ]
         },
         {
             "name": "house",
             "type": "turtleTask",
-            "text": "04-house.html",
-            "code": "04-house.start.turtle",
-            "expected": "04-house.turtle",
-            "go": "nextTwo"
+            "code": "04-house.start.turtle"
         },
         {
             "name": "polygon",
-            "type": "turtleTask",
-            "text": "04-polygon.html",
-            "expected": "04-polygon.turtle",
             "test": "nuhelnik",
             "code": "function.turtle",
-            "go": "nextTwo"
+            "type": "turtleTask"
         },
         {
             "name": "kruznice",
@@ -120,18 +103,17 @@
             "talk": [
                 {
                     "file": "01-ctverec-01",
-                    "time": 38
+                    "time": 38000
                 },
                 {
                     "file": "01-ctverec-02-take03",
-                    "time": 89
+                    "time": 89000
                 },
                 {
                     "file": "01-ctverec-03-take01",
-                    "time": 76
+                    "time": 76000
                 }
-            ],
-            "go": "nextOne"
+            ]
         },
         {
             "name": "wellDone",
