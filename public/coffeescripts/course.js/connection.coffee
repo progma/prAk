@@ -31,8 +31,6 @@ lectureDone = (course, lecture) ->
     dataType: "json"
 
 log = (type, content) ->
-  console.log type
-  console.log content
   $.ajax
     type: 'POST'
     url: url + "/ajax/log"

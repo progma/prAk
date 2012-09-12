@@ -9,10 +9,7 @@ $(document).ready(->
     courses.createCourse $(div)
   window.courses = courses    # nice to have in debugging process
   window.onerror = (message, url, line) ->
-    connection.log "jsError",
-      message
-      url
-      line
+    connection.log "jsError", { message: message, url: url, line: line }
 )
 
 
