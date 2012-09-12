@@ -1,21 +1,50 @@
+turtle = turtle2d
+mode = "turtle2d"
+
 $ ->
+  output = document.getElementById "turtleSpace"
   errorDiv = $ "<div>", class: "errorOutput"
-  errorDiv.appendTo $ "body"
+  canvas = $("<div>", class: "canvasJacket")
+  canvas.append $ "<canvas>", id: "turtle3dCanvas"
 
   myCodeMirror = CodeMirror.fromTextArea $('#editorArea').get(0),
             lineNumbers: true
 
-  # Eval nemerime pri eventech, ale sbirame pri kliknuti tlacitka 'Eval!'.
+  turtle2d.settings.defaultTotalTime = 2000
+  turtle3d.parameters.BACKGROUND_COLOR = 0xFFFFFF
+  turtle.init output
+  errorDiv.prependTo output
+
   $('#evalButton').click ->
     currentCode = myCodeMirror.getValue()
 
+    connection.sendUserCode
+      code: currentCode
+      mode: mode
+
     errorDiv.html ""
-    output = document.getElementById "turtleSpace"
-    turtle.settings.defaultTotalTime = 2000
-    result = turtle.run currentCode, output, true
+    result = turtle.run currentCode, false
 
     unless result == true
-      console.log @lastResult.errObj
-      errorDiv.html @lastResult.reason
+      console.log "error occured"
+      console.log result.errObj
+      errorDiv.html result.reason
 
-    console.log "turtle.lastDegreeSequence: #{turtle.lastDegreeSequence}"
+  $("select[name='mode']").change (obj) ->
+    $("#turtleSpace").html ""
+
+    switch obj.target.value
+      when "turtle2d"
+        console.log "turtle2d init"
+        turtle = turtle2d
+        turtle.init output
+        mode = "turtle2d"
+      when "turtle3d"
+        console.log "turtle3d init"
+        turtle = turtle3d
+        $("#turtleSpace").append canvas
+        turtle.init $('#turtle3dCanvas').get(0)
+        mode = "turtle3d"
+
+    errorDiv.prependTo output
+

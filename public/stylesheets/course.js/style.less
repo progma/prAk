@@ -1,0 +1,189 @@
+// TODO use text-shadow?
+
+/* hlavni barvy */
+@dark: #222;
+@gray: #999;
+@lightGray: #ccc;
+
+@blue: #08c;
+@lighterGray: #eee;
+
+@courseBackground: none; // rgb(236,208,120);
+@filmStock: @blue; // rgb(217,91,67);
+@slideBackground: @lighterGray; // rgb(255, 234, 168);
+
+/* Rozmery dokumentu */
+@slideHeight: 500px;
+
+.rounded-corners (@radius: 5px) {
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+}
+
+.hidden {
+    display: none;
+}
+
+.slides {
+    width: 100%;
+    background-color: @courseBackground;
+}
+
+.slideList {
+    width: 100%;
+    height: 38px;
+    background-color: @filmStock;
+    text-align: center;
+	padding: 2px;
+    .rounded-corners(8px);
+}
+
+.slideIcon {
+    display: inline-block;
+    border: solid 3px @filmStock;
+    margin-top: 3px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 24px;
+    height: 24px;
+}
+
+.slideIconFirst {
+    .slideIcon;
+    margin-left: 15px;
+}
+
+.slideIconActive {
+    border: solid 4px @slideBackground;
+}
+
+.innerSlides {
+    position: relative;
+    width: 100%;
+    height: @slideHeight;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    vertical-align: top;
+    overflow: hidden;
+    padding-top: 15px;
+}
+
+.errorOutput {
+    position: absolute;
+    width: 200px;
+    background-color: rgb(217,1,7);
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+    margin-left: 100px;
+    z-index: 60;
+    .rounded-corners;
+}
+
+.slide {
+    position: absolute;
+    left: 50%;
+    display: block;
+    background-color: @slideBackground;
+    width: 400px;
+    height: @slideHeight - 25px;
+    margin-left: -210px;
+    margin-right: 10px;
+    padding: 10px;
+    text-align: left;
+    .rounded-corners;
+}
+
+.playSlide {
+    padding-top: 42px;
+}
+
+.textIcon {
+    background-image: url("icons/html.png");
+}
+
+#turtleSpace {
+    text-align: center;
+}
+
+.canvasJacket {
+    background-color: white;
+    border: 1px solid black;
+}
+
+/*
+ * Arrows
+ */
+
+.efect-opacity (@before: 0.5, @after: 1) {
+    opacity: @before;
+    transition: opacity .5s ease-in-out;
+    -webkit-transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    -ms-transition: opacity .5s ease-in-out;
+
+    &:hover {
+        opacity: @after;
+    }
+}
+
+.arrow-e, .arrow-w {
+    position: absolute;
+    margin-top: 200px;
+    width: 35px;
+    height: 95px;
+    z-index: 20;
+    .efect-opacity;
+}
+
+.arrow-e {
+    right: 10px;
+    background-image: url("/images/eastArrow.png");
+}
+
+.arrow-w {
+    left: 10px;
+    background-image: url("/images/westArrow.png");
+}
+
+
+/*
+ * SoundManager player interface
+ */
+
+.player {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 32px;
+}
+
+.pause {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 5%;
+    height: 32px;
+    background-color: navy;
+}
+
+.seek {
+    position: absolute;
+    top: 0px;
+    left: 5%;
+    width: 95%;
+    height: 32px;
+    background-color: green;
+}
+
+.inseek {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0%;
+    height: 32px;
+    background-color: yellow;
+}

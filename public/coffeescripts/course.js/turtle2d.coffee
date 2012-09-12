@@ -1,7 +1,8 @@
 ##
 ## Imports
 ##
-ex = (exports ? this).examine
+ex = @examine ? require './examine'
+{Position, EmbeddedGraph} = @graph ? require './graph'
 
 ##
 ## Settings
@@ -65,9 +66,9 @@ class Turtle
     @actions = []
 
     # Graph for actual relative coordinates
-    @graph = new EmbeddedGraphWithGo(0, 0, @angle)
+    @graph = new EmbeddedGraph(0, 0, @angle)
 
-    @im = turtle.paper.image settings.turtleImage
+    @im = turtle2d.paper.image settings.turtleImage
                            , @startX - settings.turtleImageCorrection.x
                            , @startY - settings.turtleImageCorrection.y
                            , 20, 30
@@ -126,64 +127,6 @@ class Turtle
               , "linear"
               , => @runActions(callback, pos)
 
-class Position
-  constructor: (@x, @y, @angle, @penDown = true) ->
-
-  go: (steps) ->
-    [@x, @y] = computeCoords @x, @y, steps, @angle
-
-  rotate: (a) ->
-    @angle += a
-
-class EmbeddedGraphWithGo
-  constructor: (startX, startY, startAngle) ->
-    @vertices = []
-    @newVertex startX, startY
-
-    # Actual position
-    @pos = new Position startX, startY, startAngle
-
-  # Structure representing vertex on space
-  newVertex: (x, y) ->
-    newV =
-      x: x
-      y: y
-      edges: []
-    @vertices.push newV
-    newV
-
-  findVertex: (x, y) ->
-    _.find @vertices, (v) -> Math.abs(v.x - x) < 0.0001 and Math.abs(v.y - y) < 0.0001
-
-  go: (steps) ->
-    [oldX, oldY] = [@pos.x, @pos.y]
-    [newX, newY] = @pos.go steps
-    return unless @pos.penDown
-
-    oldV = @findVertex(oldX, oldY)
-    newV = @findVertex(newX, newY)
-
-    unless oldV?
-      oldV = @newVertex oldX, oldY
-
-    unless newV?
-      newV = @newVertex newX, newY
-
-    oldV.edges.push newV
-    newV.edges.push oldV
-
-  rotate: (a) ->
-    @pos.rotate a
-
-  degreeSequence: ->
-    (_.map @vertices, (v) -> v.edges.length).sort()
-
-
-computeCoords = (x,y,len,angle) ->
-  newX = x + len * Math.sin(angle / 360 * Math.PI * 2)
-  newY = y - len * Math.cos(angle / 360 * Math.PI * 2)
-  [newX,newY]
-
 environment =
   go: (steps) ->
     activeTurtle.addAction (MV steps)
@@ -194,7 +137,7 @@ environment =
     activeTurtle.graph.rotate angle
 
   left: (angle) ->
-    right -angle
+    @right -angle
 
   repeat: (n, f, args...) ->
     i = 0
@@ -202,11 +145,11 @@ environment =
 
   penUp: ->
     activeTurtle.addAction PU
-    activeTurtle.graph.pos.penDown = false
+    activeTurtle.graph.penUp()
 
   penDown: ->
     activeTurtle.addAction PD
-    activeTurtle.graph.pos.penDown = true
+    activeTurtle.graph.penDown()
 
   color: (col) ->
     activeTurtle.addAction (CO col)
@@ -241,18 +184,26 @@ drawLine = (fromX, fromY, toX, toY, aniTime) ->
   atSX = activeTurtle.startX
   atSY = activeTurtle.startY
 
-  turtle.paper.path("M#{fromX + atSX} #{fromY + atSY}L#{fromX + atSX} #{fromY + atSY}")
+  turtle2d.paper.path("M#{fromX + atSX} #{fromY + atSY}L#{fromX + atSX} #{fromY + atSY}")
     .attr(stroke: activeTurtle.color)
     .animate { path: "M#{fromX + atSX} #{fromY + atSY}L#{toX + atSX} #{toY + atSY}" }, aniTime
 
+clearPaper = ->
+  turtle2d.paper.clear()
+  turtle2d.paper
+    .rect(0, 0, settings.paperWidth, settings.paperHeight)
+    .attr fill: settings.paperBackgroundColor
 
-run = (code, canvas, shadow) ->
-  turtle.paper.remove()  if turtle.paper
+init = (canvas) ->
+  turtle2d.paper.remove() if turtle2d.paper
+  turtle2d.paper = Raphael(canvas, settings.paperWidth, settings.paperHeight)
+  clearPaper()
 
-  paper = Raphael(canvas, settings.paperWidth, settings.paperHeight)
-  turtle.paper = paper
-  paper.rect(0, 0, settings.paperWidth, settings.paperHeight)
-       .attr fill: settings.paperBackgroundColor
+  # Show turtle at the beginning
+  (new Turtle()).runActions (->)
+
+run = (code, shadow) ->
+  clearPaper()
 
   activeTurtle = new Turtle()
   activeTurtle.color =
@@ -265,17 +216,23 @@ run = (code, canvas, shadow) ->
 
   try
     activeTurtle.countTime()
-    turtle.lastDegreeSequence = activeTurtle.graph.degreeSequence()
+    turtle2d.sequences = activeTurtle.graph.sequences()
     activeTurtle.runActions (->)
   catch e
-    turtle.lastDegreeSequence = undefined
+    turtle2d.lastDegreeSequence = undefined
     console.log "Problem while turtle drawing."
     console.log e.toString()
   finally
     return result
 
-(exports ? this).turtle = {
-  lastDegreeSequence: null
+##
+## Exports
+##
+@turtle2d = {
+  sequences: null
+  paper: null
   settings
+  init
   run
 }
+module?.exports = @turtle2d

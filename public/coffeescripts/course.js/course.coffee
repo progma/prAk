@@ -1,3 +1,6 @@
+userCode = window.userCode ? {}
+lecturesDone = window.lecturesDone ? []
+
 $(document).ready(->
   soundManager.setup url: "/javascripts/soundManagerSwf"
   $.ajaxSetup
@@ -34,6 +37,7 @@ TurtleSlidesHelper =
       type: "code"
       text: slide.text
       code: slide.code
+      userCode: userCode[slide.name]
       drawTo: slide.name + "TurtleDen"
     ,
       name: slide.name + "TurtleDen"
@@ -46,6 +50,7 @@ TurtleSlidesHelper =
       type: "test"
       code: slide.name + "TextPad"
       go: slide.go
+      testDone: slide.name in lecturesDone
     ]
 
 
@@ -58,8 +63,6 @@ lectures =
   createLecture: (theDiv) ->
     slideList = $("<div>", { class: "slideList" })
     innerSlides = $("<div>", { class: "innerSlides" })
-    errorDiv = $ "<div>", class: "errorOutput"
-    errorDiv.appendTo theDiv
 
     name = @baseDir + theDiv.attr("slidedata")
 
@@ -72,7 +75,7 @@ lectures =
         return memo
       , []
 
-      newLecture = new lecture.Lecture name, data, theDiv, errorDiv
+      newLecture = new lecture.Lecture name, data, theDiv
 
       pageDesign.lectureAdd newLecture, innerSlides, slideList
       @ls.push newLecture

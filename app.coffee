@@ -11,6 +11,7 @@ MongoStore = require('connect-mongo')(express)
 passport = require('passport')
 passportUtils = require('./progma/passport')
 routes = require('./routes')
+ajaxRoute = require('./routes/ajax')
 settings = require('./progma/settings')
 
 app = express()
@@ -55,6 +56,7 @@ app.configure ->
   app.use passport.session()
 
   app.use app.router
+  app.use require('less-middleware')({ src: __dirname + '/public' })
   app.use express.static __dirname + '/public'
 
 app.configure 'development', ->
@@ -67,6 +69,9 @@ app.configure 'development', ->
 app.get '/', routes.index
 
 app.get '/course/:courseName', routes.course
+
+app.get '/sandbox', routes.sandbox
+app.get '/sandbox/:codeID', routes.sandbox
 
 app.get '/login', routes.login
 app.post '/login', passport.authenticate 'local',
@@ -93,6 +98,11 @@ app.get '/auth/facebook/return', passport.authenticate 'facebook',
   successRedirect: '/'
   failureRedirect: '/login'
   failureFlash: true
+
+app.post '/ajax/userCode', ajaxRoute.userCode
+app.post '/ajax/badget', ajaxRoute.badget
+app.post '/ajax/lectureDone', ajaxRoute.lectureDone
+
 
 #
 # Create server.
