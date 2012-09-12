@@ -104,6 +104,7 @@ courses =
           memo = memo.concat newSlides
         else
           lecture.lecture = lecture  # epic!
+          lecture.slides = [lecture]
           memo.push lecture
         return memo
       , []
