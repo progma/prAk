@@ -122,6 +122,7 @@ class Lecture
 
     slide = @findSlide slideName
     pageDesign.showSlide slide, order, isThereSecond, toRight
+    @updateHash slide.lecture
     @loadSlide slide
 
   hideSlide: (slideName, toLeft) ->
@@ -180,7 +181,7 @@ class Lecture
 
   back: ->
     if @historyStack.length == 0
-      alert "Toto je začátek kurzu."
+      alert "This is the beginning of the course. Try to move forward!"
       return
 
     nextSlides = @historyStack.pop()
@@ -200,6 +201,14 @@ class Lecture
         @showSlide slideName, i, @currentSlides.length > 1, false
       @currentSlide = slideName
 
+
+  # Hash is the part of URL after #
+  # TODO: This is going to need more systematic handling with respect to
+  #       - other possible course instances
+  #       - other scripts on the page
+  #       Right now (for prAk) it works fine, though.
+  updateHash: (lecture) ->
+    location.hash = "#" + lecture.name
 
   # Previews!
   showPreview: (slide) ->
