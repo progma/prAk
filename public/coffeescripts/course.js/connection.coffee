@@ -30,13 +30,17 @@ lectureDone = (course, lecture) ->
     }
     dataType: "json"
 
+whenWhereDictionary = {}
+
 log = (type, content) ->
+  whenWhereDictionary.time = new Date()
   $.ajax
     type: 'POST'
     url: url + "/ajax/log"
     data: {
       type
       content
+      whenWhere: whenWhereDictionary
     }
     dataType: "json"
 
@@ -45,4 +49,5 @@ log = (type, content) ->
   giveBadget
   lectureDone
   log
+  whenWhereDictionary
 }

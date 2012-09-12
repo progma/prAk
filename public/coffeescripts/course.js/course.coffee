@@ -122,6 +122,8 @@ courses =
       pageDesign.lectureAdd newCourse, innerSlides, slideList, infoPanel
       @list.push newCourse
       newCourse.showSlide `undefined`, 0, false, true
+
+      connection.whenWhereDictionary.course = name
     ).error ->
       slideList.html pageDesign.courseNAProblem name
       slideList.appendTo theDiv

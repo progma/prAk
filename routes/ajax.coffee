@@ -52,6 +52,7 @@ exports.log = (req, res) ->
   db.log.insert
     type: req.body.type
     content: req.body.content
+    whenWhere: req.body.whenWhere
   , (err) ->
     if err?
       console.log "cannot log"
