@@ -202,7 +202,7 @@ init = (canvas) ->
   # Show turtle at the beginning
   (new Turtle()).runActions (->)
 
-run = (code, shadow) ->
+run = (code, shadow, animate = true) ->
   clearPaper()
 
   activeTurtle = new Turtle()
@@ -215,9 +215,10 @@ run = (code, shadow) ->
     constants: constants
 
   try
-    activeTurtle.countTime()
     turtle2d.sequences = activeTurtle.graph.sequences()
-    activeTurtle.runActions (->)
+    if animate
+      activeTurtle.countTime()
+      activeTurtle.runActions (->)
   catch e
     turtle2d.lastDegreeSequence = undefined
     console.log "Problem while turtle drawing."

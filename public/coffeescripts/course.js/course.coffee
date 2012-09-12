@@ -42,6 +42,7 @@ TurtleSlidesHelper =
     ,
       name: slide.name + "TurtleDen"
       lectureName: slide.name
+      test: slide.test
       type: "turtleDen"
       go: "move"
     ,

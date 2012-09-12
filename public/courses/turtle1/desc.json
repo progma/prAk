@@ -110,6 +110,8 @@
             "type": "turtleTask",
             "text": "04-polygon.html",
             "expected": "04-polygon.turtle",
+            "test": "nuhelnik",
+            "code": "function.turtle",
             "go": "nextTwo"
         },
         {
