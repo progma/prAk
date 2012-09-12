@@ -112,7 +112,8 @@ updateSeekbar = ->
 
 # Only visible slides should be able to play sounds.
 stopSound = (slide) ->
-  slide.soundObject().stop()
+  if slide.soundObject()?
+    slide.soundObject().stop()
 
 
 (exports ? this).sound =
