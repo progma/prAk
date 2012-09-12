@@ -29,7 +29,7 @@ class Lecture
 
     # Display drawing areay with expected result
     else if slide.type == "turtleDen"
-      loadText @name + "/" + slide.lectureName + "/expected.turtle", (data) =>
+      loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
         @runCode data, @fullName + slide.name, false
 
         @expectedResult = turtle2d.sequences
@@ -38,7 +38,7 @@ class Lecture
       textDiv = $("<div>")
       textDiv.appendTo slide.div
 
-      loadText @name + "/" + slide.lectureName + "/text.html", (data) =>
+      loadText @name + "/" + slide.lecture.name + "/text.html", (data) =>
         textDiv.html data
         textDiv.height "80px"
 
@@ -79,7 +79,7 @@ class Lecture
       connection.sendUserCode
         code: code
         course: @courseName
-        lecture: @findSlide(@currentSlide).lectureName
+        lecture: @findSlide(@currentSlide).lecture.name
         mode: "turtle2d"
 
     @errorDiv.detach()
@@ -109,7 +109,7 @@ class Lecture
       slideI = _.indexOf @data.slides, slide
 
       unless @data.slides[slideI+1].testDone
-        connection.lectureDone @courseName, slide.lectureName
+        connection.lectureDone @courseName, slide.lecture.name
 
       @data.slides[slideI+1].testDone = true
       @forward()
@@ -143,7 +143,15 @@ class Lecture
     slide = @findSlide @currentSlide
     slideI = _.indexOf @data.slides, slide
 
-    switch slide.go
+    if slide.go == "nextLecture"
+      if slide.lecture.next.slides.length > 1
+        go = "nextTwo"
+      else
+        go = "nextOne"
+    else
+      go = slide.go
+
+    switch go
       when "nextOne"
         slide.next = [@data.slides[slideI+1].name]
       when "nextTwo"
