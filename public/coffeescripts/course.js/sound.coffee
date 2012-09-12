@@ -1,5 +1,4 @@
 slide      = undefined
-jsonTracks = undefined
 codeMirror = undefined
 turtleDiv  = undefined
 
@@ -26,22 +25,25 @@ playTalk = (sl, mediaRoot, fullName) ->
   slide.activeSoundObjectI = -1
   slide.soundObject = ->
     this.soundObjects[this.activeSoundObjectI]
-  playSound slide
+  playSound slide, 0
 
   pageDesign.addPlayer slide.div, pauseSound, seekSound
 
 createSoundObjects = (slide, mediaRoot, fullName) ->
   slide.soundObjects = []
   
-  for own sound of slide.talk
-    slide.soundObjects.push soundManager.createSound
+  for sound in slide.talk
+    newSound = soundManager.createSound
       id : sound.file
       url: mediaRoot + "/" + sound.file + ".mp3"
+    slide.soundObjects.push newSound
 
     $.getJSON mediaRoot + "/" + sound.file + ".json", (recordingTracks) ->
-      jsonTracks = recordingTracks
+      console.log "ok!" + sound.file
+      sound.tracks = recordingTracks
       for t in tracks
-        addEventsToManager slide, t, recordingTracks[t], fullName, _.last slide.soundObjects
+        addEventsToManager slide, t, recordingTracks[t], fullName, newSound
+    .error -> console.log "not ok!"
 
 addEventsToManager = (slide, trackName, track, fullName, soundObject) ->
   $.map track, (event) =>
@@ -50,28 +52,28 @@ addEventsToManager = (slide, trackName, track, fullName, soundObject) ->
         codeMirror: codeMirror=slide.cm
         turtleDiv: turtleDiv=document.getElementById("#{fullName}#{slide.drawTo}")
 
-playSound = (slide) ->
-  slide.activeSoundObjectI++
+playSound = (slide, ith) ->
+  slide.activeSoundObjectI = ith
   if slide.activeSoundObjectI < slide.soundObjects.length
-    slide.soundObjects[0].play(
+    slide.soundObject().play(
       whileplaying: updateSeekbar
-      onfinish: playSound slide
+      onfinish: -> playSound slide, ith+1
     )
 
 pauseSound = (e) ->
-  if slide.soundObject.paused
-    slide.soundObject.play()
+  if slide.soundObject().paused
+    slide.soundObject().play()
   else
-    slide.soundObject.pause()
+    slide.soundObject().pause()
 
 seekSound  = (e) ->
   xcord = e.pageX - slide.div.offset().left  # 22-420
-  pos   = (xcord - 22) / 400 * slide.soundObject.duration
-  slide.soundObject.setPosition pos
+  pos   = (xcord - 22) / 400 * slide.soundObject().duration
+  slide.soundObject().setPosition pos
   
   for track in tracks
-    for event in jsonTracks[track]
-      if event.time < slide.soundObject.position
+    for event in slide.talk[slide.activeSoundObjectI].tracks[track]
+      if event.time < slide.soundObject().position
         theEvent = event
     continue unless theEvent?
     
@@ -80,12 +82,12 @@ seekSound  = (e) ->
       turtleDiv: turtleDiv
   
 updateSeekbar = ->
-  perc = slide.soundObject.position * 100 / slide.soundObject.duration
+  perc = slide.soundObject().position * 100 / slide.soundObject().duration
   slide.div.find(".inseek").width(perc + "%")
 
 # Only visible slides should be able to play sounds.
 stopSound = (slide) ->
-  slide.soundObject.stop()
+  slide.soundObject().stop()
 
 
 (exports ? this).sound =
