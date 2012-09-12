@@ -15,7 +15,9 @@ playbook =
                                 value.y / value.height * destination.height
 
   evaluatedCode: (value, targets) ->
-    turtle.run value, targets.turtleDiv
+    turtle2d.init targets.turtleDiv
+    turtle2d.run value
 
-(exports ? this).playbook =
+@playbook =
   playbook: playbook
+module?.exports = @playbook

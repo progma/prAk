@@ -4,5 +4,10 @@ block body
     script
         window.userCode = !{codes};
         window.serverURL = "!{serverURL}";
-        window.lecturesDone = !{JSON.stringify(user ? user.lecturesDone[courseName] : [])};
+        window.lecturesDone = !{lecturesDone};
     div(id='courseDiv', class='slides', slidedata='/courses/#{courseName}/')
+
+block scripts
+    script(src="/javascripts/course.js/lecture.js")
+    script(src="/javascripts/course.js/sound.js")
+    script(src="/javascripts/course.js/course.js")
