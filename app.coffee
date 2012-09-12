@@ -102,7 +102,7 @@ app.get '/auth/facebook/return', passport.authenticate 'facebook',
 app.post '/ajax/userCode', ajaxRoute.userCode
 app.post '/ajax/badget', ajaxRoute.badget
 app.post '/ajax/lectureDone', ajaxRoute.lectureDone
-
+app.post '/ajax/log', ajaxRoute.log
 
 #
 # Create server.

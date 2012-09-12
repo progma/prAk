@@ -30,8 +30,21 @@ lectureDone = (course, lecture) ->
     }
     dataType: "json"
 
+log = (type, content) ->
+  console.log type
+  console.log content
+  $.ajax
+    type: 'POST'
+    url: url + "/ajax/log"
+    data: {
+      type
+      content
+    }
+    dataType: "json"
+
 @connection = {
   sendUserCode
   giveBadget
   lectureDone
+  log
 }
