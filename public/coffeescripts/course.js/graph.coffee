@@ -14,6 +14,12 @@ computeCoords = (x,y,len,angle) ->
   newY = y - len * Math.cos(angle / 360 * Math.PI * 2)
   [newX,newY]
 
+normalizeAngle = (a) ->
+  a %= 2 * Math.PI
+  if a < 0
+    a += 2*Math.PI
+  a
+
 # We assume positive length of neighs
 computeAngles = ({x,y}, neighs) ->
   return [0] if neighs.length == 1
@@ -22,10 +28,10 @@ computeAngles = ({x,y}, neighs) ->
 
   fst = last = tmp.shift()
   for a in tmp
-    angles.push a - last
+    angles.push normalizeAngle(a - last)
     last = a
 
-  angles.push 2*Math.PI + fst - last
+  angles.push normalizeAngle(fst - last)
   angles
 
 
@@ -145,8 +151,8 @@ class EmbeddedGraph
         dists.push Math.sqrt dist {x,y}, p for p in neighs
 
     return {
-      angleSequence: angles.sort()
-      degreeSequence: degrees.sort()
+      anglesSequence: angles.sort()
+      degreesSequence: degrees.sort()
       distancesSequence: dists.sort()
     }
 
@@ -237,6 +243,13 @@ class EmbeddedGraph
 
     @lineSegments = @lineSegments.concat M, newLSs
 
+almostEqual = (s1, s2) ->
+  return false unless s1.length == s2.length
+
+  for i in [0...s1.length]
+    return false unless approxZero s1[i] - s2[i]
+
+  true
 
 ##
 ## Exports
@@ -245,5 +258,8 @@ class EmbeddedGraph
   Position
   LineSegment
   EmbeddedGraph
+
+  # Compares two sorted sequences of distances or angles
+  almostEqual
 }
 module?.exports = @graph

@@ -68,7 +68,7 @@ class Turtle
     # Graph for actual relative coordinates
     @graph = new EmbeddedGraph(0, 0, @angle)
 
-    @im = turtle.paper.image settings.turtleImage
+    @im = turtle2d.paper.image settings.turtleImage
                            , @startX - settings.turtleImageCorrection.x
                            , @startY - settings.turtleImageCorrection.y
                            , 20, 30
@@ -184,18 +184,26 @@ drawLine = (fromX, fromY, toX, toY, aniTime) ->
   atSX = activeTurtle.startX
   atSY = activeTurtle.startY
 
-  turtle.paper.path("M#{fromX + atSX} #{fromY + atSY}L#{fromX + atSX} #{fromY + atSY}")
+  turtle2d.paper.path("M#{fromX + atSX} #{fromY + atSY}L#{fromX + atSX} #{fromY + atSY}")
     .attr(stroke: activeTurtle.color)
     .animate { path: "M#{fromX + atSX} #{fromY + atSY}L#{toX + atSX} #{toY + atSY}" }, aniTime
 
+clearPaper = ->
+  turtle2d.paper.clear()
+  turtle2d.paper
+    .rect(0, 0, settings.paperWidth, settings.paperHeight)
+    .attr fill: settings.paperBackgroundColor
 
-run = (code, canvas, shadow) ->
-  turtle.paper.remove()  if turtle.paper
+init = (canvas) ->
+  turtle2d.paper.remove() if turtle2d.paper
+  turtle2d.paper = Raphael(canvas, settings.paperWidth, settings.paperHeight)
+  clearPaper()
 
-  paper = Raphael(canvas, settings.paperWidth, settings.paperHeight)
-  turtle.paper = paper
-  paper.rect(0, 0, settings.paperWidth, settings.paperHeight)
-       .attr fill: settings.paperBackgroundColor
+  # Show turtle at the beginning
+  (new Turtle()).runActions (->)
+
+run = (code, shadow) ->
+  clearPaper()
 
   activeTurtle = new Turtle()
   activeTurtle.color =
@@ -208,10 +216,10 @@ run = (code, canvas, shadow) ->
 
   try
     activeTurtle.countTime()
-    turtle.lastDegreeSequence = activeTurtle.graph.sequences().degreeSequence
+    turtle2d.sequences = activeTurtle.graph.sequences()
     activeTurtle.runActions (->)
   catch e
-    turtle.lastDegreeSequence = undefined
+    turtle2d.lastDegreeSequence = undefined
     console.log "Problem while turtle drawing."
     console.log e.toString()
   finally
@@ -220,9 +228,11 @@ run = (code, canvas, shadow) ->
 ##
 ## Exports
 ##
-@turtle = {
-  lastDegreeSequence: null
+@turtle2d = {
+  sequences: null
+  paper: null
   settings
+  init
   run
 }
-module?.exports = @turtle
+module?.exports = @turtle2d

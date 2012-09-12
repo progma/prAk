@@ -3,20 +3,22 @@ db = require('../progma/mongo').db
 db.bind('userCode')
 
 exports.userCode = (req, res) ->
-  if req.user? && req.body?.code
+  if req.body?.code
     codeObj =
-      user_id: req.user.id
+      user_id: if req.user? then req.user.id else ""
       date: new Date()
       code: req.body.code
-      lecture: req.body.lecture
+      lecture: req.body.lecture ? ""
       course: req.body.course ? "sandbox"
-      # name: ... TODO generate some if course is sandbox
+      mode: req.body.mode
 
     db.userCode.insert codeObj, (err) ->
       if err?
         console.log "problem during saving codeObj"
 
-    # TODO dont discard code from nonregistered users
+    # TODO code from unregistered users mark with session id
+
+  res.send 200
 
 exports.badget = (req, res) ->
   if req.user?
@@ -27,6 +29,8 @@ exports.badget = (req, res) ->
       req.user.achievements.push req.body.name
 
     users.updateUser req.user
+
+  res.send 200
 
 exports.lectureDone = (req, res) ->
   if req.user?
@@ -40,5 +44,7 @@ exports.lectureDone = (req, res) ->
       req.user.lecturesDone[req.body.course].push req.body.lecture
 
     users.updateUser req.user
+
+  res.send 200
 
 # TODO deal with unregistered users via session
