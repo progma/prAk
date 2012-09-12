@@ -12,39 +12,33 @@
             "talk": [
                 {
                     "file": "01-ctverec-01",
-                    "time": 38000
+                    "time": 37724
                 },
                 {
                     "file": "01-ctverec-02-take03",
-                    "time": 89000
+                    "time": 88573
                 },
                 {
                     "file": "01-ctverec-03-take01",
-                    "time": 76000
+                    "time": 75604
                 }
             ]
         },
         {
             "name": "sestiuhelnik",
-            "type": "turtleTask",
-            "text": "01-sestiuhelnik.html",
-            "expected": "01-sestiuhelnik.turtle"
+            "type": "turtleTask"
         },
         {
             "name": "function",
             "type": "turtleTalk",
             "talk": [
                 {
-                    "file": "01-ctverec-01",
-                    "time": 38000
+                    "file": "02-function-01-take01",
+                    "time": 145593
                 },
                 {
-                    "file": "01-ctverec-02-take03",
-                    "time": 89000
-                },
-                {
-                    "file": "01-ctverec-03-take01",
-                    "time": 76000
+                    "file": "02-function-02-take01",
+                    "time": 124830
                 }
             ]
         },
@@ -53,71 +47,44 @@
             "type": "turtleTalk",
             "talk": [
                 {
-                    "file": "01-ctverec-01",
-                    "time": 38000
+                    "file": "03-repeat-01-take01",
+                    "time": 64849
                 },
                 {
-                    "file": "01-ctverec-02-take03",
-                    "time": 89000
-                },
-                {
-                    "file": "01-ctverec-03-take01",
-                    "time": 76000
+                    "file": "01-repeat-02-take01",
+                    "time": 92094
                 }
             ]
         },
         {
             "name": "cell",
-            "type": "turtleTask",
-            "text": "03-cell.html",
-            "expected": "03-cell.turtle"
+            "type": "turtleTask"
         },
         {
             "name": "argument",
             "type": "turtleTalk",
             "talk": [
                 {
-                    "file": "01-ctverec-01",
-                    "time": 38000
+                    "file": "04-argument-01-take01",
+                    "time": 99550
                 },
                 {
-                    "file": "01-ctverec-02-take03",
-                    "time": 89000
-                },
-                {
-                    "file": "01-ctverec-03-take01",
-                    "time": 76000
+                    "file": "04-argument-02-take01",
+                    "time": 68849
                 }
             ]
         },
         {
-            "name": "house",
-            "type": "turtleTask",
-            "text": "04-house.html",
-            "code": "04-house.start.turtle",
-            "expected": "04-house.turtle"
-        },
-        {
             "name": "polygon",
-            "type": "turtleTask",
-            "text": "04-polygon.html",
-            "expected": "04-polygon.turtle"
+            "type": "turtleTask"
         },
         {
             "name": "kruznice",
             "type": "turtleTalk",
             "talk": [
                 {
-                    "file": "01-ctverec-01",
-                    "time": 38000
-                },
-                {
-                    "file": "01-ctverec-02-take03",
-                    "time": 89000
-                },
-                {
-                    "file": "01-ctverec-03-take01",
-                    "time": 76000
+                    "file": "05-kruznice-01-take01",
+                    "time": 42719
                 }
             ]
         },
