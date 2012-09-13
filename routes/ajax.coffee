@@ -1,11 +1,15 @@
 users = require '../progma/users'
 db = require('../progma/mongo').db
 db.bind('userCode')
+db.bind('log')
+
+getUserID = (req) ->
+  if req.user? then req.user.id else ""
 
 exports.userCode = (req, res) ->
   if req.body?.code
     codeObj =
-      user_id: if req.user? then req.user.id else ""
+      user_id: getUserID req
       date: new Date()
       code: req.body.code
       lecture: req.body.lecture ? ""
@@ -44,6 +48,18 @@ exports.lectureDone = (req, res) ->
       req.user.lecturesDone[req.body.course].push req.body.lecture
 
     users.updateUser req.user
+
+  res.send 200
+
+exports.log = (req, res) ->
+  db.log.insert
+    user_id: getUserID req
+    type: req.body.type
+    content: req.body.content
+    whenWhere: req.body.whenWhere
+  , (err) ->
+    if err?
+      console.log "cannot log"
 
   res.send 200
 

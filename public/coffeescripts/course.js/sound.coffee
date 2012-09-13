@@ -106,6 +106,10 @@ updateSeekbar = ->
   perc = (previousTime + slide.soundObject().position) * 100 / tTime
   slide.div.find(".inseek").width(perc + "%")
 
+  connection.whenWhereDictionary.talk =
+    name: slide.talk[slide.activeSoundObjectI].file
+    time: slide.soundObject().position
+
 # Only visible slides should be able to play sounds.
 stopSound = (slide) ->
   slide.soundObject().stop()

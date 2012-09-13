@@ -123,6 +123,7 @@ class Lecture
     slide = @findSlide slideName
     pageDesign.showSlide slide, order, isThereSecond, toRight
     @updateHash slide.lecture
+    connection.whenWhereDictionary.lecture = slide.lecture.name
     @loadSlide slide
 
   hideSlide: (slideName, toLeft) ->
