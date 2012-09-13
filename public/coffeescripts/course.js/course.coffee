@@ -8,6 +8,8 @@ $(document).ready(->
   $("div[slidedata]").each (i, div) ->
     courses.createCourse $(div)
   window.courses = courses    # nice to have in debugging process
+  window.onerror = (message, url, line) ->
+    connection.log "jsError", { message: message, url: url, line: line }
 )
 
 
@@ -89,6 +91,7 @@ courses =
   createCourse: (theDiv) ->
     slideList = $("<div>", { class: "slideList" })
     innerSlides = $("<div>", { class: "innerSlides" })
+    infoPanel = $("<div>", { class: "infoPanel" })
 
     name = @baseDir + theDiv.attr("slidedata")
 
@@ -117,9 +120,11 @@ courses =
 
       newCourse = new lecture.Lecture name, data, theDiv
 
-      pageDesign.lectureAdd newCourse, innerSlides, slideList
+      pageDesign.lectureAdd newCourse, innerSlides, slideList, infoPanel
       @list.push newCourse
       newCourse.showSlide `undefined`, 0, false, true
+
+      connection.whenWhereDictionary.course = name
     ).error ->
       slideList.html pageDesign.courseNAProblem name
       slideList.appendTo theDiv

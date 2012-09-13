@@ -30,12 +30,45 @@
     background-color: @courseBackground;
 }
 
+.infoPanel {
+    width: 100%;
+    height: 46px;
+    background-color: lighten(@filmStock, 50%);
+    color: black;
+    text-align: center;
+    padding: 2px;
+    .rounded-corners(4px);
+}
+
+.thumbUp {
+    display: inline-block;
+    width: 26px;
+    height: 30px;
+    background-image: url('/images/thumbUp.png');
+    background-color: lighten(@filmStock, 50%);
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.thumbDown {
+    display: inline-block;
+    width: 26px;
+    height: 30px;
+    background-image: url('/images/thumbDown.png');
+    background-color: lighten(@filmStock, 50%);
+    margin-right: 10px;
+}
+
+.commentary {
+    margin-top: 8px;
+}
+
 .slideList {
     width: 100%;
     height: 38px;
     background-color: @filmStock;
     text-align: center;
-	padding: 2px;
+    padding: 2px;
     .rounded-corners(8px);
 }
 
