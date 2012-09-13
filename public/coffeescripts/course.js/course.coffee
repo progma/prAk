@@ -48,12 +48,11 @@ TurtleSlidesHelper =
       lecture: lecture
       type: "code"
       talk: lecture.talk
-      run: "turtle.run"
       drawTo: lecture.name + "TurtleDen"
     ,
       name: lecture.name + "TurtleDen"
       lecture: lecture
-      type: "html"
+      type: "turtleDen"
       go: lecture.go ? "nextLecture"
     ]
 
@@ -62,8 +61,6 @@ TurtleSlidesHelper =
       name: lecture.name + "TextPad"
       lecture: lecture
       type: "code"
-      text: lecture.text
-      code: lecture.code
       userCode: userCode[lecture.name]
       drawTo: lecture.name + "TurtleDen"
     ,
@@ -111,7 +108,7 @@ courses =
           memo.push lecture
         return memo
       , []
-      
+
       # create convinient pointers to next and previous slide/lecture
       for array in [data.lectures, data.slides]
         for li in [0...array.length]
