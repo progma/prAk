@@ -18,7 +18,7 @@ tracks = [
 
 playTalk = (sl, mediaRoot, fullName) ->
   slide = sl
-  
+
   unless slide.soundObjects?
     createSoundObjects slide, mediaRoot, fullName
 
@@ -41,12 +41,11 @@ createSoundObjects = (slide, mediaRoot, fullName) ->
       url: mediaRoot + "/" + sound.file + ".mp3"
     slide.soundObjects.push newSoundManager
 
-    ((sound, newSoundManager) -> 
+    do (sound, newSoundManager) ->
       $.getJSON mediaRoot + "/" + sound.file + ".json", (recordingTracks) ->
         sound.tracks = recordingTracks
         for t in tracks
           addEventsToManager slide, t, recordingTracks[t], fullName, newSoundManager
-    )(sound, newSoundManager)
 
 addEventsToManager = (slide, trackName, track, fullName, soundObject) ->
   $.map track, (event) =>
@@ -88,14 +87,14 @@ seekSound  = (e) ->
   pos = totalPos - remaining
 
   slide.soundObject().stop()
-  playSound slide, i, pos 
+  playSound slide, i, pos
 
   for track in tracks
     for event in slide.talk[slide.activeSoundObjectI].tracks[track]
       if event.time < slide.soundObject().position
         theEvent = event
     continue unless theEvent?
-    
+
     playbook.playbook[track] theEvent.value,
       codeMirror: codeMirror
       turtleDiv: turtleDiv
@@ -116,6 +115,7 @@ stopSound = (slide) ->
     slide.soundObject().stop()
 
 
-(exports ? this).sound =
-  playTalk: playTalk
-  stopSound: stopSound
+@sound = {
+  playTalk
+  stopSound
+}
