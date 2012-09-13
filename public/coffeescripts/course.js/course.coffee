@@ -116,7 +116,7 @@ courses =
 
       pageDesign.lectureAdd newCourse, innerSlides, slideList
       @list.push newCourse
-      newCourse.startCourse `undefined`, 0, false, true
+      newCourse.startCourse location.hash.replace('#', '')
     ).error ->
       slideList.html pageDesign.courseNAProblem name
       slideList.appendTo theDiv

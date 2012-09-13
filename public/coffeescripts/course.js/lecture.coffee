@@ -5,6 +5,25 @@ loadText = (name, callback, errorHandler = null) ->
     ).done(callback)
      .error(errorHandler)
 
+nextSlides = (slide) ->
+  if slide.go == "nextLecture"
+    if slide.lecture.next.slides.length > 1
+      go = "nextTwo"
+    else
+      go = "nextOne"
+  else
+    go = slide.go
+
+  switch go
+    when "nextOne"
+      [slide.next]
+    when "nextTwo"
+      [slide.next, slide.next.next]
+    when "move"
+      [slide, slide.next]
+    else
+      false
+
 
 class Lecture
   constructor: (@name, @data, @div) ->
@@ -63,9 +82,10 @@ class Lecture
       textDiv = $("<div>")
       textDiv.appendTo slide.div
 
-      loadText @name + "/" + slide.lecture.name + "/text.html", (data) =>
-        textDiv.html data
-        textDiv.height "80px"
+      unless slide.lecture.talk?
+        loadText @name + "/" + slide.lecture.name + "/text.html", (data) =>
+          textDiv.html data
+          textDiv.height "80px"
 
       cm = new CodeMirror slide.div.get(0),
             lineNumbers: true
@@ -92,7 +112,8 @@ class Lecture
       ).appendTo slide.div
 
       if slide.talk?
-        sound.playTalk slide, @data.mediaRoot, @fullName
+        soundManager.onready =>
+          sound.playTalk slide, @data.mediaRoot, @fullName
 
     else if slide.type == "test"
       if slide.testDone
@@ -156,14 +177,34 @@ class Lecture
     @forward()
 
   # Following four functions moves slides' DIVs to proper places.
-  startCourse: (slideName, order, isThereSecond, toRight) ->
+  startCourse: (slideName) ->
+    if slideName
+      @currentSlide = @findSlide slideName, true
+
+      if @currentSlide == false
+        slideName = "" # search failed, start with first slide
+      else
+        # @currentSlide is the slide displayed on the right, so it's the second
+        # one in lectures with more than one slide
+        if @currentSlide.lecture.slides.length > 1
+          @currentSlide = @currentSlide.next
+
+        slide = @data.slides[0]
+        @currentSlides = [slide]
+
+        # Fill @historyStack and @currentSlides
+        while slide.name != @currentSlide.name
+          @historyStack.push @currentSlides
+          @currentSlides = nextSlides slide
+          slide = _.last @currentSlides
+
     if !slideName
       @currentSlide  = @data.slides[0]
       slideName = @currentSlide.name
       @currentSlides = [@currentSlide]
 
-    slide = @findSlide slideName
-    @showSlide slide, order, isThereSecond, toRight
+    $.each @currentSlides, (i, slideIt) =>
+      @showSlide @currentSlides[i], i, @currentSlides.length > 1, true
 
   showSlide: (slide, order, isThereSecond, toRight) ->
     pageDesign.showSlide slide, order, isThereSecond, toRight
@@ -184,25 +225,11 @@ class Lecture
   # Following two functions handle the first response to a user's click.
   forward: ->
     slide = @currentSlide
+    next = nextSlides slide
 
-    if slide.go == "nextLecture"
-      if slide.lecture.next.slides.length > 1
-        go = "nextTwo"
-      else
-        go = "nextOne"
-    else
-      go = slide.go
-
-    switch go
-      when "nextOne"
-        next = [slide.next]
-      when "nextTwo"
-        next = [slide.next, slide.next.next]
-      when "move"
-        next = [@currentSlide, slide.next]
-      else
-        alert "Toto je konec kurzu."
-        return
+    if next == false
+      alert "Toto je konec kurzu."
+      return
 
     @historyStack.push @currentSlides
 
@@ -225,18 +252,18 @@ class Lecture
       alert "This is the beginning of the course. Try to move forward!"
       return
 
-    nextSlides = @historyStack.pop()
+    next = @historyStack.pop()
     beforeSlides = @currentSlides
 
     $.each @currentSlides, (i, slideIt) =>
-      if  nextSlides.length     > 1     and
+      if  next.length     > 1     and
           @currentSlides.length > 1     and
-          slideIt.name == nextSlides[1].name
+          slideIt.name == next[1].name
         @moveSlide slideIt, false
       else
         @hideSlide slideIt, false
 
-    @currentSlides = nextSlides
+    @currentSlides = next
     $.each @currentSlides, (i, slideIt) =>
       if slideIt.name != beforeSlides[0].name
         @showSlide slideIt, i, @currentSlides.length > 1, false
@@ -264,12 +291,19 @@ class Lecture
 
 
   # Finds the slide with a given name.
-  findSlide: (slideName) ->
+  #
+  # If byLectureName is true, we search by lecture name and the first slide of
+  # the lecture is returned.
+  findSlide: (name, byLectureName = false) ->
     i = 0
 
     while i < @data.slides.length
-      return @data.slides[i]  if @data.slides[i].name == slideName
+      if (!byLectureName and @data.slides[i].name == name) or
+          (byLectureName and @data.slides[i].lecture.name == name)
+        return @data.slides[i]
       i++
+
+    false
 
 @lecture = {
   Lecture
