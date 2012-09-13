@@ -3,10 +3,13 @@ db = require('../progma/mongo').db
 db.bind('userCode')
 db.bind('log')
 
+getUserID = (req) ->
+  if req.user? then req.user.id else ""
+
 exports.userCode = (req, res) ->
   if req.body?.code
     codeObj =
-      user_id: if req.user? then req.user.id else ""
+      user_id: getUserID req
       date: new Date()
       code: req.body.code
       lecture: req.body.lecture ? ""
@@ -50,6 +53,7 @@ exports.lectureDone = (req, res) ->
 
 exports.log = (req, res) ->
   db.log.insert
+    user_id: getUserID req
     type: req.body.type
     content: req.body.content
     whenWhere: req.body.whenWhere
