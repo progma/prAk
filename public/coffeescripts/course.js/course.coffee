@@ -116,7 +116,7 @@ courses =
 
       pageDesign.lectureAdd newCourse, innerSlides, slideList
       @list.push newCourse
-      newCourse.showSlide `undefined`, 0, false, true
+      newCourse.startCourse `undefined`, 0, false, true
     ).error ->
       slideList.html pageDesign.courseNAProblem name
       slideList.appendTo theDiv

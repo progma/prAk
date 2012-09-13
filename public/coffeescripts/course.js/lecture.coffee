@@ -101,13 +101,13 @@ class Lecture
         slide.div.html pageDesign.testNotDoneResultPage
 
   runCode: (code, isUserCode = true) ->
-    slide = @findSlide @currentSlide
+    slide = @currentSlide
 
     if isUserCode
       connection.sendUserCode
         code: code
         course: @courseName
-        lecture: @findSlide(@currentSlide).lecture.name
+        lecture: slide.lecture.name
         mode: slide.lecture.mode ? "turtle2d"
 
     @errorDiv.html pageDesign.codeIsRunning if isUserCode
@@ -155,20 +155,22 @@ class Lecture
     slide.next.testDone = true
     @forward()
 
-  # Following three functions moves slides' DIVs to proper places.
-  showSlide: (slideName, order, isThereSecond, toRight) ->
-    if (!slideName)
-      @currentSlide  = slideName = @data.slides[0].name
+  # Following four functions moves slides' DIVs to proper places.
+  startCourse: (slideName, order, isThereSecond, toRight) ->
+    if !slideName
+      @currentSlide  = @data.slides[0]
+      slideName = @currentSlide.name
       @currentSlides = [@currentSlide]
 
     slide = @findSlide slideName
+    @showSlide slide, order, isThereSecond, toRight
+
+  showSlide: (slide, order, isThereSecond, toRight) ->
     pageDesign.showSlide slide, order, isThereSecond, toRight
     @updateHash slide.lecture
     @loadSlide slide
 
-  hideSlide: (slideName, toLeft) ->
-    slide = @findSlide slideName
-
+  hideSlide: (slide, toLeft) ->
     # Deactivate slide
     sound.stopSound slide if slide.soundObject
     slide.userCode = slide.cm.getValue() if slide.cm?
@@ -176,14 +178,12 @@ class Lecture
 
     pageDesign.hideSlide slide, toLeft
 
-  moveSlide: (slideName, toLeft) ->
-    slide = @findSlide slideName
+  moveSlide: (slide, toLeft) ->
     pageDesign.moveSlide slide, toLeft
 
   # Following two functions handle the first response to a user's click.
   forward: ->
-    slide = @findSlide @currentSlide
-    slideI = _.indexOf @data.slides, slide
+    slide = @currentSlide
 
     if slide.go == "nextLecture"
       if slide.lecture.next.slides.length > 1
@@ -195,28 +195,27 @@ class Lecture
 
     switch go
       when "nextOne"
-        next = [slide.next.name]
+        next = [slide.next]
       when "nextTwo"
-        next = [slide.next.name, slide.next.next.name]
+        next = [slide.next, slide.next.next]
       when "move"
-        next = [@currentSlide, slide.next.name]
+        next = [@currentSlide, slide.next]
       else
-        if !next?
-          alert "Toto je konec kurzu."
-          return
+        alert "Toto je konec kurzu."
+        return
 
     @historyStack.push @currentSlides
 
-    $.each @currentSlides, (i, slideName) =>
-      if slideName == next[0]
-        @moveSlide slideName, true
+    $.each @currentSlides, (i, slideIt) =>
+      if slideIt == next[0]
+        @moveSlide slideIt, true
       else
-        @hideSlide slideName, true
+        @hideSlide slideIt, true
 
-    $.each next, (i, slideName) =>
-      if slideName != _.last @currentSlides
-        @showSlide slideName, i, next.length > 1, true
-      @currentSlide = slideName
+    $.each next, (i, slideIt) =>
+      if slideIt.name != (_.last @currentSlides).name
+        @showSlide slideIt, i, next.length > 1, true
+      @currentSlide = slideIt
 
     @currentSlides = next
     @resetElements()
@@ -229,19 +228,19 @@ class Lecture
     nextSlides = @historyStack.pop()
     beforeSlides = @currentSlides
 
-    $.each @currentSlides, (i, slideName) =>
+    $.each @currentSlides, (i, slideIt) =>
       if  nextSlides.length     > 1     and
           @currentSlides.length > 1     and
-          slideName == nextSlides[1]
-        @moveSlide slideName, false
+          slideIt.name == nextSlides[1].name
+        @moveSlide slideIt, false
       else
-        @hideSlide slideName, false
+        @hideSlide slideIt, false
 
     @currentSlides = nextSlides
-    $.each @currentSlides, (i, slideName) =>
-      if slideName != beforeSlides[0]
-        @showSlide slideName, i, @currentSlides.length > 1, false
-      @currentSlide = slideName
+    $.each @currentSlides, (i, slideIt) =>
+      if slideIt.name != beforeSlides[0].name
+        @showSlide slideIt, i, @currentSlides.length > 1, false
+      @currentSlide = slideIt
 
     @resetElements()
 
