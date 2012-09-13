@@ -134,6 +134,12 @@ courseNAProblem = (name) -> """
     Course at '""" + name + """' is not available.
   """
 
+wrongAnswer = """
+  Program vrátil nesprávnou hodnotu při následujících arugemntech: 
+  """
+
+codeIsRunning = "Běží výpočet."
+
 @pageDesign = {
   lectureAdd
 
@@ -148,4 +154,6 @@ courseNAProblem = (name) -> """
   testNotDoneResultPage
   loadProblem
   courseNAProblem
+  wrongAnswer
+  codeIsRunning
 }

@@ -12,6 +12,11 @@ class Lecture
     @fullName = (@div.attr "id") + @name.replace "/", ""
     @errorDiv = $ "<div>", class: "errorOutput"
 
+    @turtle = null
+    @turtle3dDiv = $ "<div>", class: "canvasJacket"
+    @turtle3dCanvas = $ "<canvas>", id: "turtle3dCanvas"
+    @turtle3dDiv.append @turtle3dCanvas
+
     # This is where we keep notion about what to do if a user hit the back
     # arrow.
     @historyStack = new Array()
@@ -29,10 +34,30 @@ class Lecture
 
     # Display drawing areay with expected result
     else if slide.type == "turtleDen"
-      loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
-        @runCode data, @fullName + slide.name, false
+      output = document.getElementById @fullName + slide.name
 
-        @expectedResult = turtle2d.sequences
+      switch slide.lecture.mode
+        when "turtle3d"
+          @turtle = turtle3d
+          @turtle3dDiv.appendTo output
+          @turtle.init $('#turtle3dCanvas').get(0) # @turtle3dCanvas
+        # when "game" ...
+        else
+          @turtle = turtle2d
+          @turtle.init output
+
+      @errorDiv.prependTo output
+
+      unless slide.lecture.talk?
+        loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
+          @expectedCode = data
+
+          if slide.lecture.test?
+            f = tests[slide.lecture.test+"Beforehand"]
+            f(data) if f?
+          else
+            @runCode data, false
+            @expectedResult = turtle2d.sequences
 
     else if slide.type == "code"
       textDiv = $("<div>")
@@ -50,8 +75,9 @@ class Lecture
 
       if slide.userCode
         cm.setValue slide.userCode
-      else if slide.code
-        loadText @name + "/" + slide.code, (data) =>
+      else if slide.lecture.code
+        loadText @name + "/#{slide.lecture.name}/#{slide.lecture.code}"
+        , (data) =>
           cm.setValue data
           slide.userCode = data
 
@@ -62,7 +88,7 @@ class Lecture
         text: "Spustit kód"
         class: if slide.talk? then "hidden" else "btn"
         click: =>
-          @runCode cm.getValue(), @fullName + slide.drawTo
+          @runCode cm.getValue()
       ).appendTo slide.div
 
       if slide.talk?
@@ -74,45 +100,60 @@ class Lecture
       else
         slide.div.html pageDesign.testNotDoneResultPage
 
-  runCode: (code, outputDivID, isUserCode = true) ->
+  runCode: (code, isUserCode = true) ->
+    slide = @findSlide @currentSlide
+
     if isUserCode
       connection.sendUserCode
         code: code
         course: @courseName
         lecture: @findSlide(@currentSlide).lecture.name
-        mode: "turtle2d"
+        mode: slide.lecture.mode ? "turtle2d"
 
-    @errorDiv.detach()
-    output = document.getElementById outputDivID
-    turtle2d.init output
+    @errorDiv.html pageDesign.codeIsRunning if isUserCode
 
-    @lastResult = turtle2d.run code, isUserCode == false
+    if isUserCode && slide.lecture.test?
+      setTimeout =>
+          lastResult = tests[slide.lecture.test](code, @expectedCode)
+          if lastResult == true
+            @lectureDone slide
+            @errorDiv.html ""
+          else
+            @handleFailure lastResult
+        , 0
+    else
+      lastResult = @turtle.run code, isUserCode == false
 
-    # Is @lastResult true or an error object explaining failure of user code?
-    unless @lastResult == true
-      console.log @lastResult.errObj
-      @errorDiv.html @lastResult.reason
-      @errorDiv.prependTo output
+      if isUserCode
+        expected = @expectedResult
+        given = turtle2d.sequences
+        eq = graph.almostEqual
 
-    if isUserCode
-      @performTest()
+        if  _.isEqual(expected.degreesSequence, given.degreesSequence) and
+            eq(expected.anglesSequence,    given.anglesSequence)       and
+            eq(expected.distancesSequence, given.distancesSequence)
+          @lectureDone slide
 
-  performTest: ->
-    expected = @expectedResult
-    given = turtle2d.sequences
-    eq = graph.almostEqual
+      @errorDiv.html ""
 
-    if  _.isEqual(expected.degreesSequence, given.degreesSequence) and
-        eq(expected.anglesSequence,    given.anglesSequence)       and
-        eq(expected.distancesSequence, given.distancesSequence)
-      slide = @findSlide @currentSlide
-      slideI = _.indexOf @data.slides, slide
+      unless lastResult == true
+        @handleFailure lastResult
 
-      unless @data.slides[slideI+1].testDone
-        connection.lectureDone @courseName, slide.lecture.name
+  # Handles error object given by failing computation.
+  handleFailure: (failingResult) ->
+    console.dir failingResult
 
-      @data.slides[slideI+1].testDone = true
-      @forward()
+    if failingResult.errorOccurred
+      @errorDiv.html failingResult.reason
+    else
+      @errorDiv.html pageDesign.wrongAnswer + failingResult.args.toString()
+
+  lectureDone: (slide) ->
+    unless slide.next.testDone
+      connection.lectureDone @courseName, slide.lecture.name
+
+    slide.next.testDone = true
+    @forward()
 
   # Following three functions moves slides' DIVs to proper places.
   showSlide: (slideName, order, isThereSecond, toRight) ->
@@ -155,30 +196,31 @@ class Lecture
 
     switch go
       when "nextOne"
-        slide.next = [@data.slides[slideI+1].name]
+        next = [slide.next.name]
       when "nextTwo"
-        slide.next = [@data.slides[slideI+1].name, @data.slides[slideI+2].name]
+        next = [slide.next.name, slide.next.next.name]
       when "move"
-        slide.next = [@currentSlide, @data.slides[slideI+1].name]
+        next = [@currentSlide, slide.next.name]
       else
-        if !slide.next?
+        if !next?
           alert "Toto je konec kurzu."
           return
 
     @historyStack.push @currentSlides
 
     $.each @currentSlides, (i, slideName) =>
-      if slideName == slide.next[0]
+      if slideName == next[0]
         @moveSlide slideName, true
       else
         @hideSlide slideName, true
 
-    $.each slide.next, (i, slideName) =>
+    $.each next, (i, slideName) =>
       if slideName != _.last @currentSlides
-        @showSlide slideName, i, slide.next.length > 1, true
+        @showSlide slideName, i, next.length > 1, true
       @currentSlide = slideName
 
-    @currentSlides = slide.next
+    @currentSlides = next
+    @resetElements()
 
   back: ->
     if @historyStack.length == 0
@@ -202,6 +244,11 @@ class Lecture
         @showSlide slideName, i, @currentSlides.length > 1, false
       @currentSlide = slideName
 
+    @resetElements()
+
+  # Empty error area
+  resetElements: ->
+    @errorDiv.html ""
 
   # Hash is the part of URL after #
   # TODO: This is going to need more systematic handling with respect to

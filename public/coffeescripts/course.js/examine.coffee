@@ -113,15 +113,16 @@ test = (settings) ->
       qcArgs = settings.quickCheckArgs ? qc.stdArgs
       qcArgs.user = user  # export environment for QuickCheck
 
-      resObj.qcRes =
+      qcRes =
         qc.runWith qcArgs
                  , settings.property
                  , settings.quickCheck...
 
       # Fail if succeeded and is supposed to fail or converse
-      if resObj.qcRes == true           && settings.quickCheckExpected == false ||
-         resObj.qcRes instanceof Object && settings.quickCheckExpected != false
+      if qcRes == true           && settings.quickCheckExpected == false ||
+         qcRes instanceof Object && settings.quickCheckExpected != false
         resObj.quickCheckFailed = true
+        resObj[o] = qcRes[o] for o of qcRes
         return resObj
 
     if 'testCases' of settings
@@ -137,7 +138,7 @@ test = (settings) ->
           resObj.testsRes  = false
           resObj.testRes   = res
           resObj.epected   = tc.expected
-          resObj.testCases = tc.args
+          resObj.args      = tc.args
           resObj.name      = tc.name
           resObj.logObj    = logObj
           return resObj
