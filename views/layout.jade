@@ -28,15 +28,6 @@ html(lang="en")
           a.brand(href="/") prAk
           .nav-collapse
             ul.nav
-              if page == 'courses'
-                li.active: a(href="/courses") Přehled kurzů
-              else
-                li: a(href="/courses") Přehled kurzů
-
-              if page == 'profil'
-                li.active: a(href="/blog") Blog
-              else
-                li: a(href="/blog") Blog
 
             if user
               ul.nav.pull-right
@@ -83,12 +74,32 @@ html(lang="en")
       hr
 
       footer
-        div(style='float: right')
-            a(href="https://github.com/progma")
-                | prAk na GitHubu
         p
-            span(class="copyleft") &copy;
+            span(class="copyleft")
+                a(href="https://github.com/progma")
+                  &copy;
             |  Tomáš Jakl, Lukáš Lánský, David Marek a Jiří Maršík; 2012
+        p
+            | Stojíme na ramenou mnoha obrů: 
+            a(href="http://nodejs.org/") Node.js
+            , 
+            a(href="http://jquery.com/") jQuery
+            , 
+            a(href="http://underscorejs.org/") Underscore.js
+            , 
+            a(href="http://www.schillmania.com/projects/soundmanager2/") SoundManager2
+            , 
+            a(href="http://raphaeljs.com/") Raphaël
+            , 
+            a(href="http://codemirror.net/") CodeMirror
+            , 
+            a(href="https://github.com/mrdoob/three.js/") three.js
+            | a 
+            a(href="/thanks") dalších…
+            br
+            | Finančně a morálně nás podpořila 
+            a(href="http://www.mff.cuni.cz") Matematicko-fyzikální fakulta UK
+            | .
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
     script(src="/javascripts/bootstrap.min.js")
