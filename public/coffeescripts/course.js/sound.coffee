@@ -41,12 +41,11 @@ createSoundObjects = (slide, mediaRoot, fullName) ->
       url: mediaRoot + "/" + sound.file + ".mp3"
     slide.soundObjects.push newSoundManager
 
-    ((sound, newSoundManager) -> 
+    do (sound, newSoundManager) ->
       $.getJSON mediaRoot + "/" + sound.file + ".json", (recordingTracks) ->
         sound.tracks = recordingTracks
         for t in tracks
           addEventsToManager slide, t, recordingTracks[t], fullName, newSoundManager
-    )(sound, newSoundManager)
 
 addEventsToManager = (slide, trackName, track, fullName, soundObject) ->
   $.map track, (event) =>
@@ -89,7 +88,7 @@ seekSound  = (e) ->
   pos = totalPos - remaining
 
   slide.soundObject().stop()
-  playSound slide, i, pos 
+  playSound slide, i, pos
 
   for track in tracks
     for event in slide.talk[slide.activeSoundObjectI].tracks[track]
@@ -111,11 +110,11 @@ updateSeekbar = ->
 
 # Only visible slides should be able to play sounds.
 stopSound = (slide) ->
-  slide.soundObject().stop()
+  if slide.soundObject()?
+    slide.soundObject().stop()
 
 
 @sound = {
   playTalk
   stopSound
 }
-module?.exports = @sound

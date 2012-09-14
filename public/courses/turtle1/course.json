@@ -12,15 +12,15 @@
             "talk": [
                 {
                     "file": "01-ctverec-01",
-                    "time": 38000
+                    "time": 37724
                 },
                 {
                     "file": "01-ctverec-02-take03",
-                    "time": 89000
+                    "time": 88573
                 },
                 {
                     "file": "01-ctverec-03-take01",
-                    "time": 76000
+                    "time": 75604
                 }
             ]
         },
@@ -33,16 +33,12 @@
             "type": "turtleTalk",
             "talk": [
                 {
-                    "file": "01-ctverec-01",
-                    "time": 38000
+                    "file": "02-function-01-take01",
+                    "time": 145593
                 },
                 {
-                    "file": "01-ctverec-02-take03",
-                    "time": 89000
-                },
-                {
-                    "file": "01-ctverec-03-take01",
-                    "time": 76000
+                    "file": "02-function-02-take01",
+                    "time": 124830
                 }
             ]
         },
@@ -51,16 +47,12 @@
             "type": "turtleTalk",
             "talk": [
                 {
-                    "file": "01-ctverec-01",
-                    "time": 38000
+                    "file": "03-repeat-01-take01",
+                    "time": 64849
                 },
                 {
-                    "file": "01-ctverec-02-take03",
-                    "time": 89000
-                },
-                {
-                    "file": "01-ctverec-03-take01",
-                    "time": 76000
+                    "file": "03-repeat-02-take01",
+                    "time": 92094
                 }
             ]
         },
@@ -73,28 +65,17 @@
             "type": "turtleTalk",
             "talk": [
                 {
-                    "file": "01-ctverec-01",
-                    "time": 38000
+                    "file": "04-argument-01-take01",
+                    "time": 99550
                 },
                 {
-                    "file": "01-ctverec-02-take03",
-                    "time": 89000
-                },
-                {
-                    "file": "01-ctverec-03-take01",
-                    "time": 76000
+                    "file": "04-argument-02-take01",
+                    "time": 68849
                 }
             ]
         },
         {
-            "name": "house",
-            "type": "turtleTask",
-            "code": "04-house.start.turtle"
-        },
-        {
             "name": "polygon",
-            "test": "nuhelnik",
-            "code": "function.turtle",
             "type": "turtleTask"
         },
         {
@@ -102,16 +83,8 @@
             "type": "turtleTalk",
             "talk": [
                 {
-                    "file": "01-ctverec-01",
-                    "time": 38000
-                },
-                {
-                    "file": "01-ctverec-02-take03",
-                    "time": 89000
-                },
-                {
-                    "file": "01-ctverec-03-take01",
-                    "time": 76000
+                    "file": "05-kruznice-01-take01",
+                    "time": 42719
                 }
             ]
         },
