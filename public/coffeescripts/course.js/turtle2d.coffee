@@ -104,7 +104,7 @@ class Turtle
         [newX, newY] = pos.go len
 
         trans = "...t0,#{-len}"
-        drawLine oldX, oldY, newX, newY, aniTime, @color if pos.penDown
+        drawLine oldX, oldY, newX, newY, aniTime, @color if pos.penDown && !@STOP
 
       when "rotate"
         a = currentAction.angle
@@ -122,10 +122,11 @@ class Turtle
       aniTime = 0
       trans = "..." # emtpy transformation
 
-    @im.animate transform: trans
-              , aniTime
-              , "linear"
-              , => @runActions(callback, pos)
+    unless @STOP
+      @im.animate transform: trans
+                , aniTime
+                , "linear"
+                , => @runActions(callback, pos)
 
 environment =
   go: (steps) ->
@@ -195,7 +196,8 @@ clearPaper = ->
     .attr fill: settings.paperBackgroundColor
 
 init = (canvas) ->
-  turtle2d.paper.remove() if turtle2d.paper
+  turtle2d.paper.remove()    if turtle2d.paper
+  activeTurtle.STOP = true   if activeTurtle?
   turtle2d.paper = Raphael(canvas, settings.paperWidth, settings.paperHeight)
   clearPaper()
 
