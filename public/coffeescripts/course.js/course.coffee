@@ -46,7 +46,6 @@ TurtleSlidesHelper =
       lecture: lecture
       type: "code"
       talk: lecture.talk
-      drawTo: lecture.name + "TurtleDen"
     ,
       name: lecture.name + "TurtleDen"
       lecture: lecture
@@ -60,7 +59,6 @@ TurtleSlidesHelper =
       lecture: lecture
       type: "code"
       userCode: userCode[lecture.name]
-      drawTo: lecture.name + "TurtleDen"
     ,
       name: lecture.name + "TurtleDen"
       lecture: lecture
