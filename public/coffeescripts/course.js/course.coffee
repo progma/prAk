@@ -119,7 +119,7 @@ courses =
 
       pageDesign.lectureAdd newCourse, innerSlides, slideList, infoPanel
       @list.push newCourse
-      newCourse.showSlide `undefined`, 0, false, true
+      newCourse.startCourse location.hash.replace('#', '')
 
       connection.whenWhereDictionary.course = name
     ).error ->
