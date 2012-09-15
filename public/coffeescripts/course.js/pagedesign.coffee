@@ -5,22 +5,29 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
       click: -> newLecture.back()
     ).appendTo container
 
-    $.each newLecture.data["slides"], (i, slide) ->
-      slideIcon = $("<div>",
-        id: "iconOf" + newLecture.fullName + slide.name
-        class: if slide.type == "code" then "slideIconFirst" else "slideIcon"
-        style: "background-image: url('/images/icons/" + slide.type + ".png')"
-        mouseover: -> newLecture.showPreview(slide)
-        mouseout: -> newLecture.hidePreview(slide)
+    for lecture in newLecture.data.lectures
+      lectureIconGroup = $("<div>",
+        id: "groupOf" + newLecture.fullName + lecture.name
+        class: "lectureIconGroup"
       ).appendTo(slideList)
 
+      for slide in lecture.slides
+        slideIcon = $("<div>",
+          id: "iconOf" + newLecture.fullName + slide.name
+          class: "slideIcon"
+          style: "background-image: url('/images/icons/" + slide.type + ".png')"
+          mouseover: -> newLecture.showPreview(slide)
+          mouseout: -> newLecture.hidePreview(slide)
+        ).appendTo(lectureIconGroup)
+        slide.iconDiv = slideIcon
+
+    $.each newLecture.data["slides"], (i, slide) ->
       slideDiv = $ "<div>",
         id: newLecture.fullName + slide.name
         class: "slide"
         style: "display: none"
 
       slide["div"] = slideDiv
-      slide["iconDiv"] = slideIcon
       slideDiv.appendTo container
 
     $("<div>",
