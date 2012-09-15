@@ -40,8 +40,8 @@ showSlide = (slide, order, isThereSecond, toRight) ->
   slide.iconDiv.addClass "slideIconActive"
   slide.div.css "margin-left"
               , if isThereSecond then (
-                    if order == 0 then "-440px" else "1px"
-                ) else "-210px"
+                    if order == 0 then "-405px" else "5px"
+                ) else "-200px"
   slide.div.css "display", "block"
 
   if toRight
@@ -60,7 +60,7 @@ hideSlide = (slide, toLeft) ->
   slide.iconDiv.removeClass "slideIconActive"
 
 moveSlide = (slide, toLeft) ->
-  slide.div.animate { "margin-left": if toLeft then "-=440px" else "+=440px" }
+  slide.div.animate { "margin-left": if toLeft then "-=410px" else "+=410px" }
                   , 1000
 
 addPlayer = (div, clickHandler, seekHandler) ->
