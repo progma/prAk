@@ -21,12 +21,19 @@
     -moz-border-radius: @radius;
 }
 
+.rounded-top-right-corner (@radius: 5px) {
+    border-radius: 0 @radius 0 0;
+    -webkit-border-radius: 0 @radius 0 0;
+    -moz-border-radius: 0 @radius 0 0;
+}
+
 .hidden {
     display: none;
 }
 
 .slides {
     width: 100%;
+    min-width: 960px;
     background-color: @courseBackground;
 }
 
@@ -97,6 +104,7 @@
     height: @slideHeight;
     margin-left: auto;
     margin-right: auto;
+    margin-top: -10px;
     text-align: center;
     vertical-align: top;
     overflow: hidden;
@@ -226,6 +234,7 @@
     width: 95%;
     height: 32px;
     background-color: lighten(@filmStock, 50%);
+    .rounded-top-right-corner();
 }
 
 .inseek {
