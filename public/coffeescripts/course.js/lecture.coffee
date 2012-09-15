@@ -101,15 +101,21 @@ class Lecture
           cm.setValue data
           slide.userCode = data
 
-      cm.setSize 380, 360
+      if slide.lecture.talk?
+        cm.setSize 380, 440
+      else
+        cm.setSize 380, 365
+      cm.setValue ""    # force CodeMirror to redraw using the new size
       slide.cm = cm
 
       $("<button>",
         text: "Spustit kód"
-        class: if slide.talk? then "hidden" else "btn"
+        class: if slide.talk? then "hidden" else "btn runButton"
         click: =>
           @runCode cm.getValue()
-      ).appendTo slide.div
+      ).appendTo($("<div>",
+        class: "runButtonContainer"
+      ).appendTo(slide.div))
 
       if slide.talk?
         soundManager.onready =>
