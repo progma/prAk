@@ -6,20 +6,25 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
     ).appendTo container
 
     for lecture in newLecture.data.lectures
-      lectureIconGroup = $("<div>",
-        id: "groupOf" + newLecture.fullName + lecture.name
-        class: "lectureIconGroup"
-      ).appendTo(slideList)
+      do (lecture) ->
+        lectureIconGroup = $("<div>",
+          id: "groupOf" + newLecture.fullName + lecture.name
+          class: "lectureIconGroup"
+          click: ->
+            console.log lecture.name
+            newLecture.hideCurrentSlides()
+            newLecture.showLecture lecture.name
+        ).appendTo(slideList)
 
-      for slide in lecture.slides
-        slideIcon = $("<div>",
-          id: "iconOf" + newLecture.fullName + slide.name
-          class: "slideIcon"
-          style: "background-image: url('/images/icons/" + slide.type + ".png')"
-          mouseover: -> newLecture.showPreview(slide)
-          mouseout: -> newLecture.hidePreview(slide)
-        ).appendTo(lectureIconGroup)
-        slide.iconDiv = slideIcon
+        for slide in lecture.slides
+          slideIcon = $("<div>",
+            id: "iconOf" + newLecture.fullName + slide.name
+            class: "slideIcon"
+            style: "background-image: url('/images/icons/" + slide.type + ".png')"
+            mouseover: -> newLecture.showPreview(slide)
+            mouseout: -> newLecture.hidePreview(slide)
+          ).appendTo(lectureIconGroup)
+          slide.iconDiv = slideIcon
 
     $.each newLecture.data["slides"], (i, slide) ->
       slideDiv = $ "<div>",

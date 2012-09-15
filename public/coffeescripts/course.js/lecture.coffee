@@ -183,12 +183,12 @@ class Lecture
     @forward()
 
   # Following four functions moves slides' DIVs to proper places.
-  startCourse: (slideName) ->
-    if slideName
-      @currentSlide = @findSlide slideName, true
+  showLecture: (lectureName) ->
+    if lectureName
+      @currentSlide = @findSlide lectureName, true
 
       if @currentSlide == false
-        slideName = "" # search failed, start with first slide
+        lectureName = "" # search failed, start with first slide
       else
         # @currentSlide is the slide displayed on the right, so it's the second
         # one in lectures with more than one slide
@@ -204,13 +204,16 @@ class Lecture
           @currentSlides = nextSlides slide
           slide = _.last @currentSlides
 
-    if !slideName
+    if !lectureName
       @currentSlide  = @data.slides[0]
-      slideName = @currentSlide.name
       @currentSlides = [@currentSlide]
 
     $.each @currentSlides, (i, slideIt) =>
       @showSlide @currentSlides[i], i, @currentSlides.length > 1, true
+
+  hideCurrentSlides: ->
+    for slide in @currentSlides
+      @hideSlide slide, true
 
   showSlide: (slide, order, isThereSecond, toRight) ->
     pageDesign.showSlide slide, order, isThereSecond, toRight
