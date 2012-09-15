@@ -209,25 +209,25 @@ class Lecture
       @currentSlides = [@currentSlide]
 
     $.each @currentSlides, (i, slideIt) =>
-      @showSlide @currentSlides[i], i, @currentSlides.length > 1, true
+      @showSlide @currentSlides[i], i, @currentSlides.length > 1, "fadeIn"
 
   hideCurrentSlides: ->
     for slide in @currentSlides
-      @hideSlide slide, true
+      @hideSlide slide, "fadeOut"
 
-  showSlide: (slide, order, isThereSecond, toRight) ->
-    pageDesign.showSlide slide, order, isThereSecond, toRight
+  showSlide: (slide, order, isThereSecond, effect) ->
+    pageDesign.showSlide slide, order, isThereSecond, effect
     @updateHash slide.lecture
     connection.whenWhereDictionary.lecture = slide.lecture.name
     @loadSlide slide
 
-  hideSlide: (slide, toLeft) ->
+  hideSlide: (slide, effect) ->
     # Deactivate slide
     sound.stopSound slide if slide.soundObject
     slide.userCode = slide.cm.getValue() if slide.cm?
     slide.isActive = false
 
-    pageDesign.hideSlide slide, toLeft
+    pageDesign.hideSlide slide, effect
 
   moveSlide: (slide, toLeft) ->
     pageDesign.moveSlide slide, toLeft
@@ -247,11 +247,11 @@ class Lecture
       if slideIt == next[0]
         @moveSlide slideIt, true
       else
-        @hideSlide slideIt, true
+        @hideSlide slideIt, "toLeft"
 
     $.each next, (i, slideIt) =>
       if slideIt.name != (_.last @currentSlides).name
-        @showSlide slideIt, i, next.length > 1, true
+        @showSlide slideIt, i, next.length > 1, "toRight"
       @currentSlide = slideIt
 
     @currentSlides = next
@@ -271,12 +271,12 @@ class Lecture
           slideIt.name == next[1].name
         @moveSlide slideIt, false
       else
-        @hideSlide slideIt, false
+        @hideSlide slideIt, "toRight"
 
     @currentSlides = next
     $.each @currentSlides, (i, slideIt) =>
       if slideIt.name != beforeSlides[0].name
-        @showSlide slideIt, i, @currentSlides.length > 1, false
+        @showSlide slideIt, i, @currentSlides.length > 1, "toLeft"
       @currentSlide = slideIt
 
     @resetElements()

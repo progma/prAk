@@ -11,7 +11,6 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
           id: "groupOf" + newLecture.fullName + lecture.name
           class: "lectureIconGroup"
           click: ->
-            console.log lecture.name
             newLecture.hideCurrentSlides()
             newLecture.showLecture lecture.name
         ).appendTo(slideList)
@@ -48,7 +47,7 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
     showFeedback infoPanel
 
 # Following three functions moves slides' DIVs to proper places.
-showSlide = (slide, order, isThereSecond, toRight) ->
+showSlide = (slide, order, isThereSecond, effect) ->
   slide.iconDiv.addClass "slideIconActive"
   slide.div.css "margin-left"
               , if isThereSecond then (
@@ -56,19 +55,30 @@ showSlide = (slide, order, isThereSecond, toRight) ->
                 ) else "-200px"
   slide.div.css "display", "block"
 
-  if toRight
+  if effect == "toRight"
     slide.div.css "left", "150%"
     slide.div.animate { left: "-=100%" }, 1000
-  else
+  else if effect == "toLeft"
     slide.div.css "left", "-50%"
     slide.div.animate { left: "+=100%" }, 1000
+  else if effect == "fadeIn"
+    slide.div.css "left", "50%"
+    slide.div.fadeIn 300
+  else
+    slide.div.css "left", "50%"
 
-hideSlide = (slide, toLeft) ->
-  slide.div.animate { left: if toLeft then "-=100%" else "+=100%" }
-                   , 1000
-                   , ->
-                     slide.div.css "display", "none"
-                     slide.div.html "" unless slide.isActive
+hideSlide = (slide, effect) ->
+  afterEffect = ->
+    slide.div.css "display", "none"
+    slide.div.html "" unless slide.isActive
+  if effect == "toLeft" or effect == "toRight"
+    slide.div.animate { left: if effect=="toLeft" then "-=100%" else "+=100%" }
+                     , 1000
+                     , afterEffect
+  else if effect == "fadeOut"
+    slide.div.fadeOut 300, afterEffect
+  else
+    afterEffect()
   slide.iconDiv.removeClass "slideIconActive"
 
 moveSlide = (slide, toLeft) ->
