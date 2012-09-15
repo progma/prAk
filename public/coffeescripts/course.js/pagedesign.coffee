@@ -13,15 +13,16 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
           click: ->
             newLecture.hideCurrentSlides()
             newLecture.showLecture lecture.name
+          mouseover: -> showPreview(lecture)
+          mouseout: -> hidePreview(lecture)
         ).appendTo(slideList)
+        lecture.iconDiv = lectureIconGroup
 
         for slide in lecture.slides
           slideIcon = $("<div>",
             id: "iconOf" + newLecture.fullName + slide.name
             class: "slideIcon"
             style: "background-image: url('/images/icons/" + slide.type + ".png')"
-            mouseover: -> newLecture.showPreview(slide)
-            mouseout: -> newLecture.hidePreview(slide)
           ).appendTo(lectureIconGroup)
           slide.iconDiv = slideIcon
 
@@ -84,6 +85,18 @@ hideSlide = (slide, effect) ->
 moveSlide = (slide, toLeft) ->
   slide.div.animate { "margin-left": if toLeft then "-=410px" else "+=410px" }
                   , 1000
+
+showPreview = (lecture) ->
+  iconPos = lecture.iconDiv.offset()
+  console.log "prev " + iconPos.left + ", " + iconPos.top
+  lecture.previewDiv = $("<div>",
+    class: "preview"
+    style: "left: " + iconPos.left + "px; top: " + (iconPos.top+40) + "px;"
+    text: lecture.name
+  ).appendTo($("body"))
+
+hidePreview = (lecture) ->
+  lecture.previewDiv.remove()
 
 addPlayer = (div, clickHandler, seekHandler) ->
   div.addClass "playSlide"

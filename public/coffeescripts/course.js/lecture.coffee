@@ -293,13 +293,6 @@ class Lecture
   updateHash: (lecture) ->
     location.hash = "#" + lecture.name
 
-  # Previews!
-  showPreview: (slide) ->
-    slide.iconDiv.offset().left
-
-  hidePreview: (slide) ->
-
-
   # Finds the slide with a given name.
   #
   # If byLectureName is true, we search by lecture name and the first slide of
