@@ -34,7 +34,7 @@ check = (obj) ->
     property: (n, delka) ->
       sequencesEqual code, expected, "nuhelnik(#{n},#{delka});"
     quickCheck: [qc.arbChooseInt(3, 20), qc.arbChooseInt(5, 1000)]
-    afterwards: "#{code}\n\nnuhelnik(7, 30);\nright(180)\n;nuhelnik(10, 20);"
+    afterwards: "#{code}\n\nnuhelnik(10, 30);"
     maxSuccess: 10
   nuhelnikBeforehand: (expected) ->
     turtle2d.run "#{expected}\n\nnuhelnik(5, 30);", true

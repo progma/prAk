@@ -76,6 +76,8 @@
         },
         {
             "name": "polygon",
+            "test": "nuhelnik",
+            "code": "function.turtle",
             "type": "turtleTask"
         },
         {
