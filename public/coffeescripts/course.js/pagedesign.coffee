@@ -180,15 +180,15 @@ showFeedback = (div) ->
 
 apiHelp = [
     name: "go"
-    code: "go(n)"
+    code: "go(n);"
     desc: "Želva ujde n kroků dopředu."
   ,
     name: "right"
-    code: "right(s)"
+    code: "right(s);"
     desc: "Želva se otočí doprava o <code>s</code> stupňů."
   ,
     name: "left"
-    code: "left(s)"
+    code: "left(s);"
     desc: "Želva se otočí doleva o <code>s</code> stupňů."
   ,
     name: "function"
@@ -204,7 +204,7 @@ apiHelp = [
     """
   ,
     name: "repeat"
-    code: "repeat(n, slovo, argument1, argument2, ...)"
+    code: "repeat(n, slovo, argument1, argument2, ...);"
     desc: """Vykoná <code>slovo</code> <code>n</code>-krát. Pokaždé s argumenty
     argument1, argument2, ... (v závislosti na tom, kolik jich je uvedeno).
     """
@@ -228,7 +228,7 @@ renderHelp = (conf, help) ->
 
     $("<p>#{h.desc}</p>").appendTo container
 
-    return [h, container] if h == conf
+    return [h, container] if h.name == conf
 
   [h, container]
 

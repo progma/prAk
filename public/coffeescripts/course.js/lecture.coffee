@@ -298,7 +298,8 @@ class Lecture
     @helpSlide = null
 
   showHelp: ->
-    helpDiv = pageDesign.showHelp "", => @hideHelp()
+    helpDiv = pageDesign.showHelp (@currentSlide.lecture.help ? ""),
+      => @hideHelp()
     @helpSlide =
       div: helpDiv
     pageDesign.showSlide @helpSlide, 1, true, "fadeIn"
