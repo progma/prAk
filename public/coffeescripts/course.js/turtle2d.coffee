@@ -241,7 +241,8 @@ stash = ->
     turtle2d.paper = null
 
 unstash = ->
-  {turtle: activeTurtle, paper: turtle2d.paper} = stashedSettings.pop()
+  if stashedSettings.length > 0
+    {turtle: activeTurtle, paper: turtle2d.paper} = stashedSettings.pop()
 
 ##
 ## Exports

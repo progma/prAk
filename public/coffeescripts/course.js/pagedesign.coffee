@@ -36,6 +36,12 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
       slideDiv.appendTo container
 
     $("<div>",
+      class: "slide"
+      style: "display: none"
+      id: "helpSlide"
+    ).appendTo container
+
+    $("<div>",
       id: newLecture.fullName + "forwardArrow"
       class: "arrow-e"
       click: -> newLecture.forward()
@@ -49,7 +55,7 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
 
 # Following three functions moves slides' DIVs to proper places.
 showSlide = (slide, order, isThereSecond, effect) ->
-  slide.iconDiv.addClass "slideIconActive"
+  slide.iconDiv?.addClass "slideIconActive"
   slide.div.css "margin-left"
               , if isThereSecond then (
                     if order == 0 then "-405px" else "5px"
@@ -172,6 +178,81 @@ showFeedback = (div) ->
         $(this).attr("placeholder", "Díky! Ještě něco?")
   ).appendTo(div)
 
+apiHelp = [
+    name: "go"
+    code: "go(n);"
+    desc: "Želva ujde n kroků dopředu."
+  ,
+    name: "right"
+    code: "right(s);"
+    desc: "Želva se otočí doprava o <code>s</code> stupňů."
+  ,
+    name: "left"
+    code: "left(s);"
+    desc: "Želva se otočí doleva o <code>s</code> stupňů."
+  ,
+    name: "function"
+    code: "function jmeno(argument1, argument2, ....) {\n  (zde je libovolná posloupnost instrukcí)\n}"
+    desc: """Naučí želvu nové slovo <code>jmeno</code> (při definici vlastního
+    slova můžeš zvolit jakýkoliv název místo <code>jmeno</code>). A poté
+    kdykoliv želvě řekneme <code>jmeno(x1, x2, x3, ...)</code>, želva vykoná
+    instrukce uvedené v těle funkce, čili zapsané mezi složenými
+    závorkami.</p>
+    <p>Počet a pojmenování argumentů je při definici nového slova
+    volitelný, ale když toto slovo později voláme, vyžaduje stejný počet
+    argumentů.
+    """
+  ,
+    name: "repeat"
+    code: "repeat(n, slovo, argument1, argument2, ...);"
+    desc: """Vykoná <code>slovo</code> <code>n</code>-krát. Pokaždé s argumenty
+    argument1, argument2, ... (v závislosti na tom, kolik jich je uvedeno).
+    """
+]
+
+extendedApiHelp =
+  "turtle3d": []
+  "game": []
+
+apiHelpNames =
+  "turtle3d": "Příkazy 3D želvy"
+  "game": "Příkazy pro prostředí Hra"
+
+renderHelp = (conf, help) ->
+  container = $ "<div>"
+
+  for h in help
+    $("<pre><code>#{h.code}</code></pre>",
+      style: "float: left;"
+    ).appendTo container
+
+    $("<p>#{h.desc}</p>").appendTo container
+
+    return [h, container] if h.name == conf
+
+  [h, container]
+
+showHelp = (conf, hideCallback) ->
+  container = $ "#helpSlide"
+  container.html ""
+  $("<button>",
+    style: "float: right;"
+    class: "btn"
+    text: "Skrýt"
+    click: hideCallback
+  ).appendTo container
+  $("<h3>Želví příkazy</h3>").appendTo container
+
+  [h, basicAPI] = renderHelp conf, apiHelp
+  basicAPI.appendTo container
+
+  if h != conf and conf of extendedApiHelp
+    [h, res] = renderHelp conf, extendedApiHelp[conf]
+    $("<h3>#{apiHelpNames[conf]}</h3>").appendTo container
+    res.appendTo container
+
+  container
+
 
 testDoneResultPage = """
   <p>Výborně!
@@ -211,6 +292,8 @@ codeIsRunning = "Běží výpočet."
   moveSlide
 
   addPlayer
+
+  showHelp
 
   testDoneResultPage
   testNotDoneResultPage
