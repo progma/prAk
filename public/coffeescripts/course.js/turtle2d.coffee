@@ -30,6 +30,7 @@ settings =
   startAngle: 0
 
 activeTurtle = null
+stashedSettings = []
 
 ##
 ## Turtle events
@@ -62,13 +63,15 @@ class Turtle
                 @totalTime = settings.defaultTotalTime,
                 @color     = settings.normalTraceColor) ->
 
+    @paper = turtle2d.paper
+
     # Stack of actions to perform
     @actions = []
 
     # Graph for actual relative coordinates
     @graph = new EmbeddedGraph(0, 0, @angle)
 
-    @im = turtle2d.paper.image settings.turtleImage
+    @im = @paper.image settings.turtleImage
                            , @startX - settings.turtleImageCorrection.x
                            , @startY - settings.turtleImageCorrection.y
                            , 20, 30
@@ -103,8 +106,8 @@ class Turtle
         [oldX, oldY] = [pos.x, pos.y]
         [newX, newY] = pos.go len
 
-        trans = if animate then "...t0,#{-len}" else "..."
-        drawLine oldX, oldY, newX, newY, aniTime, @color if pos.penDown && !@STOP
+        trans = "...t0,#{-len}"
+        drawLine oldX, oldY, newX, newY, aniTime, this  if pos.penDown && !@STOP
 
       when "rotate"
         a = currentAction.angle
@@ -117,7 +120,7 @@ class Turtle
       when "color"
         @color = currentAction.color
 
-    # Dont animate when there is no transformation
+    # Don't animate when there is no transformation or it's prohibited
     if !trans? or !animate
       aniTime = 0
       trans = "..." # emtpy transformation
@@ -128,14 +131,14 @@ class Turtle
                 , "linear"
                 , => @runActions(callback, pos, animate)
 
-environment =
+environment = (turtle) ->
   go: (steps) ->
-    activeTurtle.addAction (MV steps)
-    activeTurtle.graph.go steps
+    turtle.addAction (MV steps)
+    turtle.graph.go steps
 
   right: (angle) ->
-    activeTurtle.addAction (RT angle)
-    activeTurtle.graph.rotate angle
+    turtle.addAction (RT angle)
+    turtle.graph.rotate angle
 
   left: (angle) ->
     @right -angle
@@ -145,15 +148,15 @@ environment =
     f args... while i++ < n
 
   penUp: ->
-    activeTurtle.addAction PU
-    activeTurtle.graph.penUp()
+    turtle.addAction PU
+    turtle.graph.penUp()
 
   penDown: ->
-    activeTurtle.addAction PD
-    activeTurtle.graph.penDown()
+    turtle.addAction PD
+    turtle.graph.penDown()
 
   color: (col) ->
-    activeTurtle.addAction (CO col)
+    turtle.addAction (CO col)
 
   # TODO
   # print
@@ -181,12 +184,12 @@ constants =
   brown:   "#552222"
   orange:  "#CC3232"
 
-drawLine = (fromX, fromY, toX, toY, aniTime) ->
-  atSX = activeTurtle.startX
-  atSY = activeTurtle.startY
+drawLine = (fromX, fromY, toX, toY, aniTime, turtle) ->
+  atSX = turtle.startX
+  atSY = turtle.startY
 
-  turtle2d.paper.path("M#{fromX + atSX} #{fromY + atSY}L#{fromX + atSX} #{fromY + atSY}")
-    .attr(stroke: activeTurtle.color)
+  turtle.paper.path("M#{fromX + atSX} #{fromY + atSY}L#{fromX + atSX} #{fromY + atSY}")
+    .attr(stroke: turtle.color)
     .animate { path: "M#{fromX + atSX} #{fromY + atSY}L#{toX + atSX} #{toY + atSY}" }, aniTime
 
 clearPaper = ->
@@ -196,7 +199,7 @@ clearPaper = ->
     .attr fill: settings.paperBackgroundColor
 
 init = (canvas) ->
-  turtle2d.paper.remove()    if turtle2d.paper
+  turtle2d.paper.remove()    if turtle2d.paper?
   activeTurtle.STOP = true   if activeTurtle?
   turtle2d.paper = Raphael(canvas, settings.paperWidth, settings.paperHeight)
   clearPaper()
@@ -213,7 +216,7 @@ run = (code, shadow, draw = true, animate = true) ->
 
   result = ex.test
     code: code
-    environment: environment
+    environment: environment activeTurtle
     constants: constants
 
   try
@@ -228,6 +231,18 @@ run = (code, shadow, draw = true, animate = true) ->
   finally
     return result
 
+
+stash = ->
+  if turtle2d.paper
+    stashedSettings.push
+      turtle: activeTurtle
+      paper: turtle2d.paper
+    activeTurtle = null
+    turtle2d.paper = null
+
+unstash = ->
+  {turtle: activeTurtle, paper: turtle2d.paper} = stashedSettings.pop()
+
 ##
 ## Exports
 ##
@@ -237,5 +252,7 @@ run = (code, shadow, draw = true, animate = true) ->
   settings
   init
   run
+  stash
+  unstash
 }
 module?.exports = @turtle2d

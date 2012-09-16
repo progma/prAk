@@ -93,22 +93,31 @@ showPreview = (lecture) ->
     style: "left: " + iconPos.left + "px; top: " + (iconPos.top+40) + "px;"
     html: "<h4>" + lecture.readableName + "</h4>"
   ).appendTo($ "body")
+
   if lecture.preview?
     lecture.previewDiv.html(lecture.previewDiv.html() + "<br><img src='" + lecture.preview + "'>")
   else if lecture.type == "turtleTask"
+    return if lecture.mode? && lecture.mode != "turtle2d"
     t = turtle2d
+    t.stash()
+
     turtlePlace = $("<div>"
       style: "height: 20px; width: 40px; transform: scale(0.3); -moz-transform: scale(0.3); -webkit-transform: scale(0.3)"
     ).appendTo lecture.previewDiv
+
     $("<div>"
       style: "height: 130px"
     ).appendTo lecture.previewDiv
     t.init turtlePlace.get 0
+
     $.ajax(
       url: lecture.course.urlStart + "/" + lecture.name + "/expected.turtle"
       dataType: "text"
-    ).done (data) ->
+    ).done((data) ->
+      # TODO if beforehand
       t.run data, false, true, false
+    ).always ->
+      t.unstash()
 
 hidePreview = (lecture) ->
   lecture.previewDiv.remove()
@@ -135,7 +144,7 @@ showFeedback = (div) ->
   pp = $("<p>",
     text: "Rychlá zpětná vazba: "
     style: "display: inline-block"
-  ).appendTo(div);
+  ).appendTo(div)
   thumbUp = $("<button>",
     class: "thumbUp btn"
     click: ->
