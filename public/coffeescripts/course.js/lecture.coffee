@@ -72,7 +72,7 @@ class Lecture
           @expectedCode = data
 
           if slide.lecture.test?
-            f = tests[slide.lecture.test+"Beforehand"]
+            f = tests[slide.lecture.test+"Expected"]
             f(data) if f?
           else
             @runCode data, false
@@ -87,11 +87,17 @@ class Lecture
           textDiv.html data
           textDiv.height "80px"
 
-      cm = new CodeMirror slide.div.get(0),
+      cm = slide.cm = new CodeMirror slide.div.get(0),
             lineNumbers: true
             readOnly: slide.talk?
             indentWithTabs: false
             # autofocus: true
+
+      if slide.lecture.talk?
+        cm.setSize 380, 440
+      else
+        cm.setSize 380, 365
+      cm.setValue ""    # force CodeMirror to redraw using the new size
 
       if slide.userCode
         cm.setValue slide.userCode
@@ -100,13 +106,6 @@ class Lecture
         , (data) =>
           cm.setValue data
           slide.userCode = data
-
-      if slide.lecture.talk?
-        cm.setSize 380, 440
-      else
-        cm.setSize 380, 365
-      cm.setValue ""    # force CodeMirror to redraw using the new size
-      slide.cm = cm
 
       $("<button>",
         text: "Spustit kód"
@@ -149,7 +148,7 @@ class Lecture
             @handleFailure lastResult
         , 0
     else
-      lastResult = @turtle.run code, isUserCode == false
+      lastResult = @turtle.run code, !isUserCode
 
       if isUserCode
         expected = @expectedResult
@@ -292,13 +291,6 @@ class Lecture
   #       Right now (for prAk) it works fine, though.
   updateHash: (lecture) ->
     location.hash = "#" + lecture.name
-
-  # Previews!
-  showPreview: (slide) ->
-    slide.iconDiv.offset().left
-
-  hidePreview: (slide) ->
-
 
   # Finds the slide with a given name.
   #

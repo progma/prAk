@@ -90,6 +90,8 @@ courses =
 
     name = @baseDir + theDiv.attr("slidedata")
 
+    course = { urlStart: name, name: _.last (_.filter name.split('/'), (s) -> !s) }
+
     $.getJSON(name + "/course.json", (data) =>
       data.slides = _.reduce data.lectures, (memo, lecture)->
         if StandardSlidesHelper[lecture.type]?
@@ -104,8 +106,11 @@ courses =
           lecture.lecture = lecture  # epic!
           lecture.slides = [lecture]
           memo.push lecture
+        lecture.course = course
         return memo
       , []
+      course.lectures = data.lectures
+      course.slides = data.slides
 
       # create convinient pointers to next and previous slide/lecture
       for array in [data.lectures, data.slides]

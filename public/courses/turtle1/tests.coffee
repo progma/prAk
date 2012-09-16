@@ -36,6 +36,6 @@ check = (obj) ->
     quickCheck: [qc.arbChooseInt(3, 20), qc.arbChooseInt(5, 1000)]
     afterwards: "#{code}\n\nnuhelnik(10, 30);"
     maxSuccess: 10
-  nuhelnikBeforehand: (expected) ->
-    turtle2d.run "#{expected}\n\nnuhelnik(5, 30);", true
+  nuhelnikExpected: (expected, mainSlide = true) ->
+    turtle2d.run "#{expected}\n\nnuhelnik(5, 100);", mainSlide, true, mainSlide
 }

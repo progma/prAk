@@ -13,15 +13,16 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
           click: ->
             newLecture.hideCurrentSlides()
             newLecture.showLecture lecture.name
+          mouseenter: -> showPreview(lecture)
+          mouseleave: -> hidePreview(lecture)
         ).appendTo(slideList)
+        lecture.iconDiv = lectureIconGroup
 
         for slide in lecture.slides
           slideIcon = $("<div>",
             id: "iconOf" + newLecture.fullName + slide.name
             class: "slideIcon"
             style: "background-image: url('/images/icons/" + slide.type + ".png')"
-            mouseover: -> newLecture.showPreview(slide)
-            mouseout: -> newLecture.hidePreview(slide)
           ).appendTo(lectureIconGroup)
           slide.iconDiv = slideIcon
 
@@ -85,6 +86,45 @@ moveSlide = (slide, toLeft) ->
   slide.div.animate { "margin-left": if toLeft then "-=410px" else "+=410px" }
                   , 1000
 
+showPreview = (lecture) ->
+  iconPos = lecture.iconDiv.offset()
+  lecture.previewDiv = $("<div>",
+    class: "preview"
+    style: "left: " + iconPos.left + "px; top: " + (iconPos.top+40) + "px;"
+    html: "<h4>" + lecture.readableName + "</h4>"
+  ).appendTo($ "body")
+
+  if lecture.preview?
+    lecture.previewDiv.html(lecture.previewDiv.html() + "<br><img src='" + lecture.preview + "'>")
+  else if lecture.type == "turtleTask"
+    return if lecture.mode? && lecture.mode != "turtle2d"
+    t = turtle2d
+    t.stash()
+
+    turtlePlace = $("<div>"
+      style: "height: 20px; width: 40px; transform: scale(0.3); -moz-transform: scale(0.3); -webkit-transform: scale(0.3)"
+    ).appendTo lecture.previewDiv
+
+    $("<div>"
+      style: "height: 130px"
+    ).appendTo lecture.previewDiv
+    t.init turtlePlace.get 0
+
+    $.ajax(
+      url: lecture.course.urlStart + "/" + lecture.name + "/expected.turtle"
+      dataType: "text"
+    ).done((data) ->
+      if lecture.test?
+        f = tests[lecture.test+"Expected"]
+        f(data, false) if f?
+      else
+        t.run data, false, true, false
+    ).always ->
+      t.unstash()
+
+hidePreview = (lecture) ->
+  lecture.previewDiv.remove()
+
 addPlayer = (div, clickHandler, seekHandler) ->
   div.addClass "playSlide"
   player = $("<div>",
@@ -107,7 +147,7 @@ showFeedback = (div) ->
   pp = $("<p>",
     text: "Rychlá zpětná vazba: "
     style: "display: inline-block"
-  ).appendTo(div);
+  ).appendTo(div)
   thumbUp = $("<button>",
     class: "thumbUp btn"
     click: ->

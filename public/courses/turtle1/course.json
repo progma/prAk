@@ -3,11 +3,14 @@
     "lectures": [
         {
             "name": "intro",
+            "readableName": "Úvodem",
             "type": "html",
-            "source": "intro.html"
+            "source": "intro.html",
+            "preview": "http://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Kturtle_side_view.svg/474px-Kturtle_side_view.svg.png"
         },
         {
             "name": "ctverec",
+            "readableName": "Základní příkazy",
             "type": "turtleTalk",
             "talk": [
                 {
@@ -26,10 +29,12 @@
         },
         {
             "name": "sestiuhelnik",
+            "readableName": "Úkol: Šestiúhelník",
             "type": "turtleTask"
         },
         {
             "name": "function",
+            "readableName": "Vytváření příkazů",
             "type": "turtleTalk",
             "talk": [
                 {
@@ -44,6 +49,7 @@
         },
         {
             "name": "repeat",
+            "readableName": "Opakování příkazů",
             "type": "turtleTalk",
             "talk": [
                 {
@@ -58,10 +64,12 @@
         },
         {
             "name": "cell",
+            "readableName": "Úkol: Plástev",
             "type": "turtleTask"
         },
         {
             "name": "argument",
+            "readableName": "Argumenty příkazů",
             "type": "turtleTalk",
             "talk": [
                 {
@@ -76,12 +84,14 @@
         },
         {
             "name": "polygon",
-            "test": "nuhelnik",
+            "readableName": "Úkol: Mnohoúhelník",
             "code": "function.turtle",
+            "test": "nuhelnik",
             "type": "turtleTask"
         },
         {
             "name": "kruznice",
+            "readableName": "Kružnice",
             "type": "turtleTalk",
             "talk": [
                 {
@@ -92,6 +102,7 @@
         },
         {
             "name": "wellDone",
+            "readableName": "Závěrem",
             "type": "html",
             "source": "wellDone.html"
         }
