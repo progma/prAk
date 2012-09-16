@@ -33,6 +33,7 @@
         {
             "name": "lepsiStrom",
             "readableName": "Úkol: Nepřekrývající se strom",
+            "code": "start.turtle",
             "type": "turtleTask"
         },
         {

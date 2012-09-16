@@ -100,9 +100,6 @@ class Lecture
         , (data) =>
           cm.setValue data
           slide.userCode = data
-      else if slide.lecture.type == "turtleTask"
-        loadText @name + "/#{slide.lecture.name}/start.turtle", (data) =>
-          cm.setValue data
 
       if slide.lecture.talk?
         cm.setSize 380, 440
