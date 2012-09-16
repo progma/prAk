@@ -86,6 +86,35 @@
             ]
         },
         {
+            "name": "platon",
+            "readableName": "Úkol: Platónská tělesa",
+            "type": "turtleTask",
+            "mode": "turtle3d",
+            "testAgainstOneOf":
+            [
+                {
+                    "degreeSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+                    "edgeLengths": [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
+                },
+                {
+                    "degreeSequence": [4, 4, 4, 4, 4, 4],
+                    "edgeLengths": [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
+                },
+                {
+                    "degreeSequence": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3,   3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+                    "edgeLengths": [50, 50, 50, 50, 50, 50, 50, 50, 50, 50,   50, 50, 50, 50, 50, 50, 50, 50, 50, 50,   50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
+                },
+                {
+                    "degreeSequence": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5,   5, 5],
+                    "edgeLengths": [50, 50, 50, 50, 50, 50, 50, 50, 50, 50,   50, 50, 50, 50, 50, 50, 50, 50, 50, 50,   50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
+                },
+                {
+                    "degreeSequence": [3, 3, 3, 3],
+                    "edgeLengths": [50, 50, 50, 50, 50, 50]
+                }
+            ]
+        },
+        {
             "name": "wellDone",
             "readableName": "Závěrem",
             "type": "html",
