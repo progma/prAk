@@ -21,12 +21,19 @@
     -moz-border-radius: @radius;
 }
 
+.rounded-top-right-corner (@radius: 5px) {
+    border-radius: 0 @radius 0 0;
+    -webkit-border-radius: 0 @radius 0 0;
+    -moz-border-radius: 0 @radius 0 0;
+}
+
 .hidden {
     display: none;
 }
 
 .slides {
     width: 100%;
+    min-width: 910px;
     background-color: @courseBackground;
 }
 
@@ -97,6 +104,7 @@
     height: @slideHeight;
     margin-left: auto;
     margin-right: auto;
+    margin-top: -10px;
     text-align: center;
     vertical-align: top;
     overflow: hidden;
@@ -120,10 +128,8 @@
     left: 50%;
     display: block;
     background-color: @slideBackground;
-    width: 400px;
+    width: 380px;
     height: @slideHeight - 25px;
-    margin-left: -210px;
-    margin-right: 10px;
     padding: 10px;
     text-align: left;
     .rounded-corners;
@@ -131,6 +137,7 @@
 
 .playSlide {
     padding-top: 42px;
+    height: @slideHeight - 57px;
 }
 
 .textIcon {
@@ -147,6 +154,10 @@
     line-height: 0;
 }
 
+.runButtonContainer {
+    text-align: right;
+    margin-top: 3px;
+}
 
 /*
  * Arrows
@@ -226,6 +237,7 @@
     width: 95%;
     height: 32px;
     background-color: lighten(@filmStock, 50%);
+    .rounded-top-right-corner();
 }
 
 .inseek {

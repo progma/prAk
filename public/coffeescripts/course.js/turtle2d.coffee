@@ -17,7 +17,7 @@ settings =
 
   paperBackgroundColor: "#fff"
   paperWidth : 380
-  paperHeight: 480
+  paperHeight: 476
 
   turtleImage: "/images/zelva.png"
   turtleImageCorrection:
@@ -26,7 +26,7 @@ settings =
 
   # Starting possition
   startX: 190
-  startY: 240
+  startY: 238
   startAngle: 0
 
 activeTurtle = null
