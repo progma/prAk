@@ -79,6 +79,20 @@
     .rounded-corners(8px);
 }
 
+.lectureIconGroup {
+    display: inline-block;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.lectureIconGroup:hover {
+    background-color: @slideBackground;
+}
+
+.lectureIconGroup:hover .slideIcon {
+    border: solid 3px @slideBackground;   
+}
+
 .slideIcon {
     display: inline-block;
     border: solid 3px @filmStock;
@@ -89,13 +103,8 @@
     height: 24px;
 }
 
-.slideIconFirst {
-    .slideIcon;
-    margin-left: 15px;
-}
-
 .slideIconActive {
-    border: solid 4px @slideBackground;
+    border: solid 3px @slideBackground;
 }
 
 .innerSlides {

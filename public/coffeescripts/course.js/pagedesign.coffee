@@ -5,22 +5,33 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
       click: -> newLecture.back()
     ).appendTo container
 
-    $.each newLecture.data["slides"], (i, slide) ->
-      slideIcon = $("<div>",
-        id: "iconOf" + newLecture.fullName + slide.name
-        class: if slide.type == "code" then "slideIconFirst" else "slideIcon"
-        style: "background-image: url('/images/icons/" + slide.type + ".png')"
-        mouseover: -> newLecture.showPreview(slide)
-        mouseout: -> newLecture.hidePreview(slide)
-      ).appendTo(slideList)
+    for lecture in newLecture.data.lectures
+      do (lecture) ->
+        lectureIconGroup = $("<div>",
+          id: "groupOf" + newLecture.fullName + lecture.name
+          class: "lectureIconGroup"
+          click: ->
+            newLecture.hideCurrentSlides()
+            newLecture.showLecture lecture.name
+        ).appendTo(slideList)
 
+        for slide in lecture.slides
+          slideIcon = $("<div>",
+            id: "iconOf" + newLecture.fullName + slide.name
+            class: "slideIcon"
+            style: "background-image: url('/images/icons/" + slide.type + ".png')"
+            mouseover: -> newLecture.showPreview(slide)
+            mouseout: -> newLecture.hidePreview(slide)
+          ).appendTo(lectureIconGroup)
+          slide.iconDiv = slideIcon
+
+    $.each newLecture.data["slides"], (i, slide) ->
       slideDiv = $ "<div>",
         id: newLecture.fullName + slide.name
         class: "slide"
         style: "display: none"
 
       slide["div"] = slideDiv
-      slide["iconDiv"] = slideIcon
       slideDiv.appendTo container
 
     $("<div>",
@@ -36,7 +47,7 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
     showFeedback infoPanel
 
 # Following three functions moves slides' DIVs to proper places.
-showSlide = (slide, order, isThereSecond, toRight) ->
+showSlide = (slide, order, isThereSecond, effect) ->
   slide.iconDiv.addClass "slideIconActive"
   slide.div.css "margin-left"
               , if isThereSecond then (
@@ -44,19 +55,30 @@ showSlide = (slide, order, isThereSecond, toRight) ->
                 ) else "-200px"
   slide.div.css "display", "block"
 
-  if toRight
+  if effect == "toRight"
     slide.div.css "left", "150%"
     slide.div.animate { left: "-=100%" }, 1000
-  else
+  else if effect == "toLeft"
     slide.div.css "left", "-50%"
     slide.div.animate { left: "+=100%" }, 1000
+  else if effect == "fadeIn"
+    slide.div.css "left", "50%"
+    slide.div.fadeIn 300
+  else
+    slide.div.css "left", "50%"
 
-hideSlide = (slide, toLeft) ->
-  slide.div.animate { left: if toLeft then "-=100%" else "+=100%" }
-                   , 1000
-                   , ->
-                     slide.div.css "display", "none"
-                     slide.div.html "" unless slide.isActive
+hideSlide = (slide, effect) ->
+  afterEffect = ->
+    slide.div.css "display", "none"
+    slide.div.html "" unless slide.isActive
+  if effect == "toLeft" or effect == "toRight"
+    slide.div.animate { left: if effect=="toLeft" then "-=100%" else "+=100%" }
+                     , 1000
+                     , afterEffect
+  else if effect == "fadeOut"
+    slide.div.fadeOut 300, afterEffect
+  else
+    afterEffect()
   slide.iconDiv.removeClass "slideIconActive"
 
 moveSlide = (slide, toLeft) ->
