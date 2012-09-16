@@ -149,7 +149,7 @@ class Lecture
             @handleFailure lastResult
         , 0
     else
-      lastResult = @turtle.run code, isUserCode == false
+      lastResult = @turtle.run code, !isUserCode
 
       if isUserCode
         expected = @expectedResult

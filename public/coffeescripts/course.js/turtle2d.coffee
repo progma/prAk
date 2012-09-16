@@ -85,7 +85,7 @@ class Turtle
     , 0
     @msForStep = @totalTime / totalSteps
 
-  runActions: (callback, pos = undefined) ->
+  runActions: (callback, pos = undefined, animate = true) ->
     if @actions.length == 0
       callback()
       return
@@ -103,7 +103,7 @@ class Turtle
         [oldX, oldY] = [pos.x, pos.y]
         [newX, newY] = pos.go len
 
-        trans = "...t0,#{-len}"
+        trans = if animate then "...t0,#{-len}" else "..."
         drawLine oldX, oldY, newX, newY, aniTime, @color if pos.penDown && !@STOP
 
       when "rotate"
@@ -118,7 +118,7 @@ class Turtle
         @color = currentAction.color
 
     # Dont animate when there is no transformation
-    unless trans?
+    if !trans? or !animate
       aniTime = 0
       trans = "..." # emtpy transformation
 
@@ -126,7 +126,7 @@ class Turtle
       @im.animate transform: trans
                 , aniTime
                 , "linear"
-                , => @runActions(callback, pos)
+                , => @runActions(callback, pos, animate)
 
 environment =
   go: (steps) ->
@@ -204,7 +204,7 @@ init = (canvas) ->
   # Show turtle at the beginning
   (new Turtle()).runActions (->)
 
-run = (code, shadow, animate = true) ->
+run = (code, shadow, draw = true, animate = true) ->
   clearPaper()
 
   activeTurtle = new Turtle()
@@ -218,9 +218,9 @@ run = (code, shadow, animate = true) ->
 
   try
     turtle2d.sequences = activeTurtle.graph.sequences()
-    if animate
+    if draw
       activeTurtle.countTime()
-      activeTurtle.runActions (->)
+      activeTurtle.runActions (->), undefined, animate
   catch e
     turtle2d.lastDegreeSequence = undefined
     console.log "Problem while turtle drawing."

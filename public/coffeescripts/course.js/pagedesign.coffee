@@ -13,8 +13,8 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
           click: ->
             newLecture.hideCurrentSlides()
             newLecture.showLecture lecture.name
-          mouseover: -> showPreview(lecture)
-          mouseout: -> hidePreview(lecture)
+          mouseenter: -> showPreview(lecture)
+          mouseleave: -> hidePreview(lecture)
         ).appendTo(slideList)
         lecture.iconDiv = lectureIconGroup
 
@@ -95,6 +95,20 @@ showPreview = (lecture) ->
   ).appendTo($ "body")
   if lecture.preview?
     lecture.previewDiv.html(lecture.previewDiv.html() + "<br><img src='" + lecture.preview + "'>")
+  else if lecture.type == "turtleTask"
+    t = turtle2d
+    turtlePlace = $("<div>"
+      style: "height: 20px; width: 40px; transform: scale(0.3); -moz-transform: scale(0.3); -webkit-transform: scale(0.3)"
+    ).appendTo lecture.previewDiv
+    $("<div>"
+      style: "height: 130px"
+    ).appendTo lecture.previewDiv
+    t.init turtlePlace.get 0
+    $.ajax(
+      url: lecture.course.urlStart + "/" + lecture.name + "/expected.turtle"
+      dataType: "text"
+    ).done (data) ->
+      t.run data, false, true, false
 
 hidePreview = (lecture) ->
   lecture.previewDiv.remove()
