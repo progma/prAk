@@ -28,6 +28,15 @@ html(lang="en")
           a.brand(href="/") prAk
           .nav-collapse
             ul.nav
+              if page == 'course/turtle1'
+                li.active: a(href="/course/turtle1") Želví grafika
+              else
+                li: a(href="/course/turtle1") Želví grafika
+
+              if page == 'course/turtle2'
+                li.active: a(href="/course/turtle2") Želví grafika 2: stromy
+              else
+                li: a(href="/course/turtle2") Želví grafika 2: stromy
 
             if user
               ul.nav.pull-right
