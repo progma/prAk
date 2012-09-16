@@ -1,0 +1,16 @@
+function strom(hloubka) {
+  if (hloubka < 6)
+  {
+    go(40);
+    left(20);
+    strom(hloubka + 1);
+    right(40);
+    strom(hloubka + 1);
+    left(20);
+    right(180);
+    go(40);
+    left(180);
+  }
+}
+
+strom(1)

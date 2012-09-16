@@ -1,0 +1,21 @@
+function sier(delka, hloubka)
+{
+  if (hloubka <4)
+  {
+    sier(delka/2, hloubka+1);
+    go(delka);
+    sier(delka/2, hloubka+1);
+    go(delka);
+    left(120);
+    go(delka*2);
+    left(120);
+    go(delka);
+    left(120);
+    sier(delka/2, hloubka+1);
+    right(120);
+    go(delka);
+    left(120);
+  }
+}
+
+sier(80, 0);
