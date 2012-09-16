@@ -88,12 +88,13 @@ moveSlide = (slide, toLeft) ->
 
 showPreview = (lecture) ->
   iconPos = lecture.iconDiv.offset()
-  console.log "prev " + iconPos.left + ", " + iconPos.top
   lecture.previewDiv = $("<div>",
     class: "preview"
     style: "left: " + iconPos.left + "px; top: " + (iconPos.top+40) + "px;"
-    text: lecture.name
-  ).appendTo($("body"))
+    html: "<h4>" + lecture.readableName + "</h4>"
+  ).appendTo($ "body")
+  if lecture.preview?
+    lecture.previewDiv.html(lecture.previewDiv.html() + "<br><img src='" + lecture.preview + "'>")
 
 hidePreview = (lecture) ->
   lecture.previewDiv.remove()
