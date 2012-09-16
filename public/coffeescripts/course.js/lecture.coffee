@@ -183,12 +183,12 @@ class Lecture
     @forward()
 
   # Following four functions moves slides' DIVs to proper places.
-  startCourse: (slideName) ->
-    if slideName
-      @currentSlide = @findSlide slideName, true
+  showLecture: (lectureName) ->
+    if lectureName
+      @currentSlide = @findSlide lectureName, true
 
       if @currentSlide == false
-        slideName = "" # search failed, start with first slide
+        lectureName = "" # search failed, start with first slide
       else
         # @currentSlide is the slide displayed on the right, so it's the second
         # one in lectures with more than one slide
@@ -204,27 +204,30 @@ class Lecture
           @currentSlides = nextSlides slide
           slide = _.last @currentSlides
 
-    if !slideName
+    if !lectureName
       @currentSlide  = @data.slides[0]
-      slideName = @currentSlide.name
       @currentSlides = [@currentSlide]
 
     $.each @currentSlides, (i, slideIt) =>
-      @showSlide @currentSlides[i], i, @currentSlides.length > 1, true
+      @showSlide @currentSlides[i], i, @currentSlides.length > 1, "fadeIn"
 
-  showSlide: (slide, order, isThereSecond, toRight) ->
-    pageDesign.showSlide slide, order, isThereSecond, toRight
+  hideCurrentSlides: ->
+    for slide in @currentSlides
+      @hideSlide slide, "fadeOut"
+
+  showSlide: (slide, order, isThereSecond, effect) ->
+    pageDesign.showSlide slide, order, isThereSecond, effect
     @updateHash slide.lecture
     connection.whenWhereDictionary.lecture = slide.lecture.name
     @loadSlide slide
 
-  hideSlide: (slide, toLeft) ->
+  hideSlide: (slide, effect) ->
     # Deactivate slide
     sound.stopSound slide if slide.soundObject
     slide.userCode = slide.cm.getValue() if slide.cm?
     slide.isActive = false
 
-    pageDesign.hideSlide slide, toLeft
+    pageDesign.hideSlide slide, effect
 
   moveSlide: (slide, toLeft) ->
     pageDesign.moveSlide slide, toLeft
@@ -244,11 +247,11 @@ class Lecture
       if slideIt == next[0]
         @moveSlide slideIt, true
       else
-        @hideSlide slideIt, true
+        @hideSlide slideIt, "toLeft"
 
     $.each next, (i, slideIt) =>
       if slideIt.name != (_.last @currentSlides).name
-        @showSlide slideIt, i, next.length > 1, true
+        @showSlide slideIt, i, next.length > 1, "toRight"
       @currentSlide = slideIt
 
     @currentSlides = next
@@ -268,12 +271,12 @@ class Lecture
           slideIt.name == next[1].name
         @moveSlide slideIt, false
       else
-        @hideSlide slideIt, false
+        @hideSlide slideIt, "toRight"
 
     @currentSlides = next
     $.each @currentSlides, (i, slideIt) =>
       if slideIt.name != beforeSlides[0].name
-        @showSlide slideIt, i, @currentSlides.length > 1, false
+        @showSlide slideIt, i, @currentSlides.length > 1, "toLeft"
       @currentSlide = slideIt
 
     @resetElements()
