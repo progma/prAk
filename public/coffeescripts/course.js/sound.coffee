@@ -62,7 +62,14 @@ playSound = (slide, ith, pos) ->
   slide.soundObject().play(
     whileplaying: updateSeekbar
     onfinish: ->
+      slide.div.find(".pause").removeClass("pause").addClass("play")
       playSound slide, ith+1, 0
+    onpause: ->
+      slide.div.find(".pause").removeClass("pause").addClass("play")
+    onplay: ->
+      slide.div.find(".play").removeClass("play").addClass("pause")
+    onresume: ->
+      slide.div.find(".play").removeClass("play").addClass("pause")
     position: pos
   )
 
