@@ -114,8 +114,11 @@ showPreview = (lecture) ->
       url: lecture.course.urlStart + "/" + lecture.name + "/expected.turtle"
       dataType: "text"
     ).done((data) ->
-      # TODO if beforehand
-      t.run data, false, true, false
+      if lecture.test?
+        f = tests[lecture.test+"Expected"]
+        f(data, false) if f?
+      else
+        t.run data, false, true, false
     ).always ->
       t.unstash()
 

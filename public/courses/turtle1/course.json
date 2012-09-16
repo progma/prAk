@@ -85,6 +85,8 @@
         {
             "name": "polygon",
             "readableName": "Úkol: Mnohoúhelník",
+            "code": "function.turtle",
+            "test": "nuhelnik",
             "type": "turtleTask"
         },
         {
