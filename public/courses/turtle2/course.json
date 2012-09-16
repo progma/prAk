@@ -1,0 +1,95 @@
+{
+    "mediaRoot": "/media/turtle2/",
+    "lectures": [
+        {
+            "name": "intro",
+            "readableName": "Úvodem",
+            "type": "html",
+            "source": "intro.html"
+        },
+        {
+            "name": "2dstrom",
+            "readableName": "Strom",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "01-2dstrom-01-take02",
+                    "time": 30511
+                },
+                {
+                    "file": "01-2dstrom-02-take01",
+                    "time": 33332
+                },
+                {
+                    "file": "01-2dstrom-03-take01",
+                    "time": 140968
+                },
+                {
+                    "file": "01-2dstrom-04-take01",
+                    "time": 147029
+                }
+            ]
+        },
+        {
+            "name": "lepsiStrom",
+            "readableName": "Úkol: Nepřekrývající se strom",
+            "code": "start.turtle",
+            "type": "turtleTask"
+        },
+        {
+            "name": "sierpinski",
+            "readableName": "Úkol: Sierpinského trojúhelník",
+            "type": "turtleTask"
+        },
+        {
+            "name": "3dstrom",
+            "readableName": "Trojrozměrný strom",
+            "type": "turtleTalk",
+            "mode": "turtle3d",
+            "talk": [
+                {
+                    "file": "02-3dstrom-01-take01",
+                    "time": 27236
+                },
+                {
+                    "file": "02-3dstrom-02-take01",
+                    "time": 32125
+                },
+                {
+                    "file": "02-3dstrom-03-take01",
+                    "time": 70716
+                },
+                {
+                    "file": "02-3dstrom-04-take01",
+                    "time": 73578
+                },
+                {
+                    "file": "02-3dstrom-05-take01",
+                    "time": 130101
+                },
+                {
+                    "file": "02-3dstrom-06-take01",
+                    "time": 100333
+                },
+                {
+                    "file": "02-3dstrom-07-take01",
+                    "time": 113580
+                },
+                {
+                    "file": "02-3dstrom-08-take01",
+                    "time": 145078
+                },
+                {
+                    "file": "02-3dstrom-09-take01",
+                    "time": 81548
+                }
+            ]
+        },
+        {
+            "name": "wellDone",
+            "readableName": "Závěrem",
+            "type": "html",
+            "source": "wellDone.html"
+        }
+    ]
+}
