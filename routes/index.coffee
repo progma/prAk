@@ -48,7 +48,8 @@ renderCourse = (req, res, codes) ->
   courseName = req.param('courseName')
   if req.user? && req.user.lecturesDone?
     lecturesDone = req.user.lecturesDone[courseName]
-  else
+
+  unless lecturesDone?
     lecturesDone = []
 
   res.render 'course',
