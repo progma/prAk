@@ -76,7 +76,7 @@ class Lecture
             f(data) if f?
           else
             @runCode data, false
-            @expectedResult = turtle2d.sequences
+            @expectedResult = @turtle.sequences
 
     else if slide.type == "code"
       textDiv = $("<div>")
@@ -138,40 +138,37 @@ class Lecture
 
     @errorDiv.html pageDesign.codeIsRunning if isUserCode
 
-    if slide.lecture.mode != "turtle3d"
-      if isUserCode && slide.lecture.test?
-        setTimeout =>
-            lastResult = tests[slide.lecture.test](code, @expectedCode)
-            if lastResult == true
-              @lectureDone slide
-              @errorDiv.html ""
-            else
-              @handleFailure lastResult
-          , 0
-      else
-        lastResult = @turtle.run code, !isUserCode
-
-        if isUserCode
-          expected = @expectedResult
-          given = turtle2d.sequences
-          eq = graph.almostEqual
-
-          if  _.isEqual(expected.degreesSequence, given.degreesSequence) and
-              eq(expected.anglesSequence,    given.anglesSequence)       and
-              eq(expected.distancesSequence, given.distancesSequence)
+    if isUserCode && slide.lecture.test?
+      setTimeout =>
+          lastResult = tests[slide.lecture.test](code, @expectedCode)
+          if lastResult == true
             @lectureDone slide
-
-        @errorDiv.html ""
-
-        unless lastResult == true
-          @handleFailure lastResult
+            @errorDiv.html ""
+          else
+            @handleFailure lastResult
+        , 0
     else
-      @turtle.run code
-      @errorDiv.html ""
-      for candidate in slide.lecture.testAgainstOneOf
-        if _.isEqual candidate.degreeSequence, window.graph.degreeSequence
-          if _.isEqual _.filter(_.map(_.zip(candidate.edgeLengths, window.graph.edgeLengths), (t) -> t[0]-t[1]), (t) -> t>0.001), []
+      lastResult = @turtle.run code, !isUserCode
+
+      if isUserCode
+        given = @turtle.sequences
+
+        if slide.lecture.testAgainstOneOf?
+          for candidate in slide.lecture.testAgainstOneOf
+            if graph.sequencesEqual candidate, given
+              @lectureDone slide # XXX will be @passedTheTest
+              break
+
+        else
+          expected = @expectedResult
+
+          if graph.sequencesEqual expected, given, slide.lecture.testProperties
             @lectureDone slide
+
+      @errorDiv.html ""
+
+      unless lastResult == true
+        @handleFailure lastResult
 
   # Handles error object given by failing computation.
   handleFailure: (failingResult) ->

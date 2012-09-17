@@ -41,7 +41,7 @@ graphDegree = ->
         g.penUp()
       when penDown
         g.penDown()
-  g.sequences().degreesSequence
+  g.sequences().degreeSequence
 
 # Tests
 check
@@ -59,6 +59,6 @@ check
 
 # TODO definitely needs more testing:
 #   intersectingPointWith
-#   degreesSequence
-#   anglesSequence
+#   degreeSequence
+#   angleSequence
 #   addLineSegment - case by case testing!

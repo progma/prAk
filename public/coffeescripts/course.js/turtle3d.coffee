@@ -61,8 +61,7 @@ class Turtle3D
     @up.normalize()
     @droppings = []
     @drawing = on
-    @graph = { vertices: [], edgeLengths: [] }
-    window.graph = @graph
+    @graph = new graph.Simple3DGraph()
 
   go: (distance) ->
     newPosition = new THREE.Vector3()
@@ -73,48 +72,9 @@ class Turtle3D
                       , material: @material
                       , width: @width })
 
-    @markEdge { x: @position.x, y: @position.y, z: @position.z }, { x: newPosition.x, y: newPosition.y, z: newPosition.z }
+    @graph.markEdge { x: @position.x, y: @position.y, z: @position.z }, { x: newPosition.x, y: newPosition.y, z: newPosition.z }
 
     @position = newPosition
-
-
-  # TODO: graph should have its own class
-  markEdge: (from, to) ->
-    fromV = @ensureVertex from
-    toV = @ensureVertex to
-
-    # no multiedges
-    for v in fromV.edges
-      if @closeEnough toV.pos, v.pos
-        return
-
-    fromV.edges.push toV
-    toV.edges.push fromV
-
-    distX = fromV.pos.x - toV.pos.x
-    distY = fromV.pos.y - toV.pos.y
-    distZ = fromV.pos.z - toV.pos.z
-    @graph.edgeLengths.push Math.sqrt(distX*distX+distY*distY+distZ*distZ)
-
-    @graph.degreeSequence = @degreeSequence()
-
-  ensureVertex: (position) ->
-    for vertex in @graph.vertices
-      if @closeEnough position, vertex.pos
-        return vertex
-
-    newVertex = { pos: position, edges: [] }
-    @graph.vertices.push newVertex
-
-    return newVertex
-
-  closeEnough: (vPos, wPos) ->
-    res = (Math.abs(vPos.x - wPos.x) < 0.001) and (Math.abs(vPos.y - wPos.y) < 0.001) and (Math.abs(vPos.z - wPos.z) < 0.001)
-    return res
-
-  degreeSequence: ->
-    return (_.map @graph.vertices, (vertex) -> vertex.edges.length).sort()
-    
 
   yaw: (angle) ->
     # When we want to change the yaw, we rotate around our 'up' vector.
@@ -300,7 +260,7 @@ constants =
   orange: 0xCC3232
 
 
-run = (turtleCode) ->
+run = (turtleCode, shadow, draw = true) ->
   material = new THREE.MeshLambertMaterial({ color: parameters.TURTLE_START_COLOR
                                            , ambient: parameters.TURTLE_START_COLOR })
 
@@ -314,8 +274,11 @@ run = (turtleCode) ->
     code: turtleCode
     environment: environment(myTurtle)
     constants: constants
+  turtle3d.sequences = myTurtle.graph.sequences()
+  return   unless draw
 
   try
+
     # We dump the old scene and populate a new one.
     scene = new THREE.Scene()
 
@@ -358,6 +321,7 @@ run = (turtleCode) ->
     return result
 
 @turtle3d = {
+  sequences: null
   Turtle3D
   init
   run
