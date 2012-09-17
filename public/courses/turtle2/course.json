@@ -34,6 +34,10 @@
             "name": "lepsiStrom",
             "readableName": "Úkol: Nepřekrývající se strom",
             "code": "start.turtle",
+            "testProperties": [
+                "degreeSequence",
+                "distanceSequence"
+            ],
             "type": "turtleTask"
         },
         {
@@ -42,8 +46,8 @@
             "type": "turtleTask"
         },
         {
-            "name": "3dstrom",
-            "readableName": "Trojrozměrný strom",
+            "name": "3dzelva",
+            "readableName": "3D Želva",
             "type": "turtleTalk",
             "mode": "turtle3d",
             "talk": [
@@ -62,7 +66,44 @@
                 {
                     "file": "02-3dstrom-04-take01",
                     "time": 73578
+                }
+            ]
+        },
+        {
+            "name": "platon",
+            "readableName": "Úkol: Platónská tělesa",
+            "type": "turtleTask",
+            "mode": "turtle3d",
+            "testAgainstOneOf":
+            [
+                {
+                    "degreeSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+                    "distanceSequence": [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
                 },
+                {
+                    "degreeSequence": [4, 4, 4, 4, 4, 4],
+                    "distanceSequence": [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
+                },
+                {
+                    "degreeSequence": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3,   3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+                    "distanceSequence": [50, 50, 50, 50, 50, 50, 50, 50, 50, 50,   50, 50, 50, 50, 50, 50, 50, 50, 50, 50,   50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
+                },
+                {
+                    "degreeSequence": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5,   5, 5],
+                    "distanceSequence": [50, 50, 50, 50, 50, 50, 50, 50, 50, 50,   50, 50, 50, 50, 50, 50, 50, 50, 50, 50,   50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
+                },
+                {
+                    "degreeSequence": [3, 3, 3, 3],
+                    "distanceSequence": [50, 50, 50, 50, 50, 50]
+                }
+            ]
+        },
+        {
+            "name": "3dstrom",
+            "readableName": "Trojrozměrný strom",
+            "type": "turtleTalk",
+            "mode": "turtle3d",
+            "talk": [
                 {
                     "file": "02-3dstrom-05-take01",
                     "time": 130101

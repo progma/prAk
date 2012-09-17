@@ -69,7 +69,7 @@ class Lecture
 
       @errorDiv.prependTo output
 
-      unless slide.lecture.talk?
+      if slide.lecture.type == "turtleTask" and slide.lecture.mode != "turtle3d"
         loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
           @expectedCode = data
 
@@ -78,7 +78,7 @@ class Lecture
             f(data) if f?
           else
             @runCode data, false
-            @expectedResult = turtle2d.sequences
+            @expectedResult = @turtle.sequences
 
     else if slide.type == "code"
       textDiv = $("<div>")
@@ -162,14 +162,19 @@ class Lecture
       lastResult = @turtle.run code, !isUserCode
 
       if isUserCode
-        expected = @expectedResult
-        given = turtle2d.sequences
-        eq = graph.almostEqual
+        given = @turtle.sequences
 
-        if  _.isEqual(expected.degreesSequence, given.degreesSequence) and
-            eq(expected.anglesSequence,    given.anglesSequence)       and
-            eq(expected.distancesSequence, given.distancesSequence)
-          @lectureDone slide
+        if slide.lecture.testAgainstOneOf?
+          for candidate in slide.lecture.testAgainstOneOf
+            if graph.sequencesEqual candidate, given
+              @lectureDone slide # XXX will be @passedTheTest
+              break
+
+        else
+          expected = @expectedResult
+
+          if graph.sequencesEqual expected, given, slide.lecture.testProperties
+            @lectureDone slide
 
       @errorDiv.html ""
 

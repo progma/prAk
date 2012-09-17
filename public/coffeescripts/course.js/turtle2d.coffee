@@ -225,7 +225,7 @@ run = (code, shadow, draw = true, animate = true) ->
       activeTurtle.countTime()
       activeTurtle.runActions (->), undefined, animate
   catch e
-    turtle2d.lastDegreeSequence = undefined
+    turtle2d.sequences = null
     console.log "Problem while turtle drawing."
     console.log e.toString()
   finally
@@ -233,12 +233,11 @@ run = (code, shadow, draw = true, animate = true) ->
 
 
 stash = ->
-  if turtle2d.paper
-    stashedSettings.push
-      turtle: activeTurtle
-      paper: turtle2d.paper
-    activeTurtle = null
-    turtle2d.paper = null
+  stashedSettings.push
+    turtle: activeTurtle
+    paper: turtle2d.paper
+  activeTurtle = null
+  turtle2d.paper = null
 
 unstash = ->
   if stashedSettings.length > 0

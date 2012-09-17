@@ -61,6 +61,7 @@ class Turtle3D
     @up.normalize()
     @droppings = []
     @drawing = on
+    @graph = new graph.Simple3DGraph()
 
   go: (distance) ->
     newPosition = new THREE.Vector3()
@@ -70,6 +71,9 @@ class Turtle3D
                       , to: newPosition
                       , material: @material
                       , width: @width })
+
+    @graph.markEdge { x: @position.x, y: @position.y, z: @position.z }, { x: newPosition.x, y: newPosition.y, z: newPosition.z }
+
     @position = newPosition
 
   yaw: (angle) ->
@@ -256,7 +260,7 @@ constants =
   orange: 0xCC3232
 
 
-run = (turtleCode) ->
+run = (turtleCode, shadow, draw = true) ->
   material = new THREE.MeshLambertMaterial({ color: parameters.TURTLE_START_COLOR
                                            , ambient: parameters.TURTLE_START_COLOR })
 
@@ -270,8 +274,11 @@ run = (turtleCode) ->
     code: turtleCode
     environment: environment(myTurtle)
     constants: constants
+  turtle3d.sequences = myTurtle.graph.sequences()
+  return   unless draw
 
   try
+
     # We dump the old scene and populate a new one.
     scene = new THREE.Scene()
 
@@ -314,6 +321,7 @@ run = (turtleCode) ->
     return result
 
 @turtle3d = {
+  sequences: null
   Turtle3D
   init
   run
