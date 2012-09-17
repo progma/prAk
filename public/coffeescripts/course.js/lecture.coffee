@@ -53,6 +53,8 @@ class Lecture
           slide.div.html data
         , => slide.div.html pageDesign.loadProblem
 
+        @lectureDone()
+
     # Display drawing areay with expected result
     else if slide.type == "turtleDen"
       output = document.getElementById @fullName + slide.name
@@ -128,7 +130,11 @@ class Lecture
 
       if slide.talk?
         soundManager.onready =>
-          sound.playTalk slide, @data.mediaRoot, @fullName
+          sound.playTalk slide, @data.mediaRoot, @fullName, =>
+            @lectureDone()
+            # TODO stg like
+            # if @currentSlide.lecture.forward == "auto"
+            #   @forward()
 
     else if slide.type == "test"
       if slide.testDone
@@ -191,12 +197,12 @@ class Lecture
     @forward()
 
   lectureDone: ->
-    lecture = @currentSlide.lecture.name
-    unless lecture.done
-      connection.lectureDone @courseName, lecture
-      lecture.done = true
-
+    lecture = @currentSlide.lecture
     pageDesign.lectureDone lecture
+
+    unless lecture.done
+      connection.lectureDone @courseName, lecture.name
+      lecture.done = true
 
   # Following four functions moves slides' DIVs to proper places.
   showLecture: (lectureName) ->

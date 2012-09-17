@@ -212,10 +212,12 @@ apiHelp = [
     desc: """Vykoná <code>slovo</code> <code>n</code>-krát. Pokaždé s argumenty
     argument1, argument2, ... (v závislosti na tom, kolik jich je uvedeno).
     """
+
+    # TODO if (vcetne porovnavani == < <=), penUp, penDown, color
 ]
 
 extendedApiHelp =
-  "turtle3d": []
+  "turtle3d": [] # TODO up, down, rollLeft, rollRight, width
   "game": []
 
 apiHelpNames =
