@@ -21,7 +21,7 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
         for slide in lecture.slides
           slideIcon = $("<div>",
             id: "iconOf" + newLecture.fullName + slide.name
-            class: "slideIcon"
+            class: "slideIcon" + if lecture.done then " slideDone" else ""
             style: "background-image: url('/images/icons/" + slide.type + ".png')"
           ).appendTo(lectureIconGroup)
           slide.iconDiv = slideIcon
@@ -130,6 +130,10 @@ showPreview = (lecture) ->
 
 hidePreview = (lecture) ->
   lecture.previewDiv.remove()
+
+lectureDone = (lecture) ->
+  for slide in lecture.slides
+    slide.iconDiv.addClass "slideDone"
 
 addPlayer = (div, clickHandler, seekHandler) ->
   div.addClass "playSlide"
@@ -291,6 +295,7 @@ codeIsRunning = "Běží výpočet."
   hideSlide
   moveSlide
 
+  lectureDone
   addPlayer
 
   showHelp

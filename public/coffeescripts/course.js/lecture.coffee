@@ -153,7 +153,7 @@ class Lecture
       setTimeout =>
           lastResult = tests[slide.lecture.test](code, @expectedCode)
           if lastResult == true
-            @lectureDone slide
+            @passedTheTest slide
             @errorDiv.html ""
           else
             @handleFailure lastResult
@@ -169,7 +169,7 @@ class Lecture
         if  _.isEqual(expected.degreesSequence, given.degreesSequence) and
             eq(expected.anglesSequence,    given.anglesSequence)       and
             eq(expected.distancesSequence, given.distancesSequence)
-          @lectureDone slide
+          @passedTheTest slide
 
       @errorDiv.html ""
 
@@ -185,12 +185,18 @@ class Lecture
     else
       @errorDiv.html pageDesign.wrongAnswer + failingResult.args.toString()
 
-  lectureDone: (slide) ->
-    unless slide.next.testDone
-      connection.lectureDone @courseName, slide.lecture.name
-
+  passedTheTest: (slide) ->
+    @lectureDone()
     slide.next.testDone = true
     @forward()
+
+  lectureDone: ->
+    lecture = @currentSlide.lecture.name
+    unless lecture.done
+      connection.lectureDone @courseName, lecture
+      lecture.done = true
+
+    pageDesign.lectureDone lecture
 
   # Following four functions moves slides' DIVs to proper places.
   showLecture: (lectureName) ->

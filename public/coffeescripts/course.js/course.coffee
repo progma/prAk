@@ -107,6 +107,7 @@ courses =
           lecture.slides = [lecture]
           memo.push lecture
         lecture.course = course
+        lecture.done = lecture.name in lecturesDone
         return memo
       , []
       course.lectures = data.lectures
