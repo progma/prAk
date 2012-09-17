@@ -36,6 +36,8 @@ class Lecture
     @turtle3dCanvas = $ "<canvas>", id: "turtle3dCanvas"
     @turtle3dDiv.append @turtle3dCanvas
 
+    @helpSlide = null
+
     # This is where we keep notion about what to do if a user hit the back
     # arrow.
     @historyStack = new Array()
@@ -107,14 +109,22 @@ class Lecture
           cm.setValue data
           slide.userCode = data
 
+      buttonsContainer = $ "<div>", class: "runButtonContainer"
+      buttonsContainer.appendTo slide.div
+
+      $("<button>",
+        text: "Nápověda"
+        class: if slide.talk? then "hidden" else "btn runButton"
+        click: =>
+          @showHelp()
+      ).appendTo buttonsContainer
+
       $("<button>",
         text: "Spustit kód"
         class: if slide.talk? then "hidden" else "btn runButton"
         click: =>
           @runCode cm.getValue()
-      ).appendTo($("<div>",
-        class: "runButtonContainer"
-      ).appendTo(slide.div))
+      ).appendTo buttonsContainer
 
       if slide.talk?
         soundManager.onready =>
@@ -127,6 +137,7 @@ class Lecture
         slide.div.html pageDesign.testNotDoneResultPage
 
   runCode: (code, isUserCode = true) ->
+    @hideHelp()
     slide = @currentSlide
 
     if isUserCode
@@ -210,6 +221,8 @@ class Lecture
     $.each @currentSlides, (i, slideIt) =>
       @showSlide @currentSlides[i], i, @currentSlides.length > 1, "fadeIn"
 
+    @resetElements()
+
   hideCurrentSlides: ->
     for slide in @currentSlides
       @hideSlide slide, "fadeOut"
@@ -280,9 +293,21 @@ class Lecture
 
     @resetElements()
 
-  # Empty error area
+  hideHelp: ->
+    pageDesign.hideSlide @helpSlide if @helpSlide
+    @helpSlide = null
+
+  showHelp: ->
+    helpDiv = pageDesign.showHelp (@currentSlide.lecture.help ? ""),
+      => @hideHelp()
+    @helpSlide =
+      div: helpDiv
+    pageDesign.showSlide @helpSlide, 1, true, "fadeIn"
+
   resetElements: ->
     @errorDiv.html ""
+    @hideHelp()
+    # TODO arrows
 
   # Hash is the part of URL after #
   # TODO: This is going to need more systematic handling with respect to

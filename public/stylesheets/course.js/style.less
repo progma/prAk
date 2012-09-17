@@ -14,6 +14,7 @@
 
 /* Rozmery dokumentu */
 @slideHeight: 500px;
+@slideWidth: 380px;
 
 .rounded-corners (@radius: 5px) {
     border-radius: @radius;
@@ -137,7 +138,7 @@
     left: 50%;
     display: block;
     background-color: @slideBackground;
-    width: 380px;
+    width: @slideWidth;
     height: @slideHeight - 25px;
     padding: 10px;
     text-align: left;
@@ -147,6 +148,15 @@
 .playSlide {
     padding-top: 42px;
     height: @slideHeight - 57px;
+}
+
+#helpSlide {
+    z-index: 20;
+    width: @slideWidth - 10px;
+    overflow: auto;
+    h3 {
+        margin-top: 0.6em;
+    }
 }
 
 .textIcon {

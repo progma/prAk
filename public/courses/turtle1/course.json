@@ -30,6 +30,7 @@
         {
             "name": "sestiuhelnik",
             "readableName": "Úkol: Šestiúhelník",
+            "help": "right",
             "type": "turtleTask"
         },
         {
