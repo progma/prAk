@@ -205,11 +205,8 @@ class Lecture
         else
           expected = @expectedResult
           given = turtle2d.sequences
-          eq = graph.almostEqual
 
-          if  _.isEqual(expected.degreesSequence, given.degreesSequence) and
-              eq(expected.anglesSequence,    given.anglesSequence)       and
-              eq(expected.distancesSequence, given.distancesSequence)
+          if graph.sequencesEqual expected, given, slide.lecture.testProperties
             @passedTheTest slide
 
       @errorDiv.html ""
