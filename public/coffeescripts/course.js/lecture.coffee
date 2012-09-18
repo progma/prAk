@@ -199,7 +199,7 @@ class Lecture
         if slide.lecture.testAgainstOneOf?
           for candidate in slide.lecture.testAgainstOneOf
             if graph.sequencesEqual candidate, given
-              @lectureDone slide # XXX will be @passedTheTest
+              @passedTheTest slide
               break
 
         else
