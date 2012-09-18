@@ -1,5 +1,6 @@
 slide      = undefined
 codeMirror = undefined
+callback   = undefined
 evaluationContext = undefined
 
 # Order matters!
@@ -16,8 +17,9 @@ tracks = [
 # Things get little complicated by the fact that one slide posses multiple
 # tuples of speech/keyboard recording that are to be played consequently, "as one".
 
-playTalk = (sl, mediaRoot, fullName) ->
+playTalk = (sl, mediaRoot, fullName, clbk) ->
   slide = sl
+  callback = clbk
 
   unless slide.soundObjects?
     createSoundObjects slide, mediaRoot, fullName
@@ -57,11 +59,16 @@ addEventsToManager = (slide, trackName, track, fullName, soundObject) ->
 
 playSound = (slide, ith, pos) ->
   slide.activeSoundObjectI = ith
-  for so in [0...slide.soundObjects.length]
-    slide.soundObjects[so].onfinish = undefined
+
+  for so in slide.soundObjects
+    so.onfinish = undefined
+
   slide.soundObject().play(
     whileplaying: updateSeekbar
     onfinish: ->
+      if ith+1 == slide.soundObjects.length and callback?
+        callback()
+
       slide.div.find(".pause").removeClass("pause").addClass("play")
       playSound slide, ith+1, 0
     onpause: ->

@@ -21,7 +21,7 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
         for slide in lecture.slides
           slideIcon = $("<div>",
             id: "iconOf" + newLecture.fullName + slide.name
-            class: "slideIcon"
+            class: "slideIcon" + if lecture.done then " slideDone" else ""
             style: "background-image: url('/images/icons/" + slide.type + ".png')"
           ).appendTo(lectureIconGroup)
           slide.iconDiv = slideIcon
@@ -131,6 +131,10 @@ showPreview = (lecture) ->
 hidePreview = (lecture) ->
   lecture.previewDiv.remove()
 
+lectureDone = (lecture) ->
+  for slide in lecture.slides
+    slide.iconDiv.addClass "slideDone"
+
 addPlayer = (div, clickHandler, seekHandler) ->
   div.addClass "playSlide"
   player = $("<div>",
@@ -208,10 +212,12 @@ apiHelp = [
     desc: """Vykoná <code>slovo</code> <code>n</code>-krát. Pokaždé s argumenty
     argument1, argument2, ... (v závislosti na tom, kolik jich je uvedeno).
     """
+
+    # TODO if (vcetne porovnavani == < <=), penUp, penDown, color
 ]
 
 extendedApiHelp =
-  "turtle3d": []
+  "turtle3d": [] # TODO up, down, rollLeft, rollRight, width
   "game": []
 
 apiHelpNames =
@@ -291,6 +297,7 @@ codeIsRunning = "Běží výpočet."
   hideSlide
   moveSlide
 
+  lectureDone
   addPlayer
 
   showHelp
