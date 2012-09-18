@@ -1,9 +1,25 @@
+jsHintOptions =
+  boss: true
+  evil: true
+  # undef: true
+
+syntaxCheck = (code) ->
+  result = JSHINT(code, jsHintOptions)
+  result || JSHINT.errors[0]
+
 loadText = (name, callback, errorHandler = null) ->
     $.ajax(
       url: name
       dataType: "text"
     ).done(callback)
      .error(errorHandler)
+
+cleanCodeMirror = (cm) ->
+  return   unless cm.__DIRTY__
+
+  cm.__DIRTY__ = false
+  for i in [0...cm.lineCount()]
+    cm.setLineClass i, null
 
 nextSlides = (slide) ->
   if slide.go == "nextLecture"
@@ -95,6 +111,7 @@ class Lecture
             lineNumbers: true
             readOnly: slide.talk?
             indentWithTabs: false
+            onChange: cleanCodeMirror
             # autofocus: true
 
       if slide.lecture.talk?
@@ -145,6 +162,8 @@ class Lecture
   runCode: (code, isUserCode = true) ->
     @hideHelp()
     slide = @currentSlide
+    cm = slide.prev.cm
+    cleanCodeMirror cm
 
     if isUserCode
       connection.sendUserCode
@@ -152,6 +171,13 @@ class Lecture
         course: @courseName
         lecture: slide.lecture.name
         mode: slide.lecture.mode ? "turtle2d"
+
+      syntax = syntaxCheck code
+      unless syntax == true
+        @errorDiv.html "Syntaktická chyba (#{syntax.reason})"
+        cm.setLineClass syntax.line-1, "syntaxError"
+        cm.__DIRTY__ = true
+        return
 
     @errorDiv.html pageDesign.codeIsRunning if isUserCode
 
