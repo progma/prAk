@@ -8,6 +8,8 @@ block body
     div(id='courseDiv', class='slides', slidedata='/courses/#{courseName}/')
 
 block scripts
+    script(src="/javascripts/soundmanager2-jsmin.js")
+    script(src="/javascripts/course.js/playbook.js")
     script(src="/courses/#{courseName}/tests.js")
     script(src="/javascripts/course.js/sound.js")
     script(src="/javascripts/course.js/lecture.js")
