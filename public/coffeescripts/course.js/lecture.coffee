@@ -104,6 +104,8 @@ class Lecture
 
       unless slide.lecture.talk?
         loadText @name + "/" + slide.lecture.name + "/text.html", (data) =>
+          if slide.lecture.readableName?
+            data = "<h4>#{slide.lecture.readableName}</h4>\n#{data}"
           textDiv.html data
           textDiv.height "80px"
 

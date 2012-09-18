@@ -270,7 +270,7 @@ testDoneResultPage = """
   <center>
   <h2 style='margin-top: 30px;'>Správné řešení</h2>
     <img src='/images/checked.png' style='width: 200px; height: 143px; margin: 50px;'>
-    <p>Nejen že jsi správně vyřešil/a danou úlohu -- mimoděk jsi stvořil/a veliké
+    <p>Nejen že jsi správně vyřešil/a danou úlohu &#8212 mimoděk jsi stvořil/a veliké
     umělecké dílo, jež bude svou nádherou a noblesou okouzlovat spatřující
     stovky nadcházejících let.
     <p>Nechceš ho sdílet na Facebooku?
