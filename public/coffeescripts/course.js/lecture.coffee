@@ -107,11 +107,7 @@ class Lecture
           textDiv.html data
           textDiv.height "80px"
 
-      ta = $ "<textarea>"
-      ta.appendTo slide.div
-
-      # cm = slide.cm = new CodeMirror slide.div.get(0),
-      cm = slide.cm = CodeMirror.fromTextArea ta.get(0),
+      cm = slide.cm = new CodeMirror slide.div.get(0),
             lineNumbers: true
             readOnly: slide.talk?
             indentWithTabs: false
