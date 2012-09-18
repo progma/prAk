@@ -19,7 +19,7 @@ cleanCodeMirror = (cm) ->
 
   cm.__DIRTY__ = false
   for i in [0...cm.lineCount()]
-    cm.setLineClass i, null, null
+    cm.setLineClass i, null
 
 nextSlides = (slide) ->
   if slide.go == "nextLecture"
@@ -179,7 +179,7 @@ class Lecture
       syntax = syntaxCheck code
       unless syntax == true
         @errorDiv.html "Syntaktická chyba (#{syntax.reason})"
-        cm.setLineClass syntax.line-1, "syntaxError", "syntaxError"
+        cm.setLineClass syntax.line-1, "syntaxError"
         cm.__DIRTY__ = true
         return
 
