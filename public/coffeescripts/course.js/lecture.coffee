@@ -351,7 +351,9 @@ class Lecture
   resetElements: ->
     @errorDiv.html ""
     @hideHelp()
-    # TODO arrows
+
+    pageDesign.displayArrow @backArrow, @currentSlides[0].prev
+    pageDesign.displayArrow @forwardArrow, (_.last @currentSlides).next
 
   # Hash is the part of URL after #
   # TODO: This is going to need more systematic handling with respect to
