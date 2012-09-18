@@ -1,4 +1,6 @@
 PRECISION    = 0.000001
+PREC_3D      = 0.0001 # TODO fix
+
 
 approxZero = (num, prec = PRECISION) ->
   Math.abs(num) < prec
@@ -151,9 +153,9 @@ class EmbeddedGraph
         dists.push Math.sqrt dist {x,y}, p for p in neighs
 
     return {
-      anglesSequence: angles.sort()
-      degreesSequence: degrees.sort()
-      distancesSequence: dists.sort()
+      angleSequence: angles.sort()
+      degreeSequence: degrees.sort()
+      distanceSequence: dists.sort()
     }
 
   addLineSegment: (from, to) ->
@@ -243,13 +245,73 @@ class EmbeddedGraph
 
     @lineSegments = @lineSegments.concat M, newLSs
 
+class Simple3DGraph
+  constructor: ->
+    @vertices = []
+    @edgeLengths = []
+
+  # TODO cannot handle edge created from smaller edges
+  markEdge: (from, to) ->
+    fromV = @ensureVertex from
+    toV = @ensureVertex to
+
+    # no multiedges
+    for v in fromV.edges
+      if @closeEnough toV.pos, v.pos
+        return
+
+    fromV.edges.push toV
+    toV.edges.push fromV
+
+    distX = fromV.pos.x - toV.pos.x
+    distY = fromV.pos.y - toV.pos.y
+    distZ = fromV.pos.z - toV.pos.z
+    @edgeLengths.push Math.sqrt(distX*distX+distY*distY+distZ*distZ)
+
+  ensureVertex: (position) ->
+    for vertex in @vertices
+      if @closeEnough position, vertex.pos
+        return vertex
+
+    newVertex = { pos: position, edges: [] }
+    @vertices.push newVertex
+
+    return newVertex
+
+  closeEnough: (vPos, wPos) ->
+    (approxZero vPos.x - wPos.x, PREC_3D) and
+    (approxZero vPos.y - wPos.y, PREC_3D) and
+    (approxZero vPos.z - wPos.z, PREC_3D)
+
+  sequences: ->
+    degreeSequence: (_.map @vertices, (vertex) -> vertex.edges.length).sort()
+    distanceSequence: @edgeLengths.sort()
+
+
 almostEqual = (s1, s2) ->
   return false unless s1.length == s2.length
 
   for i in [0...s1.length]
-    return false unless approxZero s1[i] - s2[i]
+    return false unless approxZero s1[i] - s2[i], PREC_3D
 
   true
+
+sequencesEqual = (expected, given,
+                  toTest = [ "degreeSequence"
+                           , "angleSequence"
+                           , "distanceSequence"]) ->
+
+  console.dir arguments
+
+  degs  = !("degreeSequence"   in toTest && "degreeSequence"   of expected)
+  angls = !("angleSequence"    in toTest && "angleSequence"    of expected)
+  dists = !("distanceSequence" in toTest && "distanceSequence" of expected)
+
+  degs  ||= _.isEqual   expected.degreeSequence,   given.degreeSequence
+  angls ||= almostEqual expected.angleSequence,    given.angleSequence
+  dists ||= almostEqual expected.distanceSequence, given.distanceSequence
+
+  degs && angls && dists
 
 ##
 ## Exports
@@ -258,8 +320,11 @@ almostEqual = (s1, s2) ->
   Position
   LineSegment
   EmbeddedGraph
+  Simple3DGraph
 
   # Compares two sorted sequences of distances or angles
   almostEqual
+
+  sequencesEqual
 }
 module?.exports = @graph

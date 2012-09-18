@@ -8,8 +8,6 @@ assert = (result) ->
 run = (code, call) ->
   turtle2d.run (code + "\n\n" + call), false, false
 
-ae = graph.almostEqual
-
 sequencesEqual = (code, expected, call) ->
   res = run code, call
   resSeq = turtle2d.sequences
@@ -17,10 +15,7 @@ sequencesEqual = (code, expected, call) ->
   expSeq = turtle2d.sequences
 
   assert res
-
-  return _.isEqual(resSeq.degreesSequence, expSeq.degreesSequence) and
-    ae(resSeq.anglesSequence, expSeq.anglesSequence) and
-    ae(resSeq.distancesSequence, expSeq.distancesSequence)
+  graph.sequencesEqual resSeq, expSeq
 
 check = (obj) ->
   res = ex.test obj
