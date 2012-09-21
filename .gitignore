@@ -1,6 +1,6 @@
 public/media/*
 public/javascripts/course.js/*
-public/stylesheets/course.js/style.css
+public/stylesheets/course.css
 node_modules/*
 
 *.py[co]
@@ -9,7 +9,6 @@ node_modules/*
 *.egg
 *.egg-info
 dist
-build
 eggs
 parts
 bin
