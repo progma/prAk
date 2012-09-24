@@ -63,10 +63,9 @@ renderCourse = (req, res, codes) ->
     errors: req.flash 'error'
 
 exports.course = (req, res) ->
-  console.log "requesting course"
   if req.user?
     userCodeCollection.group ["lecture"]
-      , { course: req.param('courseName') }
+      , { course: req.param('courseName'), user_id: req.user.id }
       , { code: "", date: 0 }
       , reduceUC.toString()
       , true
