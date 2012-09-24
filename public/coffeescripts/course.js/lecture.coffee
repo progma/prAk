@@ -104,6 +104,8 @@ class Lecture
 
       unless slide.lecture.talk?
         loadText @name + "/" + slide.lecture.name + "/text.html", (data) =>
+          if slide.lecture.readableName?
+            data = "<h4>#{slide.lecture.readableName}</h4>\n#{data}"
           textDiv.html data
           textDiv.height "80px"
 
@@ -351,7 +353,9 @@ class Lecture
   resetElements: ->
     @errorDiv.html ""
     @hideHelp()
-    # TODO arrows
+
+    pageDesign.displayArrow @backArrow, @currentSlides[0].prev
+    pageDesign.displayArrow @forwardArrow, (_.last @currentSlides).next
 
   # Hash is the part of URL after #
   # TODO: This is going to need more systematic handling with respect to
