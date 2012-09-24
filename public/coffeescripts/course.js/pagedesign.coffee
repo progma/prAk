@@ -1,9 +1,9 @@
 lectureAdd = (newLecture, container, slideList, infoPanel) ->
-    $("<div>",
+    newLecture.backArrow = $ "<div>",
       id: newLecture.fullName + "backArrow"
       class: "arrow-w"
       click: -> newLecture.back()
-    ).appendTo container
+    newLecture.backArrow.appendTo container
 
     for lecture in newLecture.data.lectures
       do (lecture) ->
@@ -41,11 +41,11 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
       id: "helpSlide"
     ).appendTo container
 
-    $("<div>",
+    newLecture.forwardArrow = $ "<div>",
       id: newLecture.fullName + "forwardArrow"
       class: "arrow-e"
       click: -> newLecture.forward()
-    ).appendTo container
+    newLecture.forwardArrow.appendTo container
 
     slideList.appendTo newLecture.div
     container.appendTo newLecture.div
@@ -182,6 +182,12 @@ showFeedback = (div) ->
         $(this).attr("placeholder", "Díky! Ještě něco?")
   ).appendTo(div)
 
+displayArrow = (arrow, display) ->
+  if display?
+    arrow.removeClass "hidden"
+  else
+    arrow.addClass "hidden"
+
 apiHelp = [
     name: "go"
     code: "go(n);"
@@ -261,18 +267,23 @@ showHelp = (conf, hideCallback) ->
 
 
 testDoneResultPage = """
-  <p>Výborně!
-  <h2>Správné řešení</h2>
-    <p>Nejen že jsi správně vyřešil/a danou úlohu -- mimoděk jsi stvořil/a veliké
+  <center>
+  <h2 style='margin-top: 30px;'>Správné řešení</h2>
+    <img src='/images/checked.png' style='width: 200px; height: 143px; margin: 50px;'>
+    <p>Nejen že jsi správně vyřešil/a danou úlohu &#8212 mimoděk jsi stvořil/a veliké
     umělecké dílo, jež bude svou nádherou a noblesou okouzlovat spatřující
     stovky nadcházejících let.
     <p>Nechceš ho sdílet na Facebooku?
+    <p style='margin-top: 30px; font-size: 1.2em;'>Pokračuj dál šipkou vpravo.
+  </center>
   """
 
 testNotDoneResultPage = """
-  <p>Počkat!
-  <h2>Ještě jsi neodeslal/a správné řešení.</h2>
-    <p>Chceš i přes to pokračovat dále v kurzu?
+  <center>
+    <h2 style='margin-top: 30px;'>Ještě jsi neodeslal/a správné řešení.</h2>
+    <img src='/images/questionmark.png' style='width: 138px; height: 200px; margin: 50px;'>
+    <p>Chceš i přes to pokračovat dále v kurzu?</p>
+  </center>
 """
 
 loadProblem = """
@@ -299,6 +310,7 @@ codeIsRunning = "Běží výpočet."
 
   lectureDone
   addPlayer
+  displayArrow
 
   showHelp
 

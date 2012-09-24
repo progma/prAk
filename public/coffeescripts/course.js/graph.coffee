@@ -301,8 +301,6 @@ sequencesEqual = (expected, given,
                            , "angleSequence"
                            , "distanceSequence"]) ->
 
-  console.dir arguments
-
   degs  = !("degreeSequence"   in toTest && "degreeSequence"   of expected)
   angls = !("angleSequence"    in toTest && "angleSequence"    of expected)
   dists = !("distanceSequence" in toTest && "distanceSequence" of expected)
