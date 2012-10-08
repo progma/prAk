@@ -23,7 +23,8 @@ check = (obj) ->
     turtle2d.run obj.afterwards, false
   res
 
-@tests = {
+@tests = @tests ? {}
+@tests.turtle1 = {
   nuhelnik: (code, expected) -> check
     name: "nuhelnik"
     property: (n, delka) ->
@@ -31,6 +32,6 @@ check = (obj) ->
     quickCheck: [qc.arbChooseInt(3, 20), qc.arbChooseInt(5, 1000)]
     afterwards: "#{code}\n\nnuhelnik(10, 30);"
     maxSuccess: 10
-  nuhelnikExpected: (expected, mainSlide = true) ->
-    turtle2d.run "#{expected}\n\nnuhelnik(5, 100);", mainSlide, true, mainSlide
+  nuhelnikExpected: (expected, inSlide = true) ->
+    turtle2d.run "#{expected}\n\nnuhelnik(5, 100);", inSlide, true, inSlide
 }

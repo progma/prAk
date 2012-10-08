@@ -2,7 +2,11 @@ userCode = window.userCode ? {}
 lecturesDone = window.lecturesDone ? []
 
 $(document).ready(->
-  soundManager.setup url: "/javascripts/soundManagerSwf"
+  soundManager.setup
+    url: "/javascripts/soundManagerSwf"
+    debugMode: false
+    useFlashBlock: false
+
   $.ajaxSetup
     cache: false
   $("div[slidedata]").each (i, div) ->

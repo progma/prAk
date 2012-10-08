@@ -1,25 +1,9 @@
-jsHintOptions =
-  boss: true
-  evil: true
-  # undef: true
-
-syntaxCheck = (code) ->
-  result = JSHINT(code, jsHintOptions)
-  result || JSHINT.errors[0]
-
 loadText = (name, callback, errorHandler = null) ->
     $.ajax(
       url: name
       dataType: "text"
     ).done(callback)
      .error(errorHandler)
-
-cleanCodeMirror = (cm) ->
-  return   unless cm.__DIRTY__
-
-  cm.__DIRTY__ = false
-  for i in [0...cm.lineCount()]
-    cm.setLineClass i, null
 
 nextSlides = (slide) ->
   if slide.go == "nextLecture"
@@ -47,11 +31,7 @@ class Lecture
     @fullName = (@div.attr "id") + @name.replace "/", ""
     @errorDiv = $ "<div>", class: "errorOutput"
 
-    @turtle = null
-    @turtle3dDiv = $ "<div>", class: "canvasJacket"
-    @turtle3dCanvas = $ "<canvas>", id: "turtle3dCanvas"
-    @turtle3dDiv.append @turtle3dCanvas
-
+    @evaluationContext = {}
     @helpSlide = null
 
     # This is where we keep notion about what to do if a user hit the back
@@ -75,48 +55,41 @@ class Lecture
     else if slide.type == "turtleDen"
       output = document.getElementById @fullName + slide.name
 
-      switch slide.lecture.mode
-        when "turtle3d"
-          @turtle = turtle3d
-          @turtle3dDiv.appendTo output
-          @turtle.init $('#turtle3dCanvas').get(0) # @turtle3dCanvas
-        # when "game" ...
-        else
-          @turtle = turtle2d
-          @turtle.init output
-
+      evaluation.initialiseTurtleDen slide.lecture.mode, output, @evaluationContext
       @errorDiv.prependTo output
 
-      if slide.lecture.type == "turtleTask" and slide.lecture.mode != "turtle3d"
+      if  slide.lecture.type == "turtleTask" and
+          slide.lecture.mode != "turtle3d"   and
+          not @evaluationContext.expectedCode?
         loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
-          @expectedCode = data
+          @evaluationContext.expectedCode = data
 
           if slide.lecture.test?
-            f = tests[slide.lecture.test+"Expected"]
+            f = tests[@courseName]?[slide.lecture.test+"Expected"]
             f(data) if f?
           else
             @runCode data, false
-            @expectedResult = @turtle.sequences
+            @evaluationContext.expectedResult = @evaluationContext.turtle.sequences
 
     else if slide.type == "code"
       textDiv = $("<div>")
       textDiv.appendTo slide.div
 
-      unless slide.lecture.talk?
+      unless slide.talk?
         loadText @name + "/" + slide.lecture.name + "/text.html", (data) =>
           if slide.lecture.readableName?
             data = "<h4>#{slide.lecture.readableName}</h4>\n#{data}"
           textDiv.html data
           textDiv.height "80px"
 
-      cm = slide.cm = new CodeMirror slide.div.get(0),
-            lineNumbers: true
-            readOnly: slide.talk?
-            indentWithTabs: false
-            onChange: cleanCodeMirror
-            # autofocus: true
+      evaluation.initialiseEditor slide.div
+          , slide.talk?
+          , @evaluationContext
+          , (=> @showHelp())
+          , (code) => @runCode code
+      cm = slide.cm = @evaluationContext.cm
 
-      if slide.lecture.talk?
+      if slide.talk?
         cm.setSize 380, 440
       else
         cm.setSize 380, 365
@@ -129,23 +102,6 @@ class Lecture
         , (data) =>
           cm.setValue data
           slide.userCode = data
-
-      buttonsContainer = $ "<div>", class: "runButtonContainer"
-      buttonsContainer.appendTo slide.div
-
-      $("<button>",
-        text: "Nápověda"
-        class: if slide.talk? then "hidden" else "btn runButton"
-        click: =>
-          @showHelp()
-      ).appendTo buttonsContainer
-
-      $("<button>",
-        text: "Spustit kód"
-        class: if slide.talk? then "hidden" else "btn runButton"
-        click: =>
-          @runCode cm.getValue()
-      ).appendTo buttonsContainer
 
       if slide.talk?
         soundManager.onready =>
@@ -164,8 +120,6 @@ class Lecture
   runCode: (code, isUserCode = true) ->
     @hideHelp()
     slide = @currentSlide
-    cm = slide.prev.cm
-    cleanCodeMirror cm
 
     if isUserCode
       connection.sendUserCode
@@ -174,47 +128,22 @@ class Lecture
         lecture: slide.lecture.name
         mode: slide.lecture.mode ? "turtle2d"
 
-      syntax = syntaxCheck code
-      unless syntax == true
-        @errorDiv.html "Syntaktická chyba (#{syntax.reason})"
-        cm.setLineClass syntax.line-1, "syntaxError"
-        cm.__DIRTY__ = true
-        return
-
-    @errorDiv.html pageDesign.codeIsRunning if isUserCode
-
-    if isUserCode && slide.lecture.test?
-      setTimeout =>
-          lastResult = tests[slide.lecture.test](code, @expectedCode)
-          if lastResult == true
-            @passedTheTest slide
-            @errorDiv.html ""
-          else
-            @handleFailure lastResult
-        , 0
-    else
-      lastResult = @turtle.run code, !isUserCode
-
-      if isUserCode
-        given = @turtle.sequences
-
-        if slide.lecture.testAgainstOneOf?
-          for candidate in slide.lecture.testAgainstOneOf
-            if graph.sequencesEqual candidate, given
-              @passedTheTest slide
-              break
-
-        else
-          expected = @expectedResult
-          given = turtle2d.sequences
-
-          if graph.sequencesEqual expected, given, slide.lecture.testProperties
-            @passedTheTest slide
-
+    handler = (res) =>
       @errorDiv.html ""
 
-      unless lastResult == true
-        @handleFailure lastResult
+      if res == true
+        @passedTheTest slide
+      else if res?
+        @handleFailure res
+
+    @errorDiv.html pageDesign.codeIsRunning
+
+    evaluation.evaluate code
+      , isUserCode
+      , slide.lecture
+      , @evaluationContext
+      , handler
+
 
   # Handles error object given by failing computation.
   handleFailure: (failingResult) ->
