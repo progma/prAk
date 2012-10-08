@@ -38,10 +38,6 @@ parseFunctionSourceElements: true, parseVariableIdentifier: true,
 parseLeftHandSideExpression: true,
 parseStatement: true, parseSourceElement: true */
 
-var gen = require("escodegen");
-var _ = require("underscore")
-var fs = require("fs");
-
 
 (function (exports) {
     'use strict';
@@ -5126,7 +5122,7 @@ var fs = require("fs");
     // Alow require('./example') for an example.sjs file.
     require.extensions['.sjs'] = function(module, filename) {
         var content = require('fs').readFileSync(filename, 'utf8');
-        module._compile(gen.generate(parse(content)), filename);
+        module._compile(require("escodegen").generate(parse(content)), filename);
     };
 
     // Deep copy.
