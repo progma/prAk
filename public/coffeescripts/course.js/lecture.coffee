@@ -128,7 +128,9 @@ class Lecture
         lecture: slide.lecture.name
         mode: slide.lecture.mode ? "turtle2d"
 
-    handler = (res) =>
+    @errorDiv.html pageDesign.codeIsRunning
+
+    callback = (res) =>
       @errorDiv.html ""
 
       if res == true
@@ -136,14 +138,11 @@ class Lecture
       else if res?
         @handleFailure res
 
-    @errorDiv.html pageDesign.codeIsRunning
-
     evaluation.evaluate code
       , isUserCode
       , slide.lecture
       , @evaluationContext
-      , handler
-
+      , callback
 
   # Handles error object given by failing computation.
   handleFailure: (failingResult) ->
