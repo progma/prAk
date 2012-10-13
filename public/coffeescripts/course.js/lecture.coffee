@@ -59,8 +59,7 @@ class Lecture
       @errorDiv.prependTo output
 
       if  slide.lecture.type == "turtleTask" and
-          slide.lecture.mode != "turtle3d"   and
-          not @evaluationContext.expectedCode?
+          slide.lecture.mode != "turtle3d"
         loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
           @evaluationContext.expectedCode = data
 
@@ -68,8 +67,7 @@ class Lecture
             f = tests[@courseName]?[slide.lecture.test+"Expected"]
             f(data) if f?
           else
-            @runCode data, false
-            @evaluationContext.expectedResult = @evaluationContext.turtle.sequences
+            @runCode data, false, true
 
     else if slide.type == "code"
       textDiv = $("<div>")
@@ -117,7 +115,7 @@ class Lecture
       else
         slide.div.html pageDesign.testNotDoneResultPage
 
-  runCode: (code, isUserCode = true) ->
+  runCode: (code, isUserCode = true, saveContext = false) ->
     @hideHelp()
     slide = @currentSlide
 
@@ -137,6 +135,9 @@ class Lecture
         @passedTheTest slide
       else if res?
         @handleFailure res
+
+      if saveContext
+        @evaluationContext.expectedResult = @evaluationContext.turtle.sequences
 
     evaluation.evaluate code
       , isUserCode

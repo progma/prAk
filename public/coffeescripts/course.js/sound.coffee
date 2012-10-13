@@ -3,11 +3,6 @@ codeMirror = undefined
 callback   = undefined
 evaluationContext = undefined
 
-soundManager.setup
-  debugMode: false
-  useFlashBlock: false # TODO change to true?
-  # url: '/path/to/swf-files/' # TODO
-
 # Order matters!
 tracks = [
   "evaluatedCode"

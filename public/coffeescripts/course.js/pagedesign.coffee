@@ -86,7 +86,7 @@ hideSlide = (slide, effect) ->
     slide.div.fadeOut 300, afterEffect
   else
     afterEffect()
-  slide.iconDiv.removeClass "slideIconActive"
+  slide.iconDiv?.removeClass "slideIconActive"
 
 moveSlide = (slide, toLeft) ->
   slide.div.animate { "margin-left": if toLeft then "-=410px" else "+=410px" }

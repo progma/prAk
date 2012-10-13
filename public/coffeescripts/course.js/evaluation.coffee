@@ -2,31 +2,16 @@ parser = @esprima ? require "../sweet"
 gen = @escodegen ? require "../escodegen"
 
 turtle3dDiv = undefined
-turtle3dCanvas = undefined
-
-repeatMacro = """
-macro repeat {
-	case ($n:expr) $block => {
-		(function (i) {
-			for (; i < $n; i++)
-				$block
-		})(0);
-	}
-}
-
-"""
-repeatMacroLength = repeatMacro.split(/\n/).length
 
 cleanCodeMirror = (cm) ->
   return   unless cm.__DIRTY__
 
+  cm.setLineClass cm.__DIRTY__, null
   cm.__DIRTY__ = false
-  for i in [0...cm.lineCount()]
-    cm.setLineClass i, null
 
 highlightCodeMirror = (cm, line) ->
   cm.setLineClass line, "syntaxError"
-  cm.__DIRTY__ = true
+  cm.__DIRTY__ = line
 
 
 # DISCLAIMER: I stole this private function from esmorph and repurposed it.
@@ -72,7 +57,7 @@ initialiseTurtleDen = (mode, div, context) ->
       unless turtle3dDiv?
         turtle3dDiv = $ "<div>", class: "canvasJacket"
         turtle3dCanvas = $ "<canvas>", id: "turtle3dCanvas"
-        turtle3dDiv.append turtle3dCanvas # TODO uz pri tvoreni divu to tam narvat?
+        turtle3dDiv.append turtle3dCanvas
 
       turtle = turtle3d
       turtle3dDiv.appendTo div
@@ -113,11 +98,11 @@ evaluate = (code, isUserCode, lecture, context, callback) ->
   cleanCodeMirror context.cm
 
   try
-    parsedTree = parser.parse (repeatMacro + code)
+    parsedTree = parser.parse code
     # makeSafe parsedTree, ourSafetyCall # TODO
     code = gen.generate parsedTree
   catch error
-    highlightCodeMirror context.cm, error.lineNumber-repeatMacroLength
+    highlightCodeMirror context.cm, error.lineNumber
 
     # "Line XX: ...." is sweet's message format.
     # We should get rid of the part before ':'.
@@ -128,33 +113,31 @@ evaluate = (code, isUserCode, lecture, context, callback) ->
       reason: "Syntaktická chyba (#{reason})"
     return
 
-  if isUserCode && lecture.test?
-    setTimeout =>
-        res = tests[lecture.test](code, context.expectedCode)
-        res.errorOccurred = true
-        callback res # TODO inspect if errorOccurred = true is necessary
-                     # TODO inspect if setTimeout is necessary
-      , 0
-  else
-    lastResult = context.turtle.run code, !isUserCode
-
-    if isUserCode
-      given = context.turtle.sequences
-
-      if lecture.testAgainstOneOf?
-        for candidate in lecture.testAgainstOneOf
-          if graph.sequencesEqual candidate, given
-            callback true
-            break
-
-      else
-        if graph.sequencesEqual context.expectedResult, given, lecture.testProperties
-          callback true
-
-    if lastResult == true
-      callback null  # code is OK, but test not passed
+  setTimeout =>
+    if isUserCode && lecture.test?
+      res = tests[lecture.test](code, context.expectedCode)
+      callback res
     else
-      callback lastResult # code failed
+      lastResult = context.turtle.run code, !isUserCode
+
+      if isUserCode
+        given = context.turtle.sequences
+
+        if lecture.testAgainstOneOf?
+          for candidate in lecture.testAgainstOneOf
+            if graph.sequencesEqual candidate, given
+              callback true
+              break
+
+        else
+          if graph.sequencesEqual context.expectedResult, given, lecture.testProperties
+            callback true
+
+      if lastResult == true
+        callback null  # code is OK, but test not passed
+      else
+        callback lastResult # code failed
+  , 0
 
 @evaluation = {
   initialiseTurtleDen
