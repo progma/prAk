@@ -321,6 +321,7 @@ run = (turtleCode, shadow, draw = true) ->
     return result
 
 @turtle3d = {
+  name: "turtle3d"
   sequences: null
   Turtle3D
   init

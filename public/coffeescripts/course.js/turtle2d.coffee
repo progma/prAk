@@ -88,21 +88,10 @@ class Turtle
     , 0
     @msForStep = @totalTime / totalSteps
 
-  runActions: (callback, pos = undefined, animate = true) ->
-    if @actions.length == 0
-      callback()
-      return
-
-    unless pos?
-      pos = new Position 0, 0, @angle
-
-    currentAction = @actions.shift()
-    aniTime = @msForStep *
-      (currentAction.steps ? (settings.rotationTime * Math.abs(currentAction.angle)))
-
-    switch currentAction.type
+  transFromAction: (action, pos, aniTime) ->
+    switch action.type
       when "go"
-        len = currentAction.steps
+        len = action.steps
         [oldX, oldY] = [pos.x, pos.y]
         [newX, newY] = pos.go len
 
@@ -110,18 +99,39 @@ class Turtle
         drawLine oldX, oldY, newX, newY, aniTime, this  if pos.penDown && !@STOP
 
       when "rotate"
-        a = currentAction.angle
+        a = action.angle
         pos.rotate a
         trans = "...r#{a}"
 
       when "penUp", "penDown"
-        pos.penDown = currentAction.type == "penDown"
+        pos.penDown = action.type == "penDown"
 
       when "color"
-        @color = currentAction.color
+        @color = action.color
 
-    # Don't animate when there is no transformation or it's prohibited
-    if !trans? or !animate
+    trans
+
+  runActions: (callback, animate) ->
+    pos = new Position 0, 0, @angle
+
+    if animate
+      @runActionsAnim pos, callback
+    else
+      @runActionsPlain pos, callback
+
+  runActionsAnim: (pos, callback) ->
+    if @actions.length == 0
+      callback?()
+      return
+
+    currentAction = @actions.shift()
+    aniTime = @msForStep *
+      (currentAction.steps ? (settings.rotationTime * Math.abs(currentAction.angle)))
+
+    trans = @transFromAction currentAction, pos, aniTime
+
+    # Don't animate when there is no transformation
+    if !trans?
       aniTime = 0
       trans = "..." # emtpy transformation
 
@@ -129,7 +139,14 @@ class Turtle
       @im.animate transform: trans
                 , aniTime
                 , "linear"
-                , => @runActions(callback, pos, animate)
+                , => @runActionsAnim(pos, callback)
+
+  runActionsPlain: (pos, callback) ->
+    while @actions.length != 0
+      currentAction = @actions.shift()
+      @transFromAction currentAction, pos, 0
+
+    callback?()
 
 environment = (turtle) ->
   go: (steps) ->
@@ -188,9 +205,16 @@ drawLine = (fromX, fromY, toX, toY, aniTime, turtle) ->
   atSX = turtle.startX
   atSY = turtle.startY
 
-  turtle.paper.path("M#{fromX + atSX} #{fromY + atSY}L#{fromX + atSX} #{fromY + atSY}")
-    .attr(stroke: turtle.color)
-    .animate { path: "M#{fromX + atSX} #{fromY + atSY}L#{toX + atSX} #{toY + atSY}" }, aniTime
+  nullPath = "M#{fromX + atSX} #{fromY + atSY}L#{fromX + atSX} #{fromY + atSY}"
+  path = "M#{fromX + atSX} #{fromY + atSY}L#{toX + atSX} #{toY + atSY}"
+
+  if aniTime != 0
+    turtle.paper.path(nullPath)
+      .attr(stroke: turtle.color)
+      .animate { path: path }, aniTime
+  else
+    turtle.paper.path(path)
+      .attr(stroke: turtle.color)
 
 clearPaper = ->
   turtle2d.paper.clear()
@@ -223,7 +247,7 @@ run = (code, shadow, draw = true, animate = true) ->
     turtle2d.sequences = activeTurtle.graph.sequences()
     if draw
       activeTurtle.countTime()
-      activeTurtle.runActions (->), undefined, animate
+      activeTurtle.runActions (->), animate
   catch e
     turtle2d.sequences = null
     console.log "Problem while turtle drawing."
@@ -247,6 +271,7 @@ unstash = ->
 ## Exports
 ##
 @turtle2d = {
+  name: "turtle2d"
   sequences: null
   paper: null
   settings
