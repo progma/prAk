@@ -29,7 +29,6 @@ class Lecture
   constructor: (@name, @data, @div) ->
     @courseName = _.last _.filter @name.split("/"), (el) -> el != ""
     @fullName = (@div.attr "id") + @name.replace "/", ""
-    @errorDiv = $ "<div>", class: "errorOutput"
 
     @evaluationContext = {}
     @helpSlide = null
@@ -56,7 +55,6 @@ class Lecture
       output = document.getElementById @fullName + slide.name
 
       evaluation.initialiseTurtleDen slide.lecture.mode, output, @evaluationContext
-      @errorDiv.prependTo output
 
       if  slide.lecture.type == "turtleTask" and
           slide.lecture.mode != "turtle3d"
@@ -126,15 +124,9 @@ class Lecture
         lecture: slide.lecture.name
         mode: slide.lecture.mode ? "turtle2d"
 
-    @errorDiv.html pageDesign.codeIsRunning
-
     callback = (res) =>
-      @errorDiv.html ""
-
       if res == true
         @passedTheTest slide
-      else if res?
-        @handleFailure res
 
       if saveContext
         @evaluationContext.expectedResult = @evaluationContext.turtle.sequences
@@ -144,15 +136,6 @@ class Lecture
       , slide.lecture
       , @evaluationContext
       , callback
-
-  # Handles error object given by failing computation.
-  handleFailure: (failingResult) ->
-    console.dir failingResult
-
-    if failingResult.errorOccurred
-      @errorDiv.html failingResult.reason
-    else
-      @errorDiv.html pageDesign.wrongAnswer + failingResult.args.toString()
 
   passedTheTest: (slide) ->
     @lectureDone()
@@ -280,7 +263,6 @@ class Lecture
     pageDesign.showSlide @helpSlide, 1, true, "fadeIn"
 
   resetElements: ->
-    @errorDiv.html ""
     @hideHelp()
 
     pageDesign.displayArrow @backArrow, @currentSlides[0].prev

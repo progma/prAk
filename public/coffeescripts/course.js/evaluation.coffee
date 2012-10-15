@@ -16,7 +16,7 @@ codeMirrorChanged = (onlineCoding, context) -> (cm) ->
   if onlineCoding.get(0).checked && context.turtle.name == "turtle2d"
     clearTimeout codeToRun
     codeToRun = setTimeout ->
-        evaluate cm.getValue(), false, null, context, (->)
+        evaluate cm.getValue(), false, null, context, (->), false
       , 800
 
 highlightCodeMirror = (cm, line) ->
@@ -62,6 +62,8 @@ ourSafetyCall =
     arguments: []
 
 initialiseTurtleDen = (mode, div, context) ->
+  context.errorDiv = $ "<div>", class: "errorOutput"
+
   switch mode
     when "turtle3d"
       unless turtle3dDiv?
@@ -77,6 +79,7 @@ initialiseTurtleDen = (mode, div, context) ->
       turtle = turtle2d
       turtle.init div
 
+  context.errorDiv.prependTo div
   context.turtle = turtle
 
 initialiseEditor = (div, isTalk, context, showHelp, runCode) ->
@@ -109,8 +112,25 @@ initialiseEditor = (div, isTalk, context, showHelp, runCode) ->
 
   context.cm = cm
 
-evaluate = (code, isUserCode, lecture, context, callback) ->
+# Handles error object given by computation.
+handleFailure = (result, context) ->
+  context.errorDiv.html ""
+  return  if result == null || result == true
+
+  if result.errorOccurred
+    context.errorDiv.html result.reason
+  else
+    context.errorDiv.html pageDesign.wrongAnswer + result.args.toString()
+
+  console.dir result
+
+evaluate = (code, isUserCode, lecture, context, callback, animate = true) ->
   cleanCodeMirror context.cm
+  context.errorDiv.html pageDesign.codeIsRunning
+
+  callback_ = (res) ->
+    handleFailure res, context
+    callback res
 
   try
     parsedTree = parser.parse code
@@ -123,7 +143,7 @@ evaluate = (code, isUserCode, lecture, context, callback) ->
     # We should get rid of the part before ':'.
     reason = error.message.replace /^[^:]*: /, ""
 
-    callback
+    callback_
       errorOccurred: true
       reason: "Syntaktická chyba (#{reason})"
     return
@@ -131,9 +151,9 @@ evaluate = (code, isUserCode, lecture, context, callback) ->
   setTimeout =>
     if isUserCode && lecture.test?
       res = tests[lecture.test](code, context.expectedCode)
-      callback res
+      callback_ res
     else
-      lastResult = context.turtle.run code, !isUserCode
+      lastResult = context.turtle.run code, !isUserCode, true, animate
 
       if isUserCode
         given = context.turtle.sequences
@@ -141,19 +161,19 @@ evaluate = (code, isUserCode, lecture, context, callback) ->
         if lecture.testAgainstOneOf?
           for candidate in lecture.testAgainstOneOf
             if graph.sequencesEqual candidate, given
-              callback true
+              callback_ true
               break
 
         else
           if graph.sequencesEqual(context.expectedResult
                                 , given
                                 , lecture.testProperties)
-            callback true
+            callback_ true
 
       if lastResult == true
-        callback null  # code is OK, but test not passed
+        callback_ null  # code is OK, but test not passed
       else
-        callback lastResult # code failed
+        callback_ lastResult # code failed
   , 0
 
 @evaluation = {
