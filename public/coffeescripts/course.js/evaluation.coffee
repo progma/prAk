@@ -1,6 +1,10 @@
 parser = @esprima ? require "../esprima"
 gen = @escodegen ? require "../escodegen"
 
+# Constants
+quickRunTime    = 500
+quickRunActions = 500
+
 turtle3dDiv = undefined
 codeToRun   = undefined
 
@@ -16,7 +20,7 @@ codeMirrorChanged = (onlineCoding, context) -> (cm) ->
   if onlineCoding.get(0).checked && context.turtle.name == "turtle2d"
     clearTimeout codeToRun
     codeToRun = setTimeout ->
-        evaluate cm.getValue(), false, null, context, (->), false
+        evaluate cm.getValue(), false, null, context, (->), true
       , 800
 
 highlightCodeMirror = (cm, line) ->
@@ -124,7 +128,7 @@ handleFailure = (result, context) ->
 
   console.dir result
 
-evaluate = (code, isUserCode, lecture, context, callback, animate = true) ->
+evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
   cleanCodeMirror context.cm
   context.errorDiv.html pageDesign.codeIsRunning
 
@@ -153,7 +157,11 @@ evaluate = (code, isUserCode, lecture, context, callback, animate = true) ->
       res = tests[lecture.test](code, context.expectedCode)
       callback_ res
     else
-      lastResult = context.turtle.run code, !isUserCode, true, animate
+      lastResult = context.turtle.run code,
+        shadow: !(quickRun || isUserCode)
+        animate: !quickRun
+        maxTime:    if quickRun then quickRunTime    else undefined
+        maxActions: if quickRun then quickRunActions else undefined
 
       if isUserCode
         given = context.turtle.sequences

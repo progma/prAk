@@ -8,10 +8,10 @@ ex = @examine ? require './examine'
 ## Settings
 ##
 settings =
-  defaultTotalTime   : 2000  # ms
-  rotationTime       : 0.2   # one degree rotation time = rotationTime * one step time
-  maxComputationTime : 1000
-  maxActionsPerformed: 10000
+  defaultTotalTime  : 2000  # ms
+  rotationTime      : 0.2   # one degree rotation time = rotationTime * one step time
+  maxComputationTime: 4000
+  maxActions        : 10000
 
   # Colors defined in users environment
   shadowTraceColor: "yellow"
@@ -113,13 +113,13 @@ class Turtle
 
     trans
 
-  runActions: (callback, animate) ->
+  runActions: (callback, config) ->
     pos = new Position 0, 0, @angle
 
     # Limit number of actions
-    @actions = @actions.slice 0, settings.maxActionsPerformed
+    @actions = @actions.slice 0, config.maxActions
 
-    if animate
+    if config.animate
       @runActionsAnim pos, callback
     else
       @runActionsPlain pos, callback
@@ -154,7 +154,7 @@ class Turtle
     @im.transform "t#{pos.x},#{pos.y},r#{pos.angle}"
     callback?()
 
-environment = (turtle) ->
+environment = (turtle, config) ->
   go: (steps) ->
     turtle.addAction (MV steps)
     turtle.graph.go steps
@@ -185,7 +185,7 @@ environment = (turtle) ->
   __bigBangTime: new Date()
 
   __checkRunningTimeAndHaltIfNeeded: ->
-    if (new Date() - @__bigBangTime) > settings.maxComputationTime
+    if (new Date() - @__bigBangTime) > config.maxTime
       throw new Error "Time exceeded." # TODO change error class
 
   # TODO
@@ -242,25 +242,31 @@ init = (canvas) ->
   clearPaper()
 
   # Show turtle at the beginning
-  (new Turtle()).runActions (->)
+  (new Turtle()).runActions (->), { maxTime: 1, maxActions: 1 }
 
-run = (code, shadow, draw = true, animate = true) ->
+run = (code, config = {}) ->
+  config.shadow  ?= false
+  config.draw    ?= true
+  config.animate ?= true
+  config.maxTime    ?= settings.maxComputationTime
+  config.maxActions ?= settings.maxActions
+
   clearPaper()
 
   activeTurtle = new Turtle()
   activeTurtle.color =
-    if shadow then settings.shadowTraceColor else settings.normalTraceColor
+    if config.shadow then settings.shadowTraceColor else settings.normalTraceColor
 
   result = ex.test
     code: code
-    environment: environment activeTurtle
+    environment: environment activeTurtle, config
     constants: constants
 
   try
     turtle2d.sequences = activeTurtle.graph.sequences()
-    if draw
+    if config.draw
       activeTurtle.countTime()
-      activeTurtle.runActions (->), animate
+      activeTurtle.runActions (->), config
   catch e
     turtle2d.sequences = null
     console.log "Problem while turtle drawing."

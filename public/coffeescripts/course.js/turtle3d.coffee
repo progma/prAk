@@ -222,45 +222,48 @@ init = (canvas) ->
 # want to use its methods as global function in a global context,
 # I export them like this.
 environment = (myTurtle) ->
-  go: (distance) -> myTurtle.go(distance)
-  left: (angle) -> myTurtle.yaw(angle)
-  right: (angle) -> myTurtle.yaw(-angle)
-  up: (angle) -> myTurtle.pitch(angle)
-  down: (angle) -> myTurtle.pitch(-angle)
-  rollLeft: (angle) -> myTurtle.roll(-angle)
+  go:     (distance) -> myTurtle.go(distance)
+  left:      (angle) -> myTurtle.yaw(angle)
+  right:     (angle) -> myTurtle.yaw(-angle)
+  up:        (angle) -> myTurtle.pitch(angle)
+  down:      (angle) -> myTurtle.pitch(-angle)
+  rollLeft:  (angle) -> myTurtle.roll(-angle)
   rollRight: (angle) -> myTurtle.roll(angle)
-  penUp: -> myTurtle.penUp()
-  penDown: -> myTurtle.penDown()
-  color: (hex) -> myTurtle.setColor(hex)
-  width: (width) -> myTurtle.setWidth(width)
+  penUp:             -> myTurtle.penUp()
+  penDown:           -> myTurtle.penDown()
+  color:       (hex) -> myTurtle.setColor(hex)
+  width:     (width) -> myTurtle.setWidth(width)
 
   repeat: (n, f, args...) ->
     i = 0
     f args... while i++ < n
 
 constants =
-  white: 0xFFFFFF
-  yellow: 0xFFFF00
+  white:   0xFFFFFF
+  yellow:  0xFFFF00
   fuchsia: 0xFF00FF
-  aqua: 0x00FFFF
-  red: 0xFF0000
-  lime: 0x00FF00
-  blue: 0x0000FF
-  black: 0x000000
-  green: 0x008000
-  maroon: 0x800000
-  olive: 0x808000
-  purple: 0x800080
-  gray: 0x808080
-  navy: 0x000080
-  teal: 0x008080
-  silver: 0xC0C0C0
+  aqua:    0x00FFFF
+  red:     0xFF0000
+  lime:    0x00FF00
+  blue:    0x0000FF
+  black:   0x000000
+  green:   0x008000
+  maroon:  0x800000
+  olive:   0x808000
+  purple:  0x800080
+  gray:    0x808080
+  navy:    0x000080
+  teal:    0x008080
+  silver:  0xC0C0C0
 
-  brown: 0x552222
-  orange: 0xCC3232
+  brown:   0x552222
+  orange:  0xCC3232
 
 
-run = (turtleCode, shadow, draw = true) ->
+run = (turtleCode, config = {}) ->
+  config.shadow ?= false
+  config.draw   ?= true
+
   material = new THREE.MeshLambertMaterial({ color: parameters.TURTLE_START_COLOR
                                            , ambient: parameters.TURTLE_START_COLOR })
 
@@ -275,7 +278,7 @@ run = (turtleCode, shadow, draw = true) ->
     environment: environment(myTurtle)
     constants: constants
   turtle3d.sequences = myTurtle.graph.sequences()
-  return   unless draw
+  return   unless config.draw
 
   try
 

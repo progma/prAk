@@ -6,7 +6,9 @@ assert = (result) ->
     throw result.errObj
 
 run = (code, call) ->
-  turtle2d.run (code + "\n\n" + call), false, false
+  turtle2d.run (code + "\n\n" + call),
+    shadow: false
+    draw:   false
 
 sequencesEqual = (code, expected, call) ->
   res = run code, call
@@ -20,7 +22,7 @@ sequencesEqual = (code, expected, call) ->
 check = (obj) ->
   res = ex.test obj
   if obj.afterwards?
-    turtle2d.run obj.afterwards, false
+    turtle2d.run obj.afterwards, shadow: false
   res
 
 @tests = @tests ? {}
@@ -33,5 +35,7 @@ check = (obj) ->
     afterwards: "#{code}\n\nnuhelnik(10, 30);"
     maxSuccess: 10
   nuhelnikExpected: (expected, inSlide = true) ->
-    turtle2d.run "#{expected}\n\nnuhelnik(5, 100);", inSlide, true, inSlide
+    turtle2d.run "#{expected}\n\nnuhelnik(5, 100);",
+      shadow:  inSlide
+      animate: inSlide
 }

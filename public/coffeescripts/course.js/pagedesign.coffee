@@ -124,7 +124,7 @@ showPreview = (lecture) ->
         f = tests[lecture.test+"Expected"]
         f(data, false) if f?
       else
-        t.run data, false, true, false
+        t.run data, animate: false
     ).always ->
       t.unstash()
 
