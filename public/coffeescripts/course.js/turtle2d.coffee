@@ -8,8 +8,10 @@ ex = @examine ? require './examine'
 ## Settings
 ##
 settings =
-  defaultTotalTime: 2000  # ms
-  rotationTime    : 0.2   # one degree rotation time = rotationTime * one step time
+  defaultTotalTime   : 2000  # ms
+  rotationTime       : 0.2   # one degree rotation time = rotationTime * one step time
+  maxComputationTime : 1000
+  maxActionsPerformed: 10000
 
   # Colors defined in users environment
   shadowTraceColor: "yellow"
@@ -114,6 +116,9 @@ class Turtle
   runActions: (callback, animate) ->
     pos = new Position 0, 0, @angle
 
+    # Limit number of actions
+    @actions = @actions.slice 0, settings.maxActionsPerformed
+
     if animate
       @runActionsAnim pos, callback
     else
@@ -146,6 +151,7 @@ class Turtle
       currentAction = @actions.shift()
       @transFromAction currentAction, pos, 0
 
+    @im.transform "t#{pos.x},#{pos.y},r#{pos.angle}"
     callback?()
 
 environment = (turtle) ->
@@ -174,6 +180,13 @@ environment = (turtle) ->
 
   color: (col) ->
     turtle.addAction (CO col)
+
+  # Time
+  __bigBangTime: new Date()
+
+  __checkRunningTimeAndHaltIfNeeded: ->
+    if (new Date() - @__bigBangTime) > settings.maxComputationTime
+      throw new Error "Time exceeded." # TODO change error class
 
   # TODO
   # print
@@ -217,14 +230,14 @@ drawLine = (fromX, fromY, toX, toY, aniTime, turtle) ->
       .attr(stroke: turtle.color)
 
 clearPaper = ->
+  activeTurtle.STOP = true  if activeTurtle?
   turtle2d.paper.clear()
   turtle2d.paper
     .rect(0, 0, settings.paperWidth, settings.paperHeight)
     .attr fill: settings.paperBackgroundColor
 
 init = (canvas) ->
-  turtle2d.paper.remove()    if turtle2d.paper?
-  activeTurtle.STOP = true   if activeTurtle?
+  turtle2d.paper.remove()  if turtle2d.paper?
   turtle2d.paper = Raphael(canvas, settings.paperWidth, settings.paperHeight)
   clearPaper()
 

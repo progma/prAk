@@ -1,13 +1,23 @@
-parser = @esprima ? require "../sweet"
+parser = @esprima ? require "../esprima"
 gen = @escodegen ? require "../escodegen"
 
 turtle3dDiv = undefined
+codeToRun   = undefined
 
 cleanCodeMirror = (cm) ->
-  return   unless cm.__DIRTY__
+  return   unless cm.__DIRTY__?
 
   cm.setLineClass cm.__DIRTY__, null
-  cm.__DIRTY__ = false
+  cm.__DIRTY__ = undefined
+
+codeMirrorChanged = (onlineCoding, context) -> (cm) ->
+  cleanCodeMirror cm
+
+  if onlineCoding.get(0).checked && context.turtle.name == "turtle2d"
+    clearTimeout codeToRun
+    codeToRun = setTimeout ->
+        evaluate cm.getValue(), false, null, context, (->)
+      , 800
 
 highlightCodeMirror = (cm, line) ->
   cm.setLineClass line, "syntaxError"
@@ -47,7 +57,7 @@ ourSafetyCall =
     type: "CallExpression"
     callee:
       type: "Identifier"
-      name: "checkRunningTimeAndHaltIfNeeded"
+      name: "__checkRunningTimeAndHaltIfNeeded"
 
     arguments: []
 
@@ -70,15 +80,20 @@ initialiseTurtleDen = (mode, div, context) ->
   context.turtle = turtle
 
 initialiseEditor = (div, isTalk, context, showHelp, runCode) ->
+  onlineCodingChBox = $ "<input>", type: "checkbox"
+
   cm = new CodeMirror div.get(0),
       lineNumbers: true
       readOnly: isTalk
       indentWithTabs: false
-      onChange: cleanCodeMirror
+      onChange: codeMirrorChanged(onlineCodingChBox, context)
       # autofocus: true
+  runFunction = -> runCode cm.getValue()
 
   buttonsContainer = $ "<div>", class: "runButtonContainer"
   buttonsContainer.appendTo div
+
+  onlineCodingChBox.appendTo buttonsContainer
 
   $("<button>",
     text: "Nápověda"
@@ -89,7 +104,7 @@ initialiseEditor = (div, isTalk, context, showHelp, runCode) ->
   $("<button>",
     text: "Spustit kód"
     class: if isTalk then "hidden" else "btn runButton"
-    click: -> runCode cm.getValue()
+    click: runFunction
   ).appendTo buttonsContainer
 
   context.cm = cm
@@ -99,10 +114,10 @@ evaluate = (code, isUserCode, lecture, context, callback) ->
 
   try
     parsedTree = parser.parse code
-    # makeSafe parsedTree, ourSafetyCall # TODO
+    makeSafe parsedTree, ourSafetyCall
     code = gen.generate parsedTree
   catch error
-    highlightCodeMirror context.cm, error.lineNumber
+    highlightCodeMirror context.cm, error.lineNumber - 1
 
     # "Line XX: ...." is sweet's message format.
     # We should get rid of the part before ':'.
@@ -130,7 +145,9 @@ evaluate = (code, isUserCode, lecture, context, callback) ->
               break
 
         else
-          if graph.sequencesEqual context.expectedResult, given, lecture.testProperties
+          if graph.sequencesEqual(context.expectedResult
+                                , given
+                                , lecture.testProperties)
             callback true
 
       if lastResult == true
