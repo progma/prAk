@@ -1,4 +1,4 @@
-npm install
+npm install -d
 coffee -c -o ./public/javascripts/ ./public/coffeescripts/
 coffee -c ./public/courses/turtle1/tests.coffee
 coffee -c ./test/users_test
