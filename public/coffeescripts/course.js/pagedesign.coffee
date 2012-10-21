@@ -86,7 +86,7 @@ hideSlide = (slide, effect) ->
     slide.div.fadeOut 300, afterEffect
   else
     afterEffect()
-  slide.iconDiv.removeClass "slideIconActive"
+  slide.iconDiv?.removeClass "slideIconActive"
 
 moveSlide = (slide, toLeft) ->
   slide.div.animate { "margin-left": if toLeft then "-=410px" else "+=410px" }
@@ -124,7 +124,7 @@ showPreview = (lecture) ->
         f = tests[lecture.test+"Expected"]
         f(data, false) if f?
       else
-        t.run data, false, true, false
+        t.run data, animate: false
     ).always ->
       t.unstash()
 

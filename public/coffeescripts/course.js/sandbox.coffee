@@ -23,7 +23,7 @@ $ ->
       mode: mode
 
     errorDiv.html ""
-    result = turtle.run currentCode, false
+    result = turtle.run currentCode, shadow: false
 
     unless result == true
       console.log "error occured"

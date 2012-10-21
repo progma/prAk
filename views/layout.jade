@@ -117,9 +117,15 @@ html(lang="en")
       $('.dropdown-menu').find('form').click(function (e) {
         e.stopPropagation();
       });
+
+      function require(name) {
+        throw new Error("Cannot require " + name);
+      }
+      require.extensions = {};
     script(src="/javascripts/raphael-min.js")
     script(src="/javascripts/three.min.js")
-    script(src="/javascripts/jshint.js")
+    script(src="/javascripts/esprima.js")
+    script(src="/javascripts/escodegen.js")
     script(src="/javascripts/underscore-min.js")
     script(src="/javascripts/CodeMirror/lib/codemirror.js")
     script(src="/javascripts/CodeMirror/mode/javascript/javascript.js")
@@ -130,6 +136,7 @@ html(lang="en")
     script(src="/javascripts/course.js/turtle2d.js")
     script(src="/javascripts/course.js/turtle3d.js")
     script(src="/javascripts/course.js/pagedesign.js")
+    script(src="/javascripts/course.js/evaluation.js")
     script(src="/javascripts/course.js/connection.js")
 
     block scripts
