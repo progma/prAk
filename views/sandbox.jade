@@ -3,7 +3,8 @@ extends layout
 block body
     div(class="innerSlides")
         div(class="slide", style="display: block; margin-left: -440px; left: 50%;")
-            textarea(id="editorArea") !{code}
+            div(id="turtleEditor")
+                textarea(id="editorArea") !{code}
             input(id="evalButton", type="button", value="Spustit/Zastavit")
             p Mód:
                 select(name="mode")

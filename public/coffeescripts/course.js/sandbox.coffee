@@ -2,18 +2,22 @@ turtle = turtle2d
 mode = "turtle2d"
 
 $ ->
-  output = document.getElementById "turtleSpace"
-  errorDiv = $ "<div>", class: "errorOutput"
-  canvas = $("<div>", class: "canvasJacket")
-  canvas.append $ "<canvas>", id: "turtle3dCanvas"
+  editorDiv = document.getElementById "turtleEditor"
+  output    = document.getElementById "turtleSpace"
+  evaluationContext =
+    editorTextareaID: "editorArea"
 
-  myCodeMirror = CodeMirror.fromTextArea $('#editorArea').get(0),
-            lineNumbers: true
+  runCode = (code) ->
+    evaluation.evaluate code, false, {}, evaluationContext, (->)
+
+  initTD = ->
+    evaluation.initialiseTurtleDen mode, output, evaluationContext
 
   turtle2d.settings.defaultTotalTime = 2000
   turtle3d.parameters.BACKGROUND_COLOR = 0xFFFFFF
-  turtle.init output
-  errorDiv.prependTo output
+
+  evaluation.initialiseEditor editorDiv, false, evaluationContext, (->), runCode
+  initTD()
 
   $('#evalButton').click ->
     currentCode = myCodeMirror.getValue()
@@ -33,18 +37,5 @@ $ ->
   $("select[name='mode']").change (obj) ->
     $("#turtleSpace").html ""
 
-    switch obj.target.value
-      when "turtle2d"
-        console.log "turtle2d init"
-        turtle = turtle2d
-        turtle.init output
-        mode = "turtle2d"
-      when "turtle3d"
-        console.log "turtle3d init"
-        turtle = turtle3d
-        $("#turtleSpace").append canvas
-        turtle.init $('#turtle3dCanvas').get(0)
-        mode = "turtle3d"
-
-    errorDiv.prependTo output
-
+    mode = obj.target.value
+    initTD()

@@ -88,13 +88,19 @@ initialiseTurtleDen = (mode, div, context) ->
 
 initialiseEditor = (div, isTalk, context, showHelp, runCode) ->
   onlineCodingChBox = $ "<input>", type: "checkbox"
-
-  cm = new CodeMirror div.get(0),
+  settings =
       lineNumbers: true
       readOnly: isTalk
       indentWithTabs: false
       onChange: codeMirrorChanged(onlineCodingChBox, context)
       # autofocus: true
+
+  if context.editorTextareaID?
+    cm = CodeMirror.fromTextArea $("##{context.editorTextareaID}").get(0),
+          settings
+  else
+    cm = new CodeMirror div.get(0), settings
+
   runFunction = -> runCode cm.getValue()
 
   buttonsContainer = $ "<div>", class: "runButtonContainer"
