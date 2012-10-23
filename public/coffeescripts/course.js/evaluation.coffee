@@ -84,6 +84,7 @@ initialiseTurtleDen = (mode, div, context) ->
       turtle.init div
 
   context.errorDiv.prependTo div
+  context.mode   = mode
   context.turtle = turtle
 
 initialiseEditor = (div, isTalk, context, showHelp, runCode) ->
@@ -142,6 +143,13 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
     handleFailure res, context
     callback res
 
+  if isUserCode && !quickRun
+    connection.sendUserCode
+      code: code
+      course: context.courseName
+      lecture: lecture.name
+      mode: context.mode ? "turtle2d"
+
   try
     parsedTree = parser.parse code
     makeSafe parsedTree, ourSafetyCall
@@ -185,7 +193,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
             callback_ true
 
       if lastResult == true
-        callback_ null  # code is OK, but test not passed
+        callback_ null  # code is OK, but test didn't pass
       else
         callback_ lastResult # code failed
   , 0

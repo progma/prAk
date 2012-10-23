@@ -30,7 +30,7 @@ class Lecture
     @courseName = _.last _.filter @name.split("/"), (el) -> el != ""
     @fullName = (@div.attr "id") + @name.replace "/", ""
 
-    @evaluationContext = {}
+    @evaluationContext = { courseName: @courseName }
     @helpSlide = null
 
     # This is where we keep notion about what to do if a user hit the back
@@ -116,13 +116,6 @@ class Lecture
   runCode: (code, isUserCode = true, saveContext = false) ->
     @hideHelp()
     slide = @currentSlide
-
-    if isUserCode
-      connection.sendUserCode
-        code: code
-        course: @courseName
-        lecture: slide.lecture.name
-        mode: slide.lecture.mode ? "turtle2d"
 
     callback = (res) =>
       if res == true

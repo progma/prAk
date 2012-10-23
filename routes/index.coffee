@@ -58,7 +58,6 @@ renderCourse = (req, res, codes) ->
     user: req.user
     codes: codes
     lecturesDone: JSON.stringify(lecturesDone)
-    serverURL: settings.URL
     courseName: courseName
     errors: req.flash 'error'
 
