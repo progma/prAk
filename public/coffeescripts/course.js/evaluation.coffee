@@ -5,8 +5,9 @@ gen = @escodegen ? require "../escodegen"
 quickRunTime    = 500
 quickRunActions = 500
 
-turtle3dDiv = undefined
-codeToRun   = undefined
+turtle3dDiv    = undefined
+turtle3dCanvas = undefined
+codeToRun      = undefined
 
 cleanCodeMirror = (cm) ->
   return   unless cm.__DIRTY__?
@@ -18,7 +19,10 @@ codeMirrorChanged = (onlineCoding, context) -> (cm) ->
   cleanCodeMirror cm
 
   if onlineCoding.get(0).checked && context.turtle.name == "turtle2d"
+    # Stop previous (if any) attempt to run code
     clearTimeout codeToRun
+
+    # Start new attempt
     codeToRun = setTimeout ->
         evaluate cm.getValue(), false, null, context, (->), true
       , 800
@@ -66,7 +70,13 @@ ourSafetyCall =
     arguments: []
 
 initialiseTurtleDen = (mode, div, context) ->
-  context.errorDiv = $ "<div>", class: "errorOutput"
+  hideHelp context
+  context.turtleDen = div
+  context.mode      = mode
+  context.errorDiv  = $("<div>", class: "errorOutput").appendTo div
+  context.turtleDiv = $("<div>").appendTo div
+
+  div = context.turtleDiv.get(0)
 
   switch mode
     when "turtle3d"
@@ -77,18 +87,39 @@ initialiseTurtleDen = (mode, div, context) ->
 
       turtle = turtle3d
       turtle3dDiv.appendTo div
-      turtle.init $('#turtle3dCanvas').get(0) # turtle3dCanvas
+      turtle.init turtle3dCanvas.get(0)
     # when "game" ...
     else
       turtle = turtle2d
       turtle.init div
 
-  context.errorDiv.prependTo div
-  context.mode   = mode
   context.turtle = turtle
 
-initialiseEditor = (div, isTalk, context, showHelp, runCode) ->
-  onlineCodingChBox = $ "<input>", type: "checkbox"
+hideHelp = (context) ->
+  return  unless context.helpDiv
+  context.turtleDiv.show()
+  context.helpDiv.detach()
+  context.helpDiv = undefined
+
+showHelp = (context) ->
+  if context.helpDiv
+    hideHelp context
+  else
+    # create jQuery object
+    td = $ context.turtleDen
+
+    # generate help object
+    context.helpDiv =
+      pageDesign.showHelp (context.lecture.help ? ""), -> hideHelp context
+
+    context.turtleDiv.hide()
+    td.append context.helpDiv
+
+initialiseEditor = (div, isTalk, context, runCode, lecture = {}) ->
+  onlineCodingChBox = $ "<input>",
+    type: "checkbox"
+    class: if isTalk then "hidden" else ""
+
   settings =
       lineNumbers: true
       readOnly: isTalk
@@ -112,7 +143,7 @@ initialiseEditor = (div, isTalk, context, showHelp, runCode) ->
   $("<button>",
     text: "Nápověda"
     class: if isTalk then "hidden" else "btn runButton"
-    click: showHelp
+    click: -> showHelp context
   ).appendTo buttonsContainer
 
   $("<button>",
@@ -121,6 +152,7 @@ initialiseEditor = (div, isTalk, context, showHelp, runCode) ->
     click: runFunction
   ).appendTo buttonsContainer
 
+  context.lecture = lecture
   context.cm = cm
 
 # Handles error object given by computation.
@@ -136,6 +168,7 @@ handleFailure = (result, context) ->
   console.dir result
 
 evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
+  hideHelp context
   cleanCodeMirror context.cm
   context.errorDiv.html pageDesign.codeIsRunning
 
@@ -157,7 +190,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
   catch error
     highlightCodeMirror context.cm, error.lineNumber - 1
 
-    # "Line XX: ...." is sweet's message format.
+    # "Line XX: ...." is esprima's error message format.
     # We should get rid of the part before ':'.
     reason = error.message.replace /^[^:]*: /, ""
 
@@ -166,8 +199,11 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
       reason: "Syntaktická chyba (#{reason})"
     return
 
+  # Run code outside of main loop in order to be able to show "Code is
+  # running..." tooltip.
   setTimeout =>
     if isUserCode && lecture.test?
+      # Run specialized test code from course's test module.
       res = tests[lecture.test](code, context.expectedCode)
       callback_ res
     else
@@ -177,6 +213,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
         maxTime:    if quickRun then quickRunTime    else undefined
         maxActions: if quickRun then quickRunActions else undefined
 
+      # Perform tests?
       if isUserCode
         given = context.turtle.sequences
 
@@ -187,6 +224,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
               break
 
         else
+          # Just test sequences of angles, distances, ...
           if graph.sequencesEqual(context.expectedResult
                                 , given
                                 , lecture.testProperties)

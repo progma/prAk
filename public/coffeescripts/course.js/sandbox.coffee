@@ -23,8 +23,11 @@ $ ->
     evaluation.initialiseTurtleDen mode, output, evaluationContext
 
   # Initialise environment
-  evaluation.initialiseEditor editorDiv, false, evaluationContext, (->), runCode
+  evaluation.initialiseEditor editorDiv, false, evaluationContext, runCode
   initTD()
+
+  evaluationContext.cm.setSize "100%", 390
+  evaluationContext.cm.refresh()
 
   $("select[name='mode']").change (obj) ->
     output.innerHTML = ""

@@ -35,12 +35,6 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
       slide["div"] = slideDiv
       slideDiv.appendTo container
 
-    $("<div>",
-      class: "slide"
-      style: "display: none"
-      id: "helpSlide"
-    ).appendTo container
-
     newLecture.forwardArrow = $ "<div>",
       id: newLecture.fullName + "forwardArrow"
       class: "arrow-e"
@@ -245,7 +239,7 @@ renderHelp = (conf, help) ->
   [h, container]
 
 showHelp = (conf, hideCallback) ->
-  container = $ "#helpSlide"
+  container = $ "<div>", class: "helpSlide"
   container.html ""
   $("<button>",
     style: "float: right;"

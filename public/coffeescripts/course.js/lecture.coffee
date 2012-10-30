@@ -31,7 +31,6 @@ class Lecture
     @fullName = (@div.attr "id") + @name.replace "/", ""
 
     @evaluationContext = { courseName: @courseName }
-    @helpSlide = null
 
     # This is where we keep notion about what to do if a user hit the back
     # arrow.
@@ -81,8 +80,8 @@ class Lecture
       evaluation.initialiseEditor slide.div
           , slide.talk?
           , @evaluationContext
-          , (=> @showHelp())
-          , (code) => @runCode code
+          , ((code) => @runCode code)
+          , slide.lecture
       cm = slide.cm = @evaluationContext.cm
 
       if slide.talk?
@@ -114,7 +113,6 @@ class Lecture
         slide.div.html pageDesign.testNotDoneResultPage
 
   runCode: (code, isUserCode = true, saveContext = false) ->
-    @hideHelp()
     slide = @currentSlide
 
     callback = (res) =>
@@ -244,20 +242,7 @@ class Lecture
 
     @resetElements()
 
-  hideHelp: ->
-    pageDesign.hideSlide @helpSlide if @helpSlide
-    @helpSlide = null
-
-  showHelp: ->
-    helpDiv = pageDesign.showHelp (@currentSlide.lecture.help ? ""),
-      => @hideHelp()
-    @helpSlide =
-      div: helpDiv
-    pageDesign.showSlide @helpSlide, 1, true, "fadeIn"
-
   resetElements: ->
-    @hideHelp()
-
     pageDesign.displayArrow @backArrow, @currentSlides[0].prev
     pageDesign.displayArrow @forwardArrow, (_.last @currentSlides).next
 

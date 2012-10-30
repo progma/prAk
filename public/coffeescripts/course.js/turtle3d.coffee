@@ -1,7 +1,7 @@
 ex = @examine ? require './examine'
 
 parameters =
-  maxComputationTime: 4000
+  maxComputationTime: 5000
   maxActions        : 10000
 
   # These parameters are read only in init.
