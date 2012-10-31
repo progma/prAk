@@ -28,10 +28,15 @@ exports.sandbox = (req, res) ->
   console.dir codeID
 
   if codeID? && codeID != ""
-    userCodeCollection.findOne { _id: db.ObjectID.createFromHexString(codeID) }
+    try
+      maybeID = db.ObjectID.createFromHexString(codeID)
+    catch e
+      return res.send 404
+
+    userCodeCollection.findOne { _id: maybeID }
     , (err, codeObj) ->
       if err?
-        return res.redirect 404
+        return res.send 404
 
       renderSandbox req, res, codeObj.code, codeObj.mode
   else
