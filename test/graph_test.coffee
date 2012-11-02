@@ -31,7 +31,8 @@ check = (testObject) ->
     console.log "OK"
   else
     console.dir res
-    throw new Error "Graph test failed."
+    console.log "Test failed."
+    process.exit 1
 
 graphDegree = ->
   g = new EmbeddedGraph 0, 0, 0
@@ -49,6 +50,7 @@ graphDegree = ->
   g.sequences().degreeSequence
 
 # Tests
+console.log "\t === Graph tests ==="
 check
   name: "graphDegree"
   property: graphDegree
