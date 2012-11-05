@@ -3,9 +3,9 @@ extends layout
 block body
     div(class="innerSlides")
         div(class="slide", style="display: block; margin-left: -440px; left: 50%;")
-            textarea(id="editorArea") !{code}
-            input(id="evalButton", type="button", value="Spustit/Zastavit")
-            p Mód:
+            p
+              input(type="button", value="Sdílet", class="btn")
+              span(style="float:right") Mód:&nbsp;
                 select(name="mode")
                     if mode == 'turtle3d'
                       option(value="turtle2d") 2D Želva
@@ -13,10 +13,8 @@ block body
                     else
                       option(value="turtle2d", selected="selected") 2D Želva
                       option(value="turtle3d") 3D Želva
-            p Další:
-                input(type="button", value="Obrázek/editor fullscrean?")
-                input(type="button", value="Sdílet")
-                input(type="button", value="Nápověda")
+            div(id="turtleEditor")
+                textarea(id="editorArea") !{code}
         div(class="slide", style="display: block; margin-left: 1px; left: 50%;")
             div(id="turtleSpace")
 

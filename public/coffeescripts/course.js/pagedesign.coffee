@@ -5,7 +5,7 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
       click: -> newLecture.back()
     newLecture.backArrow.appendTo container
 
-    for lecture in newLecture.data.lectures
+    for lecture in newLecture.course.lectures
       do (lecture) ->
         lectureIconGroup = $("<div>",
           id: "groupOf" + newLecture.fullName + lecture.name
@@ -26,7 +26,7 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
           ).appendTo(lectureIconGroup)
           slide.iconDiv = slideIcon
 
-    $.each newLecture.data["slides"], (i, slide) ->
+    $.each newLecture.course["slides"], (i, slide) ->
       slideDiv = $ "<div>",
         id: newLecture.fullName + slide.name
         class: "slide"
@@ -34,12 +34,6 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
 
       slide["div"] = slideDiv
       slideDiv.appendTo container
-
-    $("<div>",
-      class: "slide"
-      style: "display: none"
-      id: "helpSlide"
-    ).appendTo container
 
     newLecture.forwardArrow = $ "<div>",
       id: newLecture.fullName + "forwardArrow"
@@ -114,6 +108,7 @@ showPreview = (lecture) ->
     $("<div>"
       style: "height: 130px"
     ).appendTo lecture.previewDiv
+
     t.init turtlePlace.get 0
 
     $.ajax(
@@ -121,7 +116,7 @@ showPreview = (lecture) ->
       dataType: "text"
     ).done((data) ->
       if lecture.test?
-        f = tests[lecture.test+"Expected"]
+        f = tests[lecture.course.name]?[lecture.test+"Expected"]
         f(data, false) if f?
       else
         t.run data, animate: false
@@ -245,7 +240,7 @@ renderHelp = (conf, help) ->
   [h, container]
 
 showHelp = (conf, hideCallback) ->
-  container = $ "#helpSlide"
+  container = $ "<div>", class: "helpSlide"
   container.html ""
   $("<button>",
     style: "float: right;"

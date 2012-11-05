@@ -122,6 +122,8 @@ html(lang="en")
         throw new Error("Cannot require " + name);
       }
       require.extensions = {};
+      window.serverURL = "!{settings.URL}";
+
     script(src="/javascripts/raphael-min.js")
     script(src="/javascripts/three.min.js")
     script(src="/javascripts/esprima.js")

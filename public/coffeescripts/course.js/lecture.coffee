@@ -26,12 +26,9 @@ nextSlides = (slide) ->
 
 
 class Lecture
-  constructor: (@name, @data, @div) ->
-    @courseName = _.last _.filter @name.split("/"), (el) -> el != ""
+  constructor: (@name, @course, @div) ->
     @fullName = (@div.attr "id") + @name.replace "/", ""
-
-    @evaluationContext = {}
-    @helpSlide = null
+    @evaluationContext = { courseName: @course.name }
 
     # This is where we keep notion about what to do if a user hit the back
     # arrow.
@@ -62,7 +59,7 @@ class Lecture
           @evaluationContext.expectedCode = data
 
           if slide.lecture.test?
-            f = tests[@courseName]?[slide.lecture.test+"Expected"]
+            f = tests[@course.name]?[slide.lecture.test+"Expected"]
             f(data) if f?
           else
             @runCode data, false, true
@@ -81,8 +78,8 @@ class Lecture
       evaluation.initialiseEditor slide.div
           , slide.talk?
           , @evaluationContext
-          , (=> @showHelp())
-          , (code) => @runCode code
+          , ((code) => @runCode code)
+          , slide.lecture
       cm = slide.cm = @evaluationContext.cm
 
       if slide.talk?
@@ -101,7 +98,7 @@ class Lecture
 
       if slide.talk?
         soundManager.onready =>
-          sound.playTalk slide, @data.mediaRoot, @fullName, =>
+          sound.playTalk slide, @course.mediaRoot, @fullName, =>
             @lectureDone()
             # TODO stg like
             # if @currentSlide.lecture.forward == "auto"
@@ -114,15 +111,7 @@ class Lecture
         slide.div.html pageDesign.testNotDoneResultPage
 
   runCode: (code, isUserCode = true, saveContext = false) ->
-    @hideHelp()
     slide = @currentSlide
-
-    if isUserCode
-      connection.sendUserCode
-        code: code
-        course: @courseName
-        lecture: slide.lecture.name
-        mode: slide.lecture.mode ? "turtle2d"
 
     callback = (res) =>
       if res == true
@@ -147,7 +136,7 @@ class Lecture
     pageDesign.lectureDone lecture
 
     unless lecture.done
-      connection.lectureDone @courseName, lecture.name
+      connection.lectureDone @course.name, lecture.name
       lecture.done = true
 
   # Following four functions moves slides' DIVs to proper places.
@@ -163,7 +152,7 @@ class Lecture
         if @currentSlide.lecture.slides.length > 1
           @currentSlide = @currentSlide.next
 
-        slide = @data.slides[0]
+        slide = @course.slides[0]
         @currentSlides = [slide]
 
         # Fill @historyStack and @currentSlides
@@ -173,7 +162,7 @@ class Lecture
           slide = _.last @currentSlides
 
     if !lectureName
-      @currentSlide  = @data.slides[0]
+      @currentSlide  = @course.slides[0]
       @currentSlides = [@currentSlide]
 
     $.each @currentSlides, (i, slideIt) =>
@@ -251,20 +240,7 @@ class Lecture
 
     @resetElements()
 
-  hideHelp: ->
-    pageDesign.hideSlide @helpSlide if @helpSlide
-    @helpSlide = null
-
-  showHelp: ->
-    helpDiv = pageDesign.showHelp (@currentSlide.lecture.help ? ""),
-      => @hideHelp()
-    @helpSlide =
-      div: helpDiv
-    pageDesign.showSlide @helpSlide, 1, true, "fadeIn"
-
   resetElements: ->
-    @hideHelp()
-
     pageDesign.displayArrow @backArrow, @currentSlides[0].prev
     pageDesign.displayArrow @forwardArrow, (_.last @currentSlides).next
 
@@ -283,10 +259,10 @@ class Lecture
   findSlide: (name, byLectureName = false) ->
     i = 0
 
-    while i < @data.slides.length
-      if (!byLectureName and @data.slides[i].name == name) or
-          (byLectureName and @data.slides[i].lecture.name == name)
-        return @data.slides[i]
+    while i < @course.slides.length
+      if (!byLectureName and @course.slides[i].name == name) or
+          (byLectureName and @course.slides[i].lecture.name == name)
+        return @course.slides[i]
       i++
 
     false
