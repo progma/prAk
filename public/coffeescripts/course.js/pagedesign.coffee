@@ -5,7 +5,7 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
       click: -> newLecture.back()
     newLecture.backArrow.appendTo container
 
-    for lecture in newLecture.data.lectures
+    for lecture in newLecture.course.lectures
       do (lecture) ->
         lectureIconGroup = $("<div>",
           id: "groupOf" + newLecture.fullName + lecture.name
@@ -26,7 +26,7 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
           ).appendTo(lectureIconGroup)
           slide.iconDiv = slideIcon
 
-    $.each newLecture.data["slides"], (i, slide) ->
+    $.each newLecture.course["slides"], (i, slide) ->
       slideDiv = $ "<div>",
         id: newLecture.fullName + slide.name
         class: "slide"
@@ -108,6 +108,7 @@ showPreview = (lecture) ->
     $("<div>"
       style: "height: 130px"
     ).appendTo lecture.previewDiv
+
     t.init turtlePlace.get 0
 
     $.ajax(
@@ -115,7 +116,7 @@ showPreview = (lecture) ->
       dataType: "text"
     ).done((data) ->
       if lecture.test?
-        f = tests[lecture.test+"Expected"]
+        f = tests[lecture.course.name]?[lecture.test+"Expected"]
         f(data, false) if f?
       else
         t.run data, animate: false

@@ -204,7 +204,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
   setTimeout =>
     if isUserCode && lecture.test?
       # Run specialized test code from course's test module.
-      res = tests[lecture.test](code, context.expectedCode)
+      res = tests[lecture.course.name][lecture.test](code, context.expectedCode)
       callback_ res
     else
       lastResult = context.turtle.run code,
