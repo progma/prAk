@@ -1,7 +1,10 @@
 ex = @examine ? require './examine'
 
 parameters =
-# These parameters are read only in init.
+  maxComputationTime: 5000
+  maxActions        : 10000
+
+  # These parameters are read only in init.
   WIDTH: 380
   HEIGHT: 480
 
@@ -12,7 +15,8 @@ parameters =
   FIELD_OF_VIEW: 75
   FRUSTUM_NEAR: 0.1
   FRUSTUM_FAR: 1000000
-# These parameters are also read in run.
+
+  # These parameters are also read in run.
   CAMERA_DISTANCE: 400
 
   TURTLE_START_POS: new THREE.Vector3(0, 0, 0)
@@ -221,7 +225,7 @@ init = (canvas) ->
 # Since my Turtle3D is a nice object with its own fields and I
 # want to use its methods as global function in a global context,
 # I export them like this.
-environment = (myTurtle) ->
+environment = (myTurtle, config) ->
   go:     (distance) -> myTurtle.go(distance)
   left:      (angle) -> myTurtle.yaw(angle)
   right:     (angle) -> myTurtle.yaw(-angle)
@@ -237,6 +241,14 @@ environment = (myTurtle) ->
   repeat: (n, f, args...) ->
     i = 0
     f args... while i++ < n
+
+  # Time
+  __bigBangTime: new Date()
+
+  __checkRunningTimeAndHaltIfNeeded: ->
+    if (new Date() - @__bigBangTime) > config.maxTime
+      throw new Error "Time exceeded." # TODO change error class
+
 
 constants =
   white:   0xFFFFFF
@@ -261,8 +273,9 @@ constants =
 
 
 run = (turtleCode, config = {}) ->
-  config.shadow ?= false
-  config.draw   ?= true
+  config.shadow  ?= false
+  config.draw    ?= true
+  config.maxTime ?= parameters.maxComputationTime
 
   material = new THREE.MeshLambertMaterial({ color: parameters.TURTLE_START_COLOR
                                            , ambient: parameters.TURTLE_START_COLOR })
@@ -275,7 +288,7 @@ run = (turtleCode, config = {}) ->
 
   result = ex.test
     code: turtleCode
-    environment: environment(myTurtle)
+    environment: environment(myTurtle, config)
     constants: constants
   turtle3d.sequences = myTurtle.graph.sequences()
   return   unless config.draw

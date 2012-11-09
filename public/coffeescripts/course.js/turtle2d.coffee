@@ -179,6 +179,11 @@ environment = (turtle, config) ->
     turtle.graph.penDown()
 
   color: (col) ->
+    if typeof col == 'number'
+      str = col.toString 16
+      col = '#'
+      col += '0' for i in [0...6-str.length]
+      col += str
     turtle.addAction (CO col)
 
   # Time

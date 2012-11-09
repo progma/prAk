@@ -94,10 +94,11 @@ courses =
 
     name = @baseDir + theDiv.attr("slidedata")
 
-    course = { urlStart: name, name: _.last (_.filter name.split('/'), (s) -> !s) }
+    $.getJSON(name + "/course.json", (courseData) =>
+      courseData.urlStart = name
+      courseData.name = _.last (_.filter name.split('/'), (s) -> s != "")
 
-    $.getJSON(name + "/course.json", (data) =>
-      data.slides = _.reduce data.lectures, (memo, lecture)->
+      courseData.slides = _.reduce courseData.lectures, (memo, lecture)->
         if StandardSlidesHelper[lecture.type]?
           newSlides = StandardSlidesHelper[lecture.type](lecture)
           lecture.slides = newSlides
@@ -110,20 +111,19 @@ courses =
           lecture.lecture = lecture  # epic!
           lecture.slides = [lecture]
           memo.push lecture
-        lecture.course = course
+
+        lecture.course = courseData
         lecture.done = lecture.name in lecturesDone
         return memo
       , []
-      course.lectures = data.lectures
-      course.slides = data.slides
 
       # create convinient pointers to next and previous slide/lecture
-      for array in [data.lectures, data.slides]
+      for array in [courseData.lectures, courseData.slides]
         for li in [0...array.length]
           array[li-1].next = array[li]   unless li == 0
           array[li+1].prev = array[li]   unless li == array.length-1
 
-      newCourse = new lecture.Lecture name, data, theDiv
+      newCourse = new lecture.Lecture name, courseData, theDiv
 
       pageDesign.lectureAdd newCourse, innerSlides, slideList, infoPanel
       @list.push newCourse

@@ -3,7 +3,6 @@ extends layout
 block body
     script
         window.userCode = !{codes};
-        window.serverURL = "!{serverURL}";
         window.lecturesDone = !{lecturesDone};
     div(id='courseDiv', class='slides', slidedata='/courses/#{courseName}/')
 
