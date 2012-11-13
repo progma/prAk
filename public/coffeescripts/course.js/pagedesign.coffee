@@ -5,6 +5,10 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
       click: -> newLecture.back()
     newLecture.backArrow.appendTo container
 
+    $('<i>',
+      class: "icon-chevron-left",
+    ).appendTo(newLecture.backArrow)
+
     for lecture in newLecture.course.lectures
       do (lecture) ->
         lectureIconGroup = $("<div>",
@@ -40,6 +44,10 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
       class: "arrow-e"
       click: -> newLecture.forward()
     newLecture.forwardArrow.appendTo container
+
+    $('<i>',
+      class: "icon-chevron-right",
+    ).appendTo(newLecture.forwardArrow)
 
     slideList.appendTo newLecture.div
     container.appendTo newLecture.div
