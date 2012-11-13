@@ -136,9 +136,12 @@ addPlayer = (div, clickHandler, seekHandler) ->
     class: "player"
   ).appendTo(div)
   pause  = $("<div>",
-    class: "pause"
+    class: "control"
     click: clickHandler
   ).appendTo(player)
+  pauseIcon = $("<i>",
+    class: "control-icon icon-pause"
+  ).appendTo(pause)
   seek   = $("<div>",
     class: "seek"
     click: seekHandler
@@ -154,17 +157,23 @@ showFeedback = (div) ->
     style: "display: inline-block"
   ).appendTo(div)
   thumbUp = $("<button>",
-    class: "thumbUp btn"
+    class: "btn"
     click: ->
       connection.log "feedback",
         thumb: true
   ).appendTo(div)
+  thumbUpIcon = $("<i>",
+    class: "icon-thumbs-up"
+  ).appendTo(thumbUp)
   thumbDown = $("<button>",
-    class: "thumbDown btn"
+    class: "btn"
     click: ->
       connection.log "feedback",
         thumb: false
   ).appendTo(div)
+  thumbDownIcon = $("<i>",
+    class: "icon-thumbs-down"
+  ).appendTo(thumbDown)
   commentary = $("<input>",
     type: "text"
     class: "commentary"
