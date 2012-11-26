@@ -254,8 +254,25 @@ apiHelp = [
 ]
 
 extendedApiHelp =
-  "turtle3d": [] # TODO up, down, rollLeft, rollRight, width, color
-                 #      title: "Příkazy 3D želvy"
+  "turtle3d": [
+      name: "3dmotion"
+      title: "Příkazy 3D želvy"
+      code: "up(s);\ndown(s);\nrollLeft(s);\nrollRight(s);"
+      desc: """Želva se otočí o <code>s</code> supňů nahoru/dolů respektive
+      udělá piruetu doleva/doprava vzhledem k ose procházející jí od ocasu k
+      hlavě."""
+    ,
+      name: "width"
+      code: "width(n);"
+      desc: "Změní šířku štětce na <code>n</code>."
+    ,
+      name: "color"
+      code: "color(barva);"
+      desc: """Změní barvu štětce. Barvu je možné zadat číslem, nebo jménem
+      jedné z předdefinovaných barev: <code>white, yellow, fuchsia, aqua, red,
+        lime, blue, black, green, maroon, olive, purple, gray, navy, teal,
+        silver, brown, orange</code>."""
+  ]
 
 renderHelp = (conf, help) ->
   container = $ "<div>"
