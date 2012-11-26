@@ -53,8 +53,7 @@ class Lecture
 
       evaluation.initialiseTurtleDen slide.lecture.mode, output, @evaluationContext
 
-      if  slide.lecture.type == "turtleTask" and
-          slide.lecture.mode != "turtle3d"
+      if  slide.lecture.type == "turtleTask"
         loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
           @evaluationContext.expectedCode = data
 

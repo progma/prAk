@@ -1,0 +1,70 @@
+var delka = 100;
+var uhel = 360/5;
+var vykloneni = 26.5; // toto neni spocitany presne, jen tip
+
+function petiuhelnik(d) {
+  var i = 0;
+
+  while (i < 5) {
+    /*
+    if (i == 0)
+      color(blue);
+    if (i == 4)
+      color(yellow);
+    */
+
+    go(delka);
+    color(red);
+
+    if (d == 1 || (d == 2 && i == 2)) {
+      var ot1 =  90;
+      var ot2 = 180;
+
+      rollRight(ot1);
+      down(ot2);
+      rollLeft(vykloneni);
+
+      petiuhelnik(d+1);
+
+      rollRight(vykloneni);
+      up(ot2);
+      rollLeft(ot1);
+    }
+
+    right(uhel);
+    i = i + 1;
+  }
+}
+
+petiuhelnik(1);
+
+/*
+// kostka:
+// ------
+
+function ctverec(zpet) {
+  var i = 0;
+  while (i < 4) {
+    go(100);
+    right(90);
+
+    up(90);
+    go(zpet);
+    up(180);
+    go(zpet);
+    up(90);
+
+    i = i + 1;
+  }
+}
+
+// nakloneni
+up(20);
+rollLeft(20);
+
+ctverec(0);
+down(90);
+go(100);
+up(90);
+ctverec(100);
+*/
