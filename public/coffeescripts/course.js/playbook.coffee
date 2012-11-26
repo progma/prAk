@@ -15,10 +15,10 @@ playbook =
                                     value.y / value.height * destination.height
 
   evaluatedCode: (value, environment) ->
-    if not environment.evaluationContext?
-      environment.evaluationContext = "turtle2d"
+    if not environment.evaluationMode?
+      environment.evaluationMode = "turtle2d"
 
-    switch environment.evaluationContext
+    switch environment.evaluationMode
       when "turtle2d"
         turtle2d.run value
       when "turtle3d"

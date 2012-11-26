@@ -118,7 +118,6 @@ showHelp = (context) ->
 initialiseEditor = (div, isTalk, context, runCode, lecture = {}) ->
   onlineCodingChBox = $ "<input>",
     type: "checkbox"
-    class: if isTalk then "hidden" else ""
 
   settings =
       lineNumbers: true
@@ -140,17 +139,17 @@ initialiseEditor = (div, isTalk, context, runCode, lecture = {}) ->
 
   onlineCodingChBox.appendTo buttonsContainer
 
-  $("<button>",
+  context.helpButton = $("<button>",
     text: "Nápověda"
-    class: if isTalk then "hidden" else "btn runButton"
+    class: "btn runButton"
     click: -> showHelp context
-  ).appendTo buttonsContainer
+  ).attr("disabled", isTalk).appendTo buttonsContainer
 
-  $("<button>",
+  context.runButton = $("<button>",
     text: "Spustit kód"
-    class: if isTalk then "hidden" else "btn runButton"
+    class: "btn runButton"
     click: runFunction
-  ).appendTo buttonsContainer
+  ).attr("disabled", isTalk).appendTo buttonsContainer
 
   context.lecture = lecture
   context.cm = cm
@@ -166,6 +165,21 @@ handleFailure = (result, context) ->
     context.errorDiv.html pageDesign.wrongAnswer + result.args.toString()
 
   console.dir result
+
+enableEditor = (context) ->
+  context.runButton.attr  "disabled", false
+  context.helpButton.attr "disabled", false
+
+  context.cm.setOption "readOnly", false
+  context.cmValue = context.cm.getValue()
+
+disableEditor = (context) ->
+  context.runButton.attr  "disabled", true
+  context.helpButton.attr "disabled", true
+
+  context.cm.setOption "readOnly", true
+  context.cm.setValue context.cmValue
+  context.cmValue = null
 
 evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
   hideHelp context
@@ -239,5 +253,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
 @evaluation = {
   initialiseTurtleDen
   initialiseEditor
+  enableEditor
+  disableEditor
   evaluate
 }
