@@ -193,6 +193,17 @@ showFeedback = (div) ->
         $(this).val("")
         $(this).attr("placeholder", "Díky! Ještě něco?")
   ).appendTo(div)
+  pp = $("<p>",
+    text: "Sdílejte s přáteli: "
+    style: "display: inline-block"
+  ).appendTo(div)
+  facebook = $("<a>",
+    href: "https://www.facebook.com/dialog/feed?app_id=274343352671549&link=http://prak.mff.cuni.cz&picture=http://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Kturtle_side_view.svg/474px-Kturtle_side_view.svg.png&name=PrAk&caption=Programovací akademie&description=Programování vystavuje světu nesčetně tváří a některé z nich jsou opravdu přístupné. Třeba želví grafika. Dostanete želvu se štětcem na břichu a budete jí psát příkazy, složitějí a složitější, až budete umět kreslit vcelku složité a zvláštní útvary a, jen tak mimochodem, docela dobře programovat.&redirect_uri=http://prak.mff.cuni.cz",
+    class: "btn"
+  ).appendTo(div)
+  facebookIcon = $("<i>",
+    class: "icon-facebook"
+  ).prependTo(facebook)
 
 displayArrow = (arrow, display) ->
   if display?
