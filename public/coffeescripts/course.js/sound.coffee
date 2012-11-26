@@ -101,7 +101,7 @@ seekSound  = (e) ->
     i++
   pos = totalPos - remaining
 
-  slide.soundObject().stop()
+  slide.soundObject()?.stop()
   playSound slide, i, pos
 
   for track in tracks
