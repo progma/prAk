@@ -47,6 +47,21 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
 
     showFeedback infoPanel
 
+# TODO .alert-block?
+flash = (message, type) ->
+  [klass, opening] =
+    switch type
+      when "error"   then ["alert-error", "CHYBA: "]
+      when "success" then ["alert-success", "ÚSPĚCH: "]
+      when "info"    then ["alert-info", "INFORMACE: "]
+      else ["",""]
+
+  $("body > div.container").first().prepend """
+    <div class='alert #{klass}'>
+      <button class="close" data-dismiss="alert">×</button>
+      <strong>#{opening}</strong>#{message}
+    </div>"""
+
 # Following three functions moves slides' DIVs to proper places.
 showSlide = (slide, order, isThereSecond, effect) ->
   slide.iconDiv?.addClass "slideIconActive"
@@ -282,21 +297,26 @@ testNotDoneResultPage = """
 """
 
 loadProblem = """
-  <center>There was an unusual accident during the load.</center>
+  Nastala chyba při stahování obsahu ze serveru.
   """
+
+soundManagerFailed = """
+  Nastala chyba při spouštění zvuku. Je nainstalován Flash?
+  """
+
 courseNAProblem = (name) -> """
-  <p style='position: relative; top: 0.5em'>
-    Course at '""" + name + """' is not available.
+  Kurz '""" + name + """' není dostupný.
   """
 
 wrongAnswer = """
-  Program vrátil nesprávnou hodnotu při následujících arugemntech: 
+  Program vrátil nesprávnou hodnotu při následujících argumentech:
   """
 
 codeIsRunning = "Běží výpočet."
 
 @pageDesign = {
   lectureAdd
+  flash
 
   # Following three functions moves slides' DIVs to proper places.
   showSlide
@@ -312,6 +332,7 @@ codeIsRunning = "Běží výpočet."
   testDoneResultPage
   testNotDoneResultPage
   loadProblem
+  soundManagerFailed
   courseNAProblem
   wrongAnswer
   codeIsRunning

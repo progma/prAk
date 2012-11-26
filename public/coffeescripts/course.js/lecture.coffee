@@ -43,7 +43,7 @@ class Lecture
         loadText @name + "/" + slide.source
         , (data) =>
           slide.div.html data
-        , => slide.div.html pageDesign.loadProblem
+        , -> pageDesign.flash pageDesign.loadProblem, "error"
 
         @lectureDone()
 

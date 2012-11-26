@@ -1,20 +1,23 @@
 userCode = window.userCode ? {}
 lecturesDone = window.lecturesDone ? []
 
-$(document).ready(->
+$(document).ready ->
   soundManager.setup
     url: "/javascripts/soundManagerSwf"
     debugMode: false
-    useFlashBlock: false
+    useFlashBlock: true
+    # preferFlash: false # TODO uncomment in future, see SM2 documentation
+    ontimeout: (status) ->
+      pageDesign.flash pageDesign.soundManagerFailed, "error"
 
   $.ajaxSetup
     cache: false
   $("div[slidedata]").each (i, div) ->
     courses.createCourse $(div)
+
   window.courses = courses    # nice to have in debugging process
   window.onerror = (message, url, line) ->
     connection.log "jsError", { message, url, line }
-)
 
 
 # One lecture stands for one or more slides. Lecture is a logical unit of
@@ -131,5 +134,4 @@ courses =
 
       connection.whenWhereDictionary.course = name
     ).error ->
-      slideList.html pageDesign.courseNAProblem name
-      slideList.appendTo theDiv
+      pageDesign.flash pageDesign.courseNAProblem(name), "error"
