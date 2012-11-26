@@ -14,12 +14,16 @@ $ ->
 
   lecture =
     name: ""
+    help: mode
     testProperties: []
 
   runCode = (code) ->
     evaluation.evaluate code, true, lecture, evaluationContext, (->)
 
   initTD = ->
+    # Set help content depending on turtle mode
+    evaluationContext.lecture.help = mode
+
     evaluation.initialiseTurtleDen mode, output, evaluationContext
 
   # Initialise environment
