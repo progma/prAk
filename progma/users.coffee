@@ -105,7 +105,7 @@ exports.enrollUserInCourse = (user, courseId, callback) ->
     user.courses.push(courseId)
 
     # Save the changes.
-    exports.updateUser(user)
+    exports.updateUser(user, ->)
 
     callback(null, user)
 
@@ -121,7 +121,7 @@ exports.dropCourse = (user, courseId, callback) ->
   user.courses[courseIndex..courseIndex] = []
 
   # Save the changes.
-  exports.updateUser(user)
+  exports.updateUser(user, ->)
 
   callback(null, user)
 
