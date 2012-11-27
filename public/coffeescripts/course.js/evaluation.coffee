@@ -228,7 +228,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
         maxActions: if quickRun then quickRunActions else undefined
 
       # Perform tests?
-      if isUserCode
+      if isUserCode && not context.cmValue?
         given = context.turtle.sequences
 
         if lecture.testAgainstOneOf?

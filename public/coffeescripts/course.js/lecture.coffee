@@ -77,7 +77,7 @@ class Lecture
       evaluation.initialiseEditor slide.div
           , slide.talk?
           , @evaluationContext
-          , ((code) => @runCode code, not slide.talk?)
+          , ((code) => @runCode code)
           , slide.lecture
       cm = slide.cm = @evaluationContext.cm
 
