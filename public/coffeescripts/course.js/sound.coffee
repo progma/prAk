@@ -69,14 +69,14 @@ playSound = (slide, ith, pos) ->
       if ith+1 == slide.soundObjects.length and callback?
         callback()
 
-      slide.div.find(".pause").removeClass("pause").addClass("play")
+      slide.div.find(".control-icon").removeClass("").addClass("icon-play")
       playSound slide, ith+1, 0
     onpause: ->
-      slide.div.find(".pause").removeClass("pause").addClass("play")
+      slide.div.find(".control-icon").removeClass("icon-pause").addClass("icon-play")
     onplay: ->
-      slide.div.find(".play").removeClass("play").addClass("pause")
+      slide.div.find(".control-icon").removeClass("icon-play").addClass("icon-pause")
     onresume: ->
-      slide.div.find(".play").removeClass("play").addClass("pause")
+      slide.div.find(".control-icon").removeClass("icon-play").addClass("icon-pause")
     position: pos
   )
 

@@ -8,8 +8,8 @@ html(lang="en")
     meta(name="description", content="")
     meta(name="author", content="")
 
+    link(href="/stylesheets/font-awesome.css", rel="stylesheet")
     link(href="/stylesheets/bootstrap.min.css", rel="stylesheet")
-    link(href="/stylesheets/bootstrap-responsive.min.css", rel="stylesheet")
     link(href="/stylesheets/css-social-buttons/zocial.css", rel="stylesheet")
     link(href="/stylesheets/style.css", rel="stylesheet")
     link(href="/stylesheets/course.css", rel="stylesheet")
@@ -43,7 +43,7 @@ html(lang="en")
                 li: a(href="/account") #{user.displayName}
                 li: a(href="/logout") logout
             else
-              ul.nav.pull-right(style="background-color: #222")
+              ul.nav.pull-right
                 li.dropdown#loginMenu
                   a.dropdown-toggle(data-toggle="dropdown", href="#loginMenu").
                     Sign in <b class="caret"></b>
