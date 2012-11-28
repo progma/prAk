@@ -172,16 +172,31 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
   cleanCodeMirror context.cm
   context.errorDiv.html pageDesign.codeIsRunning
 
-  callback_ = (res) ->
-    handleFailure res, context
-    callback res
+  shouldSendUserCode = isUserCode && !quickRun
 
-  if isUserCode && !quickRun
+  # Wait for two async computation and then perform callback.
+  oneComputationDone = not shouldSendUserCode
+  evalResult = null
+
+  callback_ = (res) ->
+    evalResult = res  if evalResult == null
+
+    if oneComputationDone
+      handleFailure evalResult, context
+      callback evalResult
+
+    oneComputationDone = true
+
+
+  if shouldSendUserCode
     connection.sendUserCode
-      code: code
-      course: context.courseName
-      lecture: lecture.name
-      mode: context.mode ? "turtle2d"
+        code: code
+        course: context.courseName
+        lecture: lecture.name
+        mode: context.mode ? "turtle2d"
+      , (objectID) ->
+        context.codeObjectID = objectID
+        callback_ null
 
   try
     parsedTree = parser.parse code
@@ -221,7 +236,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
           for candidate in lecture.testAgainstOneOf
             if graph.sequencesEqual candidate, given
               callback_ true
-              break
+              return
 
         else
           # Just test sequences of angles, distances, ...
@@ -229,6 +244,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
                                 , given
                                 , lecture.testProperties)
             callback_ true
+            return
 
       if lastResult == true
         callback_ null  # code is OK, but test didn't pass

@@ -271,20 +271,22 @@ showHelp = (conf, hideCallback) ->
 
   container
 
+facebookShareUrl = (id) ->
+    "https://www.facebook.com/dialog/feed?app_id=274343352671549&link=http://prak.mff.cuni.cz/sandbox/#{id}&picture=http://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Kturtle_side_view.svg/474px-Kturtle_side_view.svg.png&name=PrAk&caption=Programovací akademie&description=Programování vystavuje světu nesčetně tváří a některé z nich jsou opravdu přístupné. Třeba želví grafika. Dostanete želvu se štětcem na břichu a budete jí psát příkazy, složitějí a složitější, až budete umět kreslit vcelku složité a zvláštní útvary a, jen tak mimochodem, docela dobře programovat.&redirect_uri=http://prak.mff.cuni.cz"
 
-testDoneResultPage = """
+testDoneResultPage = (id) -> """
   <center>
   <h2 style='margin-top: 30px;'>Správné řešení</h2>
-    <img src='/images/checked.png' style='width: 200px; height: 143px; margin: 50px;'>
+    <img src='/images/checked.png' style='width: 200px; height: 143px; margin: 50px;' />
     <p>Nejen že jsi správně vyřešil/a danou úlohu &#8212 mimoděk jsi stvořil/a veliké
     umělecké dílo, jež bude svou nádherou a noblesou okouzlovat spatřující
-    stovky nadcházejících let.
-    <p>Nechceš ho sdílet na Facebooku?
-    <p style='margin-top: 30px; font-size: 1.2em;'>Pokračuj dál šipkou vpravo.
+    stovky nadcházejících let.</p>
+    <p>Nechceš ho sdílet na Facebooku? <a href="#{facebookShareUrl id}" class="btn"><i class="icon-facebook"></i></a></p>
+    <p style='margin-top: 30px; font-size: 1.2em;'>Pokračuj dál šipkou vpravo.</p>
   </center>
   """
 
-testNotDoneResultPage = """
+testNotDoneResultPage = (id) -> """
   <center>
     <h2 style='margin-top: 30px;'>Ještě jsi neodeslal/a správné řešení.</h2>
     <img src='/images/questionmark.png' style='width: 138px; height: 200px; margin: 50px;'>
@@ -303,6 +305,8 @@ courseNAProblem = (name) -> """
 wrongAnswer = """
   Program vrátil nesprávnou hodnotu při následujících arugemntech: 
   """
+
+connectionError = "Chyba v připojení"
 
 codeIsRunning = "Běží výpočet."
 
@@ -325,5 +329,6 @@ codeIsRunning = "Běží výpočet."
   loadProblem
   courseNAProblem
   wrongAnswer
+  connectionError
   codeIsRunning
 }
