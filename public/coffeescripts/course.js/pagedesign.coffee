@@ -258,7 +258,7 @@ extendedApiHelp =
       name: "3dmotion"
       title: "Příkazy 3D želvy"
       code: "up(s);\ndown(s);\nrollLeft(s);\nrollRight(s);"
-      desc: """Želva se otočí o <code>s</code> supňů nahoru/dolů respektive
+      desc: """Želva se otočí o <code>s</code> stupňů nahoru/dolů, respektive
       udělá piruetu doleva/doprava vzhledem k ose procházející jí od ocasu k
       hlavě."""
     ,
