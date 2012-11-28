@@ -1,12 +1,13 @@
-turtle = turtle2d
-mode = "turtle2d"
-
 $ ->
   turtle2d.settings.defaultTotalTime = 2000
   turtle3d.parameters.BACKGROUND_COLOR = 0xFFFFFF
 
   editorDiv = document.getElementById "turtleEditor"
   output    = document.getElementById "turtleSpace"
+  selectObj = $ "select[name='mode']"
+
+  # Get mode from selected option
+  mode = selectObj.find(":selected").val()
 
   evaluationContext =
     editorTextareaID: "editorArea"
@@ -14,12 +15,16 @@ $ ->
 
   lecture =
     name: ""
+    help: mode
     testProperties: []
 
   runCode = (code) ->
     evaluation.evaluate code, true, lecture, evaluationContext, (->)
 
   initTD = ->
+    # Set help content depending on turtle mode
+    evaluationContext.lecture.help = mode
+
     evaluation.initialiseTurtleDen mode, output, evaluationContext
 
   # Initialise environment
@@ -29,7 +34,7 @@ $ ->
   evaluationContext.cm.setSize "100%", 390
   evaluationContext.cm.refresh()
 
-  $("select[name='mode']").change (obj) ->
+  selectObj.change (obj) ->
     output.innerHTML = ""
     mode = obj.target.value
     initTD()

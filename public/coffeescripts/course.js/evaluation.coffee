@@ -18,7 +18,7 @@ cleanCodeMirror = (cm) ->
 codeMirrorChanged = (onlineCoding, context) -> (cm) ->
   cleanCodeMirror cm
 
-  if onlineCoding.get(0).checked && context.turtle.name == "turtle2d"
+  if onlineCoding.get(0).checked
     # Stop previous (if any) attempt to run code
     clearTimeout codeToRun
 
