@@ -1,0 +1,15 @@
+function ctverec(delka){
+  go(delka);
+  right(90);
+  go(delka);
+  right(90);
+  go(delka);
+  right(90);
+  go(delka);
+  right(90);
+}
+
+ctverec(50);
+ctverec(10);
+
+repeat(5, ctverec, 50);

@@ -1,0 +1,40 @@
+function strom(hloubka, delka) {
+  color(brown);
+  width(10 - 2 * hloubka);
+  if (hloubka < 5) {
+    go(delka);
+    
+    strom(hloubka + 1, delka / 1.5);
+    
+    left(35);
+    strom(hloubka + 1, delka / 1.5);
+    right(35);
+    rollRight(120);
+  
+    left(35);
+    strom(hloubka + 1, delka / 1.5);
+    right(35);
+    rollRight(120);
+    
+    left(35);
+    strom(hloubka + 1, delka / 1.5);
+    right(35);
+    rollRight(120);
+    
+    right(180);
+    go(delka);
+    left(180);
+  }
+  if (hloubka == 5) {
+    color(green);
+    width(20);
+    go(15);
+    right(180);
+    go(15);
+    left(180);
+    width(10 - 2 * hloubka);
+    color(brown);
+  }
+}
+
+strom(0, 100);

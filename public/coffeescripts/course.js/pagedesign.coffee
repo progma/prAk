@@ -104,7 +104,7 @@ showPreview = (lecture) ->
 
   if lecture.preview?
     lecture.previewDiv.html(lecture.previewDiv.html() + "<br><img src='" + lecture.preview + "'>")
-  else if lecture.type == "turtleTask"
+  else if (lecture.type == "turtleTask") || (lecture.type == "turtleTalk")
     return if lecture.mode? && lecture.mode != "turtle2d"
     t = turtle2d
     t.stash()
