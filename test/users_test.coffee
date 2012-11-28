@@ -16,9 +16,7 @@ describe 'Users', ->
         'hunter2',
         'john@example.com',
         (err, user) ->
-          users.enrollUserInCourse user, 'course1', (err, user) ->
-            users.enrollUserInCourse user, 'course2', (err, user) ->
-              done(err)
+          done(err)
 
 
   describe '.getUser()', ->
@@ -50,7 +48,6 @@ describe 'Users', ->
           user.should.have.property('id', 'doe@example.com')
           user.should.have.property('displayName', 'John Doe')
           user.should.have.property('email', 'john@example.com')
-          user.should.have.property('courses').with.lengthOf(0)
           user.should.have.property('achievements').with.lengthOf(0)
           user.should.have.property('salt')
           user.should.have.property('password')
