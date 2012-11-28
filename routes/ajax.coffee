@@ -47,7 +47,7 @@ exports.lectureDone = (req, res) ->
     unless req.body.lecture in req.user.lecturesDone[req.body.course]
       req.user.lecturesDone[req.body.course].push req.body.lecture
 
-    users.updateUser req.user
+    users.updateUser(req.user, ->)
 
   res.send 200
 
