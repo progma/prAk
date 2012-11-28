@@ -1,0 +1,17 @@
+function ctverec(){
+  go(50);
+  right(90);
+  go(50);
+  right(90);
+  go(50);
+  right(90);
+  go(50);
+  right(90);
+}
+
+function ctverecsotocenim() {
+  ctverec();
+  go(10);
+}
+
+repeat(5, ctverecsotocenim);
