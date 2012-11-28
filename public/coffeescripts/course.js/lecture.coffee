@@ -82,7 +82,7 @@ class Lecture
       cm = slide.cm = @evaluationContext.cm
 
       if slide.talk?
-        cm.setSize 380, 440
+        cm.setSize 380, 413
       else
         cm.setSize 380, 365
       cm.setValue ""    # force CodeMirror to redraw using the new size
@@ -97,7 +97,7 @@ class Lecture
 
       if slide.talk?
         soundManager.onready =>
-          sound.playTalk slide, @course.mediaRoot, @fullName, =>
+          sound.playTalk slide, @course.mediaRoot, @evaluationContext, =>
             @lectureDone()
             # TODO stg like
             # if @currentSlide.lecture.forward == "auto"
