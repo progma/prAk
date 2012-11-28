@@ -55,6 +55,21 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
 
     showFeedback infoPanel
 
+# TODO .alert-block?
+flash = (message, type) ->
+  [klass, opening] =
+    switch type
+      when "error"   then ["alert-error", "CHYBA: "]
+      when "success" then ["alert-success", "ÚSPĚCH: "]
+      when "info"    then ["alert-info", "INFORMACE: "]
+      else ["",""]
+
+  $("body > div.container").first().prepend """
+    <div class='alert #{klass}'>
+      <button class="close" data-dismiss="alert">×</button>
+      <strong>#{opening}</strong>#{message}
+    </div>"""
+
 # Following three functions moves slides' DIVs to proper places.
 showSlide = (slide, order, isThereSecond, effect) ->
   slide.iconDiv?.addClass "slideIconActive"
@@ -202,6 +217,7 @@ displayArrow = (arrow, display) ->
 
 apiHelp = [
     name: "go"
+    title: "Želví příkazy"
     code: "go(n);"
     desc: "Želva ujde n kroků dopředu."
   ,
@@ -214,65 +230,100 @@ apiHelp = [
     desc: "Želva se otočí doleva o <code>s</code> stupňů."
   ,
     name: "function"
-    code: "function jmeno(argument1, argument2, ....) {\n  (zde je libovolná posloupnost instrukcí)\n}"
+    title: "Funkce"
+    code: "function jmeno(argument1, argument2, ...) {\n  &lt;zde je libovolná posloupnost příkazů&gt;\n}"
     desc: """Naučí želvu nové slovo <code>jmeno</code> (při definici vlastního
     slova můžeš zvolit jakýkoliv název místo <code>jmeno</code>). A poté
     kdykoliv želvě řekneme <code>jmeno(x1, x2, x3, ...)</code>, želva vykoná
-    instrukce uvedené v těle funkce, čili zapsané mezi složenými
+    příkazy uvedené v těle funkce, čili zapsané mezi složenými
     závorkami.</p>
     <p>Počet a pojmenování argumentů je při definici nového slova
     volitelný, ale když toto slovo později voláme, vyžaduje stejný počet
     argumentů.
     """
   ,
-    name: "repeat"
-    code: "repeat(n, slovo, argument1, argument2, ...);"
-    desc: """Vykoná <code>slovo</code> <code>n</code>-krát. Pokaždé s argumenty
-    argument1, argument2, ... (v závislosti na tom, kolik jich je uvedeno).
+    name: "if"
+    title: "Podmínky"
+    code: "if (podminka) {\n  &lt;zde je libovolná posloupnost příkazů&gt;\n}"
+    desc: """Vykoná příkazy uvedené v těle podmínky, čili zapsané mezi
+    složenými závorkami. Pro porovnávání čísel se jako v matematice používá <code>= &lt; &le; &gt; &ge;</code>, ale nahrazené za <code>== &lt; &lt;= &gt; &gt;=</code>. Například <code>if (x >= 3) { go(30); }</code> způsobí, že želva ujde o <code>30</code> kroků, pokud <code>x &ge; 3</code>.
     """
-
-    # TODO if (vcetne porovnavani == < <=), penUp, penDown, color
+  ,
+    name: "var"
+    title: "Proměnné"
+    code: "var promenna = &lt;zde je libovolný výraz&gt;;"
+    desc: """Do proměnné <code>promenna</code> uloží výsledek výrazu uvedeného
+    napravo od <code>=</code>. Například <code>var x = 3*7;</code> uloží do
+    <code>x</code> hodnotu <code>21</code>. Později je možné hodnotu uloženou v
+    <code>x</code> změnit dalším přiřazením. Například <code>x = 15;</code>
+    změní hodnotu <code>x</code> na <code>15</code>.
+    """
+  ,
+    name: "while"
+    title: "Cykly"
+    code: "while (podminka) {\n  &lt;zde je libovolná posloupnost příkazů&gt;\n}"
+    desc: """Stejně jako <code>if</code>, ale příkazy uvedené v těle podmínky se provádějí <em>dokud</em> podmínka platí. Je proto potřeba zajistit, že podmínka někdy platit přestane. Příklad cyklu, který nikdy neskončí:
+      <pre><code>while (1 < 2) {\n  ...\n}</code></pre>
+    Příklad správného cyklu:
+      <pre><code>var i = 1;\nwhile (i <= 10) {\n  right(36);\n  i = i + 1;\n}</code></pre>
+    """
+    # TODO penUp, penDown, color
 ]
 
 extendedApiHelp =
-  "turtle3d": [] # TODO up, down, rollLeft, rollRight, width
-  "game": []
-
-apiHelpNames =
-  "turtle3d": "Příkazy 3D želvy"
-  "game": "Příkazy pro prostředí Hra"
+  "turtle3d": [
+      name: "3dmotion"
+      title: "Příkazy 3D želvy"
+      code: "up(s);\ndown(s);\nrollLeft(s);\nrollRight(s);"
+      desc: """Želva se otočí o <code>s</code> stupňů nahoru/dolů, respektive
+      udělá piruetu doleva/doprava vzhledem k ose procházející jí od ocasu k
+      hlavě."""
+    ,
+      name: "width"
+      code: "width(n);"
+      desc: "Změní šířku štětce na <code>n</code>."
+    ,
+      name: "color"
+      code: "color(barva);"
+      desc: """Změní barvu štětce. Barvu je možné zadat číslem, nebo jménem
+      jedné z předdefinovaných barev: <code>white, yellow, fuchsia, aqua, red,
+        lime, blue, black, green, maroon, olive, purple, gray, navy, teal,
+        silver, brown, orange</code>."""
+  ]
 
 renderHelp = (conf, help) ->
   container = $ "<div>"
 
   for h in help
+    if h.title
+      $("<h3>#{h.title}</h3>").appendTo container
+
     $("<pre><code>#{h.code}</code></pre>",
       style: "float: left;"
     ).appendTo container
 
     $("<p>#{h.desc}</p>").appendTo container
 
-    return [h, container] if h.name == conf
+    return [h.name, container] if h.name == conf
 
   [h, container]
 
 showHelp = (conf, hideCallback) ->
   container = $ "<div>", class: "helpSlide"
-  container.html ""
+
+  # Close button
   $("<button>",
     style: "float: right;"
     class: "btn"
     text: "Skrýt"
     click: hideCallback
   ).appendTo container
-  $("<h3>Želví příkazy</h3>").appendTo container
 
   [h, basicAPI] = renderHelp conf, apiHelp
   basicAPI.appendTo container
 
   if h != conf and conf of extendedApiHelp
     [h, res] = renderHelp conf, extendedApiHelp[conf]
-    $("<h3>#{apiHelpNames[conf]}</h3>").appendTo container
     res.appendTo container
 
   container
@@ -299,21 +350,26 @@ testNotDoneResultPage = """
 """
 
 loadProblem = """
-  <center>There was an unusual accident during the load.</center>
+  Nastala chyba při stahování obsahu ze serveru.
   """
+
+soundManagerFailed = """
+  Nastala chyba při spouštění zvuku. Je nainstalován Flash?
+  """
+
 courseNAProblem = (name) -> """
-  <p style='position: relative; top: 0.5em'>
-    Course at '""" + name + """' is not available.
+  Kurz '""" + name + """' není dostupný.
   """
 
 wrongAnswer = """
-  Program vrátil nesprávnou hodnotu při následujících arugemntech: 
+  Program vrátil nesprávnou hodnotu při následujících argumentech:
   """
 
 codeIsRunning = "Běží výpočet."
 
 @pageDesign = {
   lectureAdd
+  flash
 
   # Following three functions moves slides' DIVs to proper places.
   showSlide
@@ -329,6 +385,7 @@ codeIsRunning = "Běží výpočet."
   testDoneResultPage
   testNotDoneResultPage
   loadProblem
+  soundManagerFailed
   courseNAProblem
   wrongAnswer
   codeIsRunning
