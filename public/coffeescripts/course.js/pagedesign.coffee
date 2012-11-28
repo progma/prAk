@@ -51,9 +51,6 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
 
     slideList.appendTo newLecture.div
     container.appendTo newLecture.div
-    infoPanel.appendTo newLecture.div
-
-    showFeedback infoPanel
 
 # Following three functions moves slides' DIVs to proper places.
 showSlide = (slide, order, isThereSecond, effect) ->
@@ -158,41 +155,6 @@ addPlayer = (div, clickHandler, seekHandler) ->
     class: "inseek"
     click: seekHandler
   ).appendTo(seek)
-
-showFeedback = (div) ->
-  pp = $("<p>",
-    text: "Rychlá zpětná vazba: "
-    style: "display: inline-block"
-  ).appendTo(div)
-  thumbUp = $("<button>",
-    class: "btn"
-    click: ->
-      connection.log "feedback",
-        thumb: true
-  ).appendTo(div)
-  thumbUpIcon = $("<i>",
-    class: "icon-thumbs-up"
-  ).appendTo(thumbUp)
-  thumbDown = $("<button>",
-    class: "btn"
-    click: ->
-      connection.log "feedback",
-        thumb: false
-  ).appendTo(div)
-  thumbDownIcon = $("<i>",
-    class: "icon-thumbs-down"
-  ).appendTo(thumbDown)
-  commentary = $("<input>",
-    type: "text"
-    class: "commentary"
-    placeholder: "Pište!"
-    keydown: (ev) ->
-      if ev.keyCode == 13
-        connection.log "feedback",
-          commentary: $(this).val()
-        $(this).val("")
-        $(this).attr("placeholder", "Díky! Ještě něco?")
-  ).appendTo(div)
 
 displayArrow = (arrow, display) ->
   if display?

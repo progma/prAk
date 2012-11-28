@@ -6,6 +6,26 @@ block body
         window.lecturesDone = !{lecturesDone};
     div(id='courseDiv', class='slides', slidedata='/courses/#{courseName}/')
 
+    br
+    div.
+        <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              var disqus_shortname = "prak";
+              var disqus_developer = true;  // turns off URL check
+              var disqus_url = "http://prak.mff.cuni.cz/courses/#{courseName}/";
+              var disqus_config = function() {
+                this.language = "cs";
+              };
+
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+          </script>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
 block scripts
     script(src="/javascripts/soundmanager2-jsmin.js")
     script(src="/javascripts/course.js/playbook.js")
@@ -13,3 +33,12 @@ block scripts
     script(src="/javascripts/course.js/sound.js")
     script(src="/javascripts/course.js/lecture.js")
     script(src="/javascripts/course.js/course.js")
+    script.
+        $(window).bind("hashchange", function() {
+            DISQUS.reset({
+                reload: true,
+                config: function() {
+                    this.page.url = "http://prak.mff.cuni.cz/courses/#{courseName}/" + window.location.hash.substring(1);
+                }
+            });
+        });
