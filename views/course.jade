@@ -34,11 +34,16 @@ block scripts
     script(src="/javascripts/course.js/lecture.js")
     script(src="/javascripts/course.js/course.js")
     script.
-        $(window).bind("hashchange", function() {
-            DISQUS.reset({
-                reload: true,
-                config: function() {
-                    this.page.url = "http://prak.mff.cuni.cz/courses/#{courseName}/" + window.location.hash.substring(1);
-                }
-            });
-        });
+        $(document).ready(function () {
+            var resetFn = function() {
+                DISQUS.reset({
+                    reload: true,
+                    config: function() {
+                        this.page.url = "http://prak.mff.cuni.cz/courses/#{courseName}/" + window.location.hash.substring(1);
+                    }
+                });
+            }
+
+            $(window).bind("hashchange", resetFn);
+            resetFn();
+        })
