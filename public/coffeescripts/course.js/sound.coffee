@@ -44,7 +44,7 @@ createSoundObjects = (slide, mediaRoot) ->
     keyboardFile = sound.keyboard ? sound.file
 
     newSoundManager = soundManager.createSound
-      id : sound.file
+      id : sound.file ? sound.keyboard
       url: mediaRoot + "/" + soundFile + ".mp3"
     slide.soundObjects.push newSoundManager
 
@@ -69,7 +69,11 @@ playSound = (slide, ith, pos) ->
     so.onfinish = undefined
 
   slide.soundObject().play(
-    whileplaying: updateSeekbar
+    whileplaying: ->
+      if @position < slide.talk[slide.activeSoundObjectI].time
+        updateSeekbar()
+      if @position > slide.talk[slide.activeSoundObjectI].time and @position < @duration-1000
+        @setPosition @duration-100
     onfinish: ->
       if ith+1 == slide.soundObjects.length and callback?
         evaluation.enableEditor evaluationContext
