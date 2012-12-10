@@ -40,13 +40,16 @@ createSoundObjects = (slide, mediaRoot) ->
   slide.soundObjects = []
 
   for sound in slide.talk
+    soundFile = sound.file ? "noise"
+    keyboardFile = sound.keyboard ? sound.file
+
     newSoundManager = soundManager.createSound
       id : sound.file
-      url: mediaRoot + "/" + sound.file + ".mp3"
+      url: mediaRoot + "/" + soundFile + ".mp3"
     slide.soundObjects.push newSoundManager
 
     do (sound, newSoundManager) ->
-      $.getJSON mediaRoot + "/" + sound.file + ".json", (recordingTracks) ->
+      $.getJSON mediaRoot + "/" + keyboardFile + ".json", (recordingTracks) ->
         sound.tracks = recordingTracks
         for t in tracks
           addEventsToManager slide, t, recordingTracks[t], newSoundManager
