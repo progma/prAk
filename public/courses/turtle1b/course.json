@@ -40,7 +40,7 @@
                 },
                 {
                     "keyboard": "FUNKCE-KR12",
-                    "time": 10000
+                    "time": 35000
                 },
                 {
                     "file": "FUNKCE-2",
@@ -48,7 +48,7 @@
                 },
                 {
                     "keyboard": "FUNKCE-KR23",
-                    "time": 10000
+                    "time": 5000
                 },
                 {
                     "file": "FUNKCE-3",
@@ -56,7 +56,7 @@
                 },
                 {
                     "keyboard": "FUNKCE-KR34",
-                    "time": 10000
+                    "time": 5000
                 },
                 {
                     "file": "FUNKCE-4",
