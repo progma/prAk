@@ -236,10 +236,12 @@ drawLine = (fromX, fromY, toX, toY, aniTime, turtle) ->
 
 clearPaper = ->
   activeTurtle.STOP = true  if activeTurtle?
-  turtle2d.paper.clear()
-  turtle2d.paper
-    .rect(0, 0, settings.paperWidth, settings.paperHeight)
-    .attr fill: settings.paperBackgroundColor
+
+  if turtle2d.paper?
+    turtle2d.paper.clear()
+    turtle2d.paper
+      .rect(0, 0, settings.paperWidth, settings.paperHeight)
+      .attr fill: settings.paperBackgroundColor
 
 init = (canvas) ->
   turtle2d.paper.remove()  if turtle2d.paper?

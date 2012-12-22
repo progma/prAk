@@ -1,0 +1,17 @@
+function ctverec(){
+  go(50);
+  right(90);
+  go(50);
+  right(90);
+  go(50);
+  right(90);
+  go(50);
+  right(90);
+}
+
+ctverec();
+go(20);
+ctverec();
+ctverec();
+ctverec();
+ctverec();

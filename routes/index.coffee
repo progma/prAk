@@ -14,18 +14,19 @@ exports.index = (req, res) ->
 #
 # Sandbox
 #
-renderSandbox = (req, res, code, mode) ->
+renderSandbox = (req, res, code, mode, warn, codeID) ->
   res.render 'sandbox',
     title: 'prAk – programátorská akademie'
     page: 'sandbox'
     code: code
     mode: mode
+    warn: warn
+    codeID: codeID
     user: req.user
     errors: req.flash 'error'
 
 exports.sandbox = (req, res) ->
   codeID = req.param "codeID"
-  console.dir codeID
 
   if codeID? && codeID != ""
     try
@@ -33,14 +34,18 @@ exports.sandbox = (req, res) ->
     catch e
       return res.send 404
 
-    userCodeCollection.findOne { _id: maybeID }
-    , (err, codeObj) ->
-      if err?
-        return res.send 404
+    userCodeCollection.findOne { _id: maybeID }, (err, codeObj) ->
+      return res.send 500   if err?
+      return res.send 404   if codeObj == null
 
-      renderSandbox req, res, codeObj.code, codeObj.mode
+      # Show warning for code from other users.
+      warn = not req.user? ||
+             codeObj.user_id != req.user.id ||
+             codeObj.user_id == ""
+
+      renderSandbox req, res, codeObj.code, codeObj.mode, warn, codeID
   else
-    renderSandbox req, res, "", ""
+    renderSandbox req, res, "", "", false, ""
 #
 # Course page
 #
