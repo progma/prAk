@@ -104,10 +104,11 @@ class Lecture
             #   @forward()
 
     else if slide.type == "test"
+      oId = @evaluationContext.codeObjectID
       if slide.testDone
-        slide.div.html pageDesign.testDoneResultPage
+        slide.div.html pageDesign.testDoneResultPage(oId)
       else
-        slide.div.html pageDesign.testNotDoneResultPage
+        slide.div.html pageDesign.testNotDoneResultPage(oId)
 
   runCode: (code, isUserCode = true, saveContext = false) ->
     slide = @currentSlide
