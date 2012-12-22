@@ -46,6 +46,7 @@ $ ->
   $("#btnShare").click ->
     window.open pageDesign.facebookShareUrl(evaluationContext.codeObjectID)
 
-  window.disqus_config = ->
-    @page.url = "http://prak.mff.cuni.cz/sandbox/#{codeID}"
-  pageDesign.startDISQUS()
+  if codeID != ""
+    window.disqus_config = ->
+      @page.url = "http://prak.mff.cuni.cz/sandbox/#{codeID}"
+    pageDesign.startDISQUS()
