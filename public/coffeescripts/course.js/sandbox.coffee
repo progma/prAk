@@ -2,7 +2,7 @@ turtle = turtle2d
 mode = "turtle2d"
 
 $ ->
-  if warn
+  if warn  # send by server
     $("#myWarning").modal "show"
 
   turtle2d.settings.defaultTotalTime = 2000
@@ -14,6 +14,7 @@ $ ->
   evaluationContext =
     editorTextareaID: "editorArea"
     courseName: "sandbox"
+    codeObjectID: codeID  # send by server
 
   lecture =
     name: ""
@@ -36,3 +37,6 @@ $ ->
     output.innerHTML = ""
     mode = obj.target.value
     initTD()
+
+  $("#btnShare").click ->
+    window.open pageDesign.facebookShareUrl(evaluationContext.codeObjectID)

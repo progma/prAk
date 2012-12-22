@@ -14,13 +14,14 @@ exports.index = (req, res) ->
 #
 # Sandbox
 #
-renderSandbox = (req, res, code, mode, warn) ->
+renderSandbox = (req, res, code, mode, warn, codeID) ->
   res.render 'sandbox',
     title: 'prAk – programátorská akademie'
     page: 'sandbox'
     code: code
     mode: mode
     warn: warn
+    codeID: codeID
     user: req.user
     errors: req.flash 'error'
 
@@ -38,11 +39,13 @@ exports.sandbox = (req, res) ->
       return res.send 404   if codeObj == null
 
       # Show warning for code from other users.
-      warn = codeObj.user_id != req.user.id || codeObj.user_id == ""
+      warn = not req.user? ||
+             codeObj.user_id != req.user.id ||
+             codeObj.user_id == ""
 
-      renderSandbox req, res, codeObj.code, codeObj.mode, warn
+      renderSandbox req, res, codeObj.code, codeObj.mode, warn, codeID
   else
-    renderSandbox req, res, "", "", false
+    renderSandbox req, res, "", "", false, ""
 #
 # Course page
 #

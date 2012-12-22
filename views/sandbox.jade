@@ -3,11 +3,12 @@ extends layout
 block body
     script
         var warn = !{warn};
+        var codeID = "!{codeID}";
 
     div(class="innerSlides")
         div(class="slide", style="display: block; margin-left: -440px; left: 50%;")
             p
-              input(type="button", value="Sdílet", class="btn")
+              input(type="button", value="Sdílet", class="btn", id="btnShare")
               span(style="float:right") Mód:&nbsp;
                 select(name="mode")
                     if mode == 'turtle3d'

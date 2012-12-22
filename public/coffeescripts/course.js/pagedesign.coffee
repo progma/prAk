@@ -281,16 +281,17 @@ testDoneResultPage = (id) -> """
     <p>Nejen že jsi správně vyřešil/a danou úlohu &#8212 mimoděk jsi stvořil/a veliké
     umělecké dílo, jež bude svou nádherou a noblesou okouzlovat spatřující
     stovky nadcházejících let.</p>
-    <p>Nechceš ho sdílet na Facebooku? <a href="#{facebookShareUrl id}" class="btn"><i class="icon-facebook"></i></a></p>
+    <p>Nechceš ho sdílet na Facebooku? <a href="#{facebookShareUrl id}" class="btn" target="_blank"><i class="icon-facebook"></i></a></p>
     <p style='margin-top: 30px; font-size: 1.2em;'>Pokračuj dál šipkou vpravo.</p>
   </center>
   """
 
 testNotDoneResultPage = (id) -> """
   <center>
-    <h2 style='margin-top: 30px;'>Ještě jsi neodeslal/a správné řešení.</h2>
+    <h2 style='margin-top: 20px;'>Ještě jsi neodeslal/a správné řešení.</h2>
     <img src='/images/questionmark.png' style='width: 138px; height: 200px; margin: 50px;'>
     <p>Chceš i přes to pokračovat dále v kurzu?</p>
+    <p style='padding: 10px 30px 0;'>Sdílet řešení na Facebooku: <a href="#{facebookShareUrl id}" class="btn" target="_blank"><i class="icon-facebook"></i></a></p>
   </center>
 """
 
@@ -324,6 +325,7 @@ codeIsRunning = "Běží výpočet."
 
   showHelp
 
+  facebookShareUrl
   testDoneResultPage
   testNotDoneResultPage
   loadProblem
