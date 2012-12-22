@@ -3,7 +3,7 @@ mode = "turtle2d"
 
 $ ->
   if warn
-    $("#myModal").modal "show"
+    $("#myWarning").modal "show"
 
   turtle2d.settings.defaultTotalTime = 2000
   turtle3d.parameters.BACKGROUND_COLOR = 0xFFFFFF
