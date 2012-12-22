@@ -239,6 +239,14 @@ showHelp = (conf, hideCallback) ->
 
   container
 
+startDISQUS = ->
+  resetDisqus = ->
+    DISQUS?.reset
+      reload: true
+      config: disqus_config
+
+  $.getScript("http://#{disqus_shortname}.disqus.com/embed.js").done resetDisqus
+  $(window).on "hashchange", resetDisqus
 
 testDoneResultPage = """
   <center>
@@ -287,6 +295,7 @@ codeIsRunning = "Běží výpočet."
   displayArrow
 
   showHelp
+  startDISQUS
 
   testDoneResultPage
   testNotDoneResultPage

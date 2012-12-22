@@ -1,7 +1,7 @@
 userCode = window.userCode ? {}
 lecturesDone = window.lecturesDone ? []
 
-$(document).ready(->
+$(document).ready ->
   soundManager.setup
     url: "/javascripts/soundManagerSwf"
     debugMode: false
@@ -9,12 +9,20 @@ $(document).ready(->
 
   $.ajaxSetup
     cache: false
+
   $("div[slidedata]").each (i, div) ->
     courses.createCourse $(div)
+
   window.courses = courses    # nice to have in debugging process
   window.onerror = (message, url, line) ->
     connection.log "jsError", { message, url, line }
-)
+
+  # DISQUS
+  window.disqus_config = ->
+    hashString = window.location.hash.substring(1)
+    @page.url = "http://prak.mff.cuni.cz/courses/#{courseName}/#{hashString}"
+
+  pageDesign.startDISQUS()
 
 
 # One lecture stands for one or more slides. Lecture is a logical unit of

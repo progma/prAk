@@ -33,3 +33,8 @@ $ ->
     output.innerHTML = ""
     mode = obj.target.value
     initTD()
+
+  window.disqus_config = ->
+    @page.url = "http://prak.mff.cuni.cz/sandbox/#{codeID}"
+
+  pageDesign.startDISQUS()
