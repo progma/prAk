@@ -66,6 +66,7 @@ app.configure 'development', ->
 #
 
 app.get '/', routes.index
+app.get '/o-nas', routes.aboutUs
 
 app.get '/course/:courseName', routes.course
 

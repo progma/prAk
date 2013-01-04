@@ -6,8 +6,15 @@ userCodeCollection = db.collection('userCode')
 
 exports.index = (req, res) ->
   res.render 'index',
-    title: 'prAk – programátorská akademie'
+    title: 'prAk » programátorská akademie'
     page: 'index'
+    user: req.user
+    errors: req.flash 'error'
+
+exports.aboutUs  = (req, res) ->
+  res.render 'about-us',
+    title: 'prAk » O nás'
+    page: 'about-us'
     user: req.user
     errors: req.flash 'error'
 
@@ -16,7 +23,7 @@ exports.index = (req, res) ->
 #
 renderSandbox = (req, res, code, mode, warn, codeID) ->
   res.render 'sandbox',
-    title: 'prAk – programátorská akademie'
+    title: 'prAk » Pískoviště'
     page: 'sandbox'
     code: code
     mode: mode
@@ -63,7 +70,7 @@ renderCourse = (req, res, codes) ->
     lecturesDone = []
 
   res.render 'course',
-    title: 'prAk » název kurzu'
+    title: 'prAk » název kurzu' # TODO
     page: 'course'
     user: req.user
     codes: codes
@@ -87,14 +94,14 @@ exports.course = (req, res) ->
 
 exports.login = (req, res) ->
   res.render 'login',
-    title: 'Login'
+    title: 'prAk » Přihlášení'
     page: 'login'
     user: req.user
     errors: req.flash 'error'
 
 exports.get_register = (req, res) ->
   res.render 'register',
-    title: 'Registration'
+    title: 'prAk » Registrace'
     page: 'registration'
     user: req.user
     errors: req.flash 'error'
