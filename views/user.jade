@@ -18,9 +18,9 @@ block body
           .span4
             h2#progress Splněné kurzy
         .row
-          .span6
+          .span10
             each val, key in lectures
-              .span2
+              .span3
                 h3 #{val.readableName}
                 ul(style="list-style: none")
                   each lecture, name in val['list']
