@@ -1,6 +1,9 @@
 crypto = require('crypto')
 settings = require('../progma/settings')
+users = require('../progma/users')
 db = require('../progma/mongo').db
+fs = require('fs')
+
 userCodeCollection = db.collection('userCode')
 
 
@@ -87,6 +90,50 @@ exports.login = (req, res) ->
     user: req.user
     errors: req.flash 'error'
 
+exports.user = (req, res) ->
+  lectures = {}
+  for courseName of req.user.lecturesDone
+    file = fs.readFileSync('public/courses/' + courseName + '/course.json')
+    course = JSON.parse(file)
+
+    lectures[courseName] = {readableName: course['readableName'], list: []}
+
+    for lectureName of course['lectures']
+      lecture = course['lectures'][lectureName]
+      lectures[courseName]['list'].push({
+        name: lecture['name']
+        readableName: lecture['readableName']
+        done: lecture['name'] in req.user.lecturesDone[courseName]
+      })
+
+  console.log(lectures)
+
+  res.render 'user',
+    title: 'User'
+    page: 'user'
+    user: req.user
+    lectures: lectures
+    errors: req.flash 'error'
+
+exports.user_password = (req, res) ->
+  if req.user?
+    old_password = req.body.old_password
+    new_password = req.body.new_password
+    confirm = req.body.confirm_new_password
+
+    users.checkPassword req.user.id, old_password, (err, correct) ->
+      if correct
+        users.getUser req.user.id, (err, user) ->
+          # Create salt and password
+          user.salt = new Date().getTime()
+          user.password = users.hashPassword(user.salt, new_password)
+          users.updateUser user, ->
+            res.redirect '/user'
+      else
+        res.redirect 'back'
+  else
+    res.redirect 'back'
+
 exports.get_register = (req, res) ->
   res.render 'register',
     title: 'Registration'
@@ -110,15 +157,19 @@ exports.post_register = (req, res, next, passport) ->
       req.flash 'error', 'User already exists.'
       return res.redirect '/login'
 
+    salt = new Date().getTime()
     # Compute password hash.
     shasum = crypto.createHash 'sha1'
+    shasum.update "" + salt
     shasum.update req.body.password
+    hash = shasum.digest('hex')
 
     # Create new user profile.
     new_user =
       id: username
+      salt: salt
       displayName: req.body.username
-      password: shasum.digest 'hex'
+      password: hash
 
     # Insert new user to database.
     db.collection('users').save new_user, (err, result) ->

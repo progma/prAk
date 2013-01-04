@@ -1,0 +1,63 @@
+extends layout
+
+block body
+  section
+    .page-header
+      h1 Detaily uživatele
+    .row
+      .span2
+        div(data-spy="affix", data-offset-top="100")
+          ul.nav.nav-tabs.nav-stacked#side-menu
+            li
+              a(href="#progress") Splněné kurzy
+            li
+              a(href="#settings") Změna nastavení
+
+      .span10
+        .row
+          .span4
+            h2#progress Splněné kurzy
+        .row
+          .span6
+            each val, key in lectures
+              .span2
+                h3 #{val.readableName}
+                ul(style="list-style: none")
+                  each lecture, name in val['list']
+                    if lecture['done']
+                      li
+                        i.icon-check
+                        a(href="/course/#{key}##{lecture.name}") #{lecture.readableName}
+                    else
+                      li
+                        i.icon-check-empty
+                        a(href="/course/#{key}##{lecture.name}") #{lecture.readableName}
+        hr
+        .row
+          .span4
+            h2#settings Změna nastavení
+        .row
+          .span4
+            form.well(action="/user/password", method="post")
+              fieldset
+                .control-group
+                  label.control-label(for="old_password") Staré heslo:
+                  .controls
+                    input(style="height: 35px; box-sizing:border-box; width: 100%;",
+                          type="password",
+                          name="old_password")
+                .control-group
+                  label.control-label(for="new_password") Nové heslo:
+                  .controls
+                    input(style="height: 35px; box-sizing:border-box; width: 100%;",
+                          type="password",
+                          name="new_password")
+                .control-group
+                  label.control-label(for="new_password") Potvrdit nové heslo:
+                  .controls
+                    input(style="height: 35px; box-sizing:border-box; width: 100%;",
+                          type="password",
+                          name="confirm_new_password")
+                .control-group
+                  .controls
+                    button.btn.btn-large.btn-primary(type="submit") Odeslat

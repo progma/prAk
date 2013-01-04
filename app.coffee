@@ -67,6 +67,9 @@ app.configure 'development', ->
 
 app.get '/', routes.index
 
+app.get '/user', routes.user
+app.post '/user/password', routes.user_password
+
 app.get '/course/:courseName', routes.course
 
 app.get '/sandbox', routes.sandbox
