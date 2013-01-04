@@ -43,7 +43,7 @@ class Lecture
         loadText @name + "/" + slide.source
         , (data) =>
           slide.div.html data
-        , => slide.div.html pageDesign.loadProblem
+        , -> pageDesign.flash pageDesign.loadProblem, "error"
 
         @lectureDone()
 
@@ -53,8 +53,7 @@ class Lecture
 
       evaluation.initialiseTurtleDen slide.lecture.mode, output, @evaluationContext
 
-      if  slide.lecture.type == "turtleTask" and
-          slide.lecture.mode != "turtle3d"
+      if  slide.lecture.type == "turtleTask"
         loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
           @evaluationContext.expectedCode = data
 
@@ -83,7 +82,7 @@ class Lecture
       cm = slide.cm = @evaluationContext.cm
 
       if slide.talk?
-        cm.setSize 380, 440
+        cm.setSize 380, 413
       else
         cm.setSize 380, 365
       cm.setValue ""    # force CodeMirror to redraw using the new size
@@ -98,17 +97,18 @@ class Lecture
 
       if slide.talk?
         soundManager.onready =>
-          sound.playTalk slide, @course.mediaRoot, @fullName, =>
+          sound.playTalk slide, @course.mediaRoot, @evaluationContext, =>
             @lectureDone()
             # TODO stg like
             # if @currentSlide.lecture.forward == "auto"
             #   @forward()
 
     else if slide.type == "test"
+      oId = @evaluationContext.codeObjectID
       if slide.testDone
-        slide.div.html pageDesign.testDoneResultPage
+        slide.div.html pageDesign.testDoneResultPage(oId)
       else
-        slide.div.html pageDesign.testNotDoneResultPage
+        slide.div.html pageDesign.testNotDoneResultPage(oId)
 
   runCode: (code, isUserCode = true, saveContext = false) ->
     slide = @currentSlide

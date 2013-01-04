@@ -1,6 +1,7 @@
 slide      = undefined
 codeMirror = undefined
 callback   = undefined
+evaluationMode    = undefined
 evaluationContext = undefined
 
 # Order matters!
@@ -17,12 +18,13 @@ tracks = [
 # Things get little complicated by the fact that one slide posses multiple
 # tuples of speech/keyboard recording that are to be played consequently, "as one".
 
-playTalk = (sl, mediaRoot, fullName, clbk) ->
+playTalk = (sl, mediaRoot, evalContext, clbk) ->
   slide = sl
   callback = clbk
+  evaluationContext = evalContext
 
   unless slide.soundObjects?
-    createSoundObjects slide, mediaRoot, fullName
+    createSoundObjects slide, mediaRoot
 
   slide.activeSoundObjectI = -1
   slide.soundObject = ->
@@ -34,28 +36,31 @@ playTalk = (sl, mediaRoot, fullName, clbk) ->
   for i in [1...slide.soundObjects.length]
     slide.soundObjects[i].load()
 
-createSoundObjects = (slide, mediaRoot, fullName) ->
+createSoundObjects = (slide, mediaRoot) ->
   slide.soundObjects = []
 
   for sound in slide.talk
+    soundFile = sound.file ? "noise"
+    keyboardFile = sound.keyboard ? sound.file
+
     newSoundManager = soundManager.createSound
       id : sound.file
-      url: mediaRoot + "/" + sound.file + ".mp3"
+      url: mediaRoot + "/" + soundFile + ".mp3"
     slide.soundObjects.push newSoundManager
 
     do (sound, newSoundManager) ->
-      $.getJSON mediaRoot + "/" + sound.file + ".json", (recordingTracks) ->
+      $.getJSON mediaRoot + "/" + keyboardFile + ".json", (recordingTracks) ->
         sound.tracks = recordingTracks
         for t in tracks
-          addEventsToManager slide, t, recordingTracks[t], fullName, newSoundManager
+          addEventsToManager slide, t, recordingTracks[t], newSoundManager
 
-addEventsToManager = (slide, trackName, track, fullName, soundObject) ->
+addEventsToManager = (slide, trackName, track, soundObject) ->
   $.map track, (event) =>
     soundObject.onPosition event.time, ->
       codeMirror = slide.cm
-      evaluationContext = slide.lecture.mode
+      evaluationMode = slide.lecture.mode
 
-      playbook.playbook[trackName] event.value, {codeMirror, evaluationContext}
+      playbook.playbook[trackName] event.value, {codeMirror, evaluationMode}
 
 playSound = (slide, ith, pos) ->
   slide.activeSoundObjectI = ith
@@ -67,6 +72,7 @@ playSound = (slide, ith, pos) ->
     whileplaying: updateSeekbar
     onfinish: ->
       if ith+1 == slide.soundObjects.length and callback?
+        evaluation.enableEditor evaluationContext
         callback()
 
       slide.div.find(".control-icon").removeClass("").addClass("icon-play")
@@ -82,9 +88,11 @@ playSound = (slide, ith, pos) ->
 
 pauseSound = (e) ->
   if slide.soundObject().paused
+    evaluation.disableEditor evaluationContext
     slide.soundObject().play()
   else
     slide.soundObject().pause()
+    evaluation.enableEditor evaluationContext
 
 totalTime = ->
   _.reduce slide.talk, ((memo, sound) -> memo+sound.time), 0
@@ -101,7 +109,7 @@ seekSound  = (e) ->
     i++
   pos = totalPos - remaining
 
-  slide.soundObject().stop()
+  slide.soundObject()?.stop()
   playSound slide, i, pos
 
   for track in tracks
@@ -110,7 +118,7 @@ seekSound  = (e) ->
         theEvent = event
     continue unless theEvent?
 
-    playbook.playbook[track] theEvent.value, {codeMirror, evaluationContext}
+    playbook.playbook[track] theEvent.value, {codeMirror, evaluationMode}
 
 updateSeekbar = ->
   tTime = totalTime()

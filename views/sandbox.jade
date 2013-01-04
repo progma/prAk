@@ -1,10 +1,14 @@
 extends layout
 
 block body
+    script
+        var warn = !{warn};
+        var codeID = "!{codeID}";
+
     div(class="innerSlides")
         div(class="slide", style="display: block; margin-left: -440px; left: 50%;")
             p
-              input(type="button", value="Sdílet", class="btn")
+              input(type="button", value="Sdílet", class="btn", id="btnShare")
               span(style="float:right") Mód:&nbsp;
                 select(name="mode")
                     if mode == 'turtle3d'
@@ -17,6 +21,18 @@ block body
                 textarea(id="editorArea") !{code}
         div(class="slide", style="display: block; margin-left: 1px; left: 50%;")
             div(id="turtleSpace")
+
+    div(id="myWarning", class="modal hide fade", tabindex="-1", role="dialog", aria-labelledby="myWarningLabel", aria-hidden="true")
+        div(class="modal-header")
+            button(type="button", class="close", data-dismiss="modal", aria-hidden="true") ×
+            h3(id="myWarningLabel") prAk - Programátorská akademie
+        div(class="modal-body")
+            img(src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Kturtle_side_view.svg/200px-Kturtle_side_view.svg.png", style="float:right")
+            p Vítej na stránce programátorské akademie. Kód, který si chceš prohlédnout jsi nejspíš nenapsal Ty a pravděpodobně Ti na něj někdo poslal odkaz.
+            p Nabádáme Tě, aby jsi jej spustil pouze v případě, že věříš člověku, který odkaz na tuto stránku poskytl. My za obsah neručíme.
+            p Kód se spouštít tlačítkem dole "Spustit kód".
+        div(class="modal-footer")
+            button(class="btn btn-primary", data-dismiss="modal", aria-hidden="true") Zavřít
 
 block scripts
     script(src="/javascripts/course.js/sandbox.js")

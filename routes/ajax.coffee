@@ -6,8 +6,9 @@ db.bind('log')
 getUserID = (req) ->
   if req.user? then req.user.id else ""
 
+# TODO code from unregistered users mark with session id
 exports.userCode = (req, res) ->
-  if req.body?.code
+  if req.body?.code?
     codeObj =
       user_id: getUserID req
       date: new Date()
@@ -16,13 +17,16 @@ exports.userCode = (req, res) ->
       course: req.body.course ? "sandbox"
       mode: req.body.mode
 
-    db.userCode.insert codeObj, (err) ->
+    db.userCode.insert codeObj, (err, result) ->
       if err?
         console.log "problem during saving codeObj"
-
-    # TODO code from unregistered users mark with session id
-
-  res.send 200
+        res.send 500 # Internal Server error
+      else
+        res.writeHead 200, {"Content-Type": "application/json"}
+        res.write JSON.stringify objectID: result[0]["_id"]
+        res.end()
+  else
+    res.send 400 # Bad Request
 
 exports.badget = (req, res) ->
   if req.user?

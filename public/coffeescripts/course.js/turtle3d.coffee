@@ -188,11 +188,16 @@ init = (canvas) ->
     canvas: canvas
     clearColor: parameters.BACKGROUND_COLOR
     clearAlpha: 1
+
   try
     renderer = new THREE.WebGLRenderer(rendererParams)
-  catch e
-    console.log "loading WebGLRenderer failed, trying CanvasRenderer"
-    renderer = new THREE.CanvasRenderer(rendererParams)
+  catch e1
+    try
+      console.log "loading WebGLRenderer failed, trying CanvasRenderer"
+      renderer = new THREE.CanvasRenderer(rendererParams)
+    catch e2
+      pageDesign.flash "Failed loading 3D renderer.", "error"
+
 
   renderer.setSize parameters.WIDTH, parameters.HEIGHT
   #$(parentElement).append renderer.domElement

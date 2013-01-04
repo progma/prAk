@@ -18,7 +18,7 @@ cleanCodeMirror = (cm) ->
 codeMirrorChanged = (onlineCoding, context) -> (cm) ->
   cleanCodeMirror cm
 
-  if onlineCoding.get(0).checked && context.turtle.name == "turtle2d"
+  if onlineCoding.get(0).checked
     # Stop previous (if any) attempt to run code
     clearTimeout codeToRun
 
@@ -118,7 +118,6 @@ showHelp = (context) ->
 initialiseEditor = (div, isTalk, context, runCode, lecture = {}) ->
   onlineCodingChBox = $ "<input>",
     type: "checkbox"
-    class: if isTalk then "hidden" else ""
 
   settings =
       lineNumbers: true
@@ -140,17 +139,17 @@ initialiseEditor = (div, isTalk, context, runCode, lecture = {}) ->
 
   onlineCodingChBox.appendTo buttonsContainer
 
-  $("<button>",
+  context.helpButton = $("<button>",
     text: "Nápověda"
-    class: if isTalk then "hidden" else "btn runButton"
+    class: "btn runButton"
     click: -> showHelp context
-  ).appendTo buttonsContainer
+  ).attr("disabled", isTalk).appendTo buttonsContainer
 
-  $("<button>",
+  context.runButton = $("<button>",
     text: "Spustit kód"
-    class: if isTalk then "hidden" else "btn runButton"
+    class: "btn runButton"
     click: runFunction
-  ).appendTo buttonsContainer
+  ).attr("disabled", isTalk).appendTo buttonsContainer
 
   context.lecture = lecture
   context.cm = cm
@@ -167,21 +166,51 @@ handleFailure = (result, context) ->
 
   console.dir result
 
+enableEditor = (context) ->
+  context.runButton.attr  "disabled", false
+  context.helpButton.attr "disabled", false
+
+  context.cm.setOption "readOnly", false
+  context.cmValue = context.cm.getValue()
+
+disableEditor = (context) ->
+  context.runButton.attr  "disabled", true
+  context.helpButton.attr "disabled", true
+
+  context.cm.setOption "readOnly", true
+  context.cm.setValue context.cmValue
+  context.cmValue = null
+
 evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
   hideHelp context
   cleanCodeMirror context.cm
   context.errorDiv.html pageDesign.codeIsRunning
 
-  callback_ = (res) ->
-    handleFailure res, context
-    callback res
+  shouldSendUserCode = isUserCode && !quickRun
 
-  if isUserCode && !quickRun
+  # Wait for two async computation and then perform callback.
+  oneComputationDone = not shouldSendUserCode
+  evalResult = null
+
+  callback_ = (res) ->
+    evalResult = res  if evalResult == null
+
+    if oneComputationDone
+      handleFailure evalResult, context
+      callback evalResult
+
+    oneComputationDone = true
+
+
+  if shouldSendUserCode
     connection.sendUserCode
-      code: code
-      course: context.courseName
-      lecture: lecture.name
-      mode: context.mode ? "turtle2d"
+        code: code
+        course: context.courseName
+        lecture: lecture.name
+        mode: context.mode ? "turtle2d"
+      , (objectID) ->
+        context.codeObjectID = objectID
+        callback_ null
 
   try
     parsedTree = parser.parse code
@@ -214,14 +243,14 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
         maxActions: if quickRun then quickRunActions else undefined
 
       # Perform tests?
-      if isUserCode
+      if isUserCode && not context.cmValue?
         given = context.turtle.sequences
 
         if lecture.testAgainstOneOf?
           for candidate in lecture.testAgainstOneOf
             if graph.sequencesEqual candidate, given
               callback_ true
-              break
+              return
 
         else
           # Just test sequences of angles, distances, ...
@@ -229,6 +258,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
                                 , given
                                 , lecture.testProperties)
             callback_ true
+            return
 
       if lastResult == true
         callback_ null  # code is OK, but test didn't pass
@@ -239,5 +269,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
 @evaluation = {
   initialiseTurtleDen
   initialiseEditor
+  enableEditor
+  disableEditor
   evaluate
 }
