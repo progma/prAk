@@ -296,7 +296,7 @@ startDISQUS = ->
       reload: true
       config: disqus_config
 
-  $.getScript("http://#{disqus_shortname}.disqus.com/embed.js").done resetDisqus
+  $.getScript "http://#{disqus_shortname}.disqus.com/embed.js"
   $(window).on "hashchange", resetDisqus
 
 facebookShareUrl = (id) ->
