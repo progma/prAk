@@ -1,0 +1,2 @@
+./node_modules/mocha/bin/mocha \
+&& ./node_modules/coffee-script/bin/coffee test/graph_test.coffee

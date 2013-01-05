@@ -13,13 +13,14 @@
     "jade": "*",
     "markdown": "*",
     "mongoskin": "*",
+    "mongodb": "*",
     "passport": "*",
     "passport-facebook": "*",
     "passport-google": "*",
     "passport-local": "*",
     "should": "*",
     "mocha": "*",
-    "less-middleware": "*"
+    "less": "*"
   },
   "engines": {
     "node": "0.8.x",

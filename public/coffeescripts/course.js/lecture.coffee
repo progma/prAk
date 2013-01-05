@@ -1,25 +1,9 @@
-jsHintOptions =
-  boss: true
-  evil: true
-  # undef: true
-
-syntaxCheck = (code) ->
-  result = JSHINT(code, jsHintOptions)
-  result || JSHINT.errors[0]
-
 loadText = (name, callback, errorHandler = null) ->
     $.ajax(
       url: name
       dataType: "text"
     ).done(callback)
      .error(errorHandler)
-
-cleanCodeMirror = (cm) ->
-  return   unless cm.__DIRTY__
-
-  cm.__DIRTY__ = false
-  for i in [0...cm.lineCount()]
-    cm.setLineClass i, null
 
 nextSlides = (slide) ->
   if slide.go == "nextLecture"
@@ -42,17 +26,9 @@ nextSlides = (slide) ->
 
 
 class Lecture
-  constructor: (@name, @data, @div) ->
-    @courseName = _.last _.filter @name.split("/"), (el) -> el != ""
+  constructor: (@name, @course, @div) ->
     @fullName = (@div.attr "id") + @name.replace "/", ""
-    @errorDiv = $ "<div>", class: "errorOutput"
-
-    @turtle = null
-    @turtle3dDiv = $ "<div>", class: "canvasJacket"
-    @turtle3dCanvas = $ "<canvas>", id: "turtle3dCanvas"
-    @turtle3dDiv.append @turtle3dCanvas
-
-    @helpSlide = null
+    @evaluationContext = { courseName: @course.name }
 
     # This is where we keep notion about what to do if a user hit the back
     # arrow.
@@ -67,7 +43,7 @@ class Lecture
         loadText @name + "/" + slide.source
         , (data) =>
           slide.div.html data
-        , => slide.div.html pageDesign.loadProblem
+        , -> pageDesign.flash pageDesign.loadProblem, "error"
 
         @lectureDone()
 
@@ -75,47 +51,38 @@ class Lecture
     else if slide.type == "turtleDen"
       output = document.getElementById @fullName + slide.name
 
-      switch slide.lecture.mode
-        when "turtle3d"
-          @turtle = turtle3d
-          @turtle3dDiv.appendTo output
-          @turtle.init $('#turtle3dCanvas').get(0) # @turtle3dCanvas
-        # when "game" ...
-        else
-          @turtle = turtle2d
-          @turtle.init output
+      evaluation.initialiseTurtleDen slide.lecture.mode, output, @evaluationContext
 
-      @errorDiv.prependTo output
-
-      if slide.lecture.type == "turtleTask" and slide.lecture.mode != "turtle3d"
+      if  slide.lecture.type == "turtleTask"
         loadText @name + "/" + slide.lecture.name + "/expected.turtle", (data) =>
-          @expectedCode = data
+          @evaluationContext.expectedCode = data
 
           if slide.lecture.test?
-            f = tests[slide.lecture.test+"Expected"]
+            f = tests[@course.name]?[slide.lecture.test+"Expected"]
             f(data) if f?
           else
-            @runCode data, false
-            @expectedResult = @turtle.sequences
+            @runCode data, false, true
 
     else if slide.type == "code"
       textDiv = $("<div>")
       textDiv.appendTo slide.div
 
-      unless slide.lecture.talk?
+      unless slide.talk?
         loadText @name + "/" + slide.lecture.name + "/text.html", (data) =>
+          if slide.lecture.readableName?
+            data = "<h4>#{slide.lecture.readableName}</h4>\n#{data}"
           textDiv.html data
           textDiv.height "80px"
 
-      cm = slide.cm = new CodeMirror slide.div.get(0),
-            lineNumbers: true
-            readOnly: slide.talk?
-            indentWithTabs: false
-            onChange: cleanCodeMirror
-            # autofocus: true
+      evaluation.initialiseEditor slide.div
+          , slide.talk?
+          , @evaluationContext
+          , ((code) => @runCode code)
+          , slide.lecture
+      cm = slide.cm = @evaluationContext.cm
 
-      if slide.lecture.talk?
-        cm.setSize 380, 440
+      if slide.talk?
+        cm.setSize 380, 413
       else
         cm.setSize 380, 365
       cm.setValue ""    # force CodeMirror to redraw using the new size
@@ -128,100 +95,36 @@ class Lecture
           cm.setValue data
           slide.userCode = data
 
-      buttonsContainer = $ "<div>", class: "runButtonContainer"
-      buttonsContainer.appendTo slide.div
-
-      $("<button>",
-        text: "Nápověda"
-        class: if slide.talk? then "hidden" else "btn runButton"
-        click: =>
-          @showHelp()
-      ).appendTo buttonsContainer
-
-      $("<button>",
-        text: "Spustit kód"
-        class: if slide.talk? then "hidden" else "btn runButton"
-        click: =>
-          @runCode cm.getValue()
-      ).appendTo buttonsContainer
-
       if slide.talk?
         soundManager.onready =>
-          sound.playTalk slide, @data.mediaRoot, @fullName, =>
+          sound.playTalk slide, @course.mediaRoot, @evaluationContext, =>
             @lectureDone()
             # TODO stg like
             # if @currentSlide.lecture.forward == "auto"
             #   @forward()
 
     else if slide.type == "test"
+      oId = @evaluationContext.codeObjectID
       if slide.testDone
-        slide.div.html pageDesign.testDoneResultPage
+        slide.div.html pageDesign.testDoneResultPage(oId)
       else
-        slide.div.html pageDesign.testNotDoneResultPage
+        slide.div.html pageDesign.testNotDoneResultPage(oId)
 
-  runCode: (code, isUserCode = true) ->
-    @hideHelp()
+  runCode: (code, isUserCode = true, saveContext = false) ->
     slide = @currentSlide
-    cm = slide.prev.cm
-    cleanCodeMirror cm
 
-    if isUserCode
-      connection.sendUserCode
-        code: code
-        course: @courseName
-        lecture: slide.lecture.name
-        mode: slide.lecture.mode ? "turtle2d"
+    callback = (res) =>
+      if res == true
+        @passedTheTest slide
 
-      syntax = syntaxCheck code
-      unless syntax == true
-        @errorDiv.html "Syntaktická chyba (#{syntax.reason})"
-        cm.setLineClass syntax.line-1, "syntaxError"
-        cm.__DIRTY__ = true
-        return
+      if saveContext
+        @evaluationContext.expectedResult = @evaluationContext.turtle.sequences
 
-    @errorDiv.html pageDesign.codeIsRunning if isUserCode
-
-    if isUserCode && slide.lecture.test?
-      setTimeout =>
-          lastResult = tests[slide.lecture.test](code, @expectedCode)
-          if lastResult == true
-            @passedTheTest slide
-            @errorDiv.html ""
-          else
-            @handleFailure lastResult
-        , 0
-    else
-      lastResult = @turtle.run code, !isUserCode
-
-      if isUserCode
-        given = @turtle.sequences
-
-        if slide.lecture.testAgainstOneOf?
-          for candidate in slide.lecture.testAgainstOneOf
-            if graph.sequencesEqual candidate, given
-              @lectureDone slide # XXX will be @passedTheTest
-              break
-
-        else
-          expected = @expectedResult
-          given = turtle2d.sequences
-
-          if graph.sequencesEqual expected, given, slide.lecture.testProperties
-            @passedTheTest slide
-
-      @errorDiv.html ""
-
-      unless lastResult == true
-        @handleFailure lastResult
-
-  # Handles error object given by failing computation.
-  handleFailure: (failingResult) ->
-    console.dir failingResult
-
-    if failingResult.errorOccurred
-      @errorDiv.html failingResult.reason
-    else
-      @errorDiv.html pageDesign.wrongAnswer + failingResult.args.toString()
+    evaluation.evaluate code
+      , isUserCode
+      , slide.lecture
+      , @evaluationContext
+      , callback
 
   passedTheTest: (slide) ->
     @lectureDone()
@@ -233,7 +136,7 @@ class Lecture
     pageDesign.lectureDone lecture
 
     unless lecture.done
-      connection.lectureDone @courseName, lecture.name
+      connection.lectureDone @course.name, lecture.name
       lecture.done = true
 
   # Following four functions moves slides' DIVs to proper places.
@@ -249,7 +152,7 @@ class Lecture
         if @currentSlide.lecture.slides.length > 1
           @currentSlide = @currentSlide.next
 
-        slide = @data.slides[0]
+        slide = @course.slides[0]
         @currentSlides = [slide]
 
         # Fill @historyStack and @currentSlides
@@ -259,7 +162,7 @@ class Lecture
           slide = _.last @currentSlides
 
     if !lectureName
-      @currentSlide  = @data.slides[0]
+      @currentSlide  = @course.slides[0]
       @currentSlides = [@currentSlide]
 
     $.each @currentSlides, (i, slideIt) =>
@@ -337,21 +240,9 @@ class Lecture
 
     @resetElements()
 
-  hideHelp: ->
-    pageDesign.hideSlide @helpSlide if @helpSlide
-    @helpSlide = null
-
-  showHelp: ->
-    helpDiv = pageDesign.showHelp (@currentSlide.lecture.help ? ""),
-      => @hideHelp()
-    @helpSlide =
-      div: helpDiv
-    pageDesign.showSlide @helpSlide, 1, true, "fadeIn"
-
   resetElements: ->
-    @errorDiv.html ""
-    @hideHelp()
-    # TODO arrows
+    pageDesign.displayArrow @backArrow, @currentSlides[0].prev
+    pageDesign.displayArrow @forwardArrow, (_.last @currentSlides).next
 
   # Hash is the part of URL after #
   # TODO: This is going to need more systematic handling with respect to
@@ -368,10 +259,10 @@ class Lecture
   findSlide: (name, byLectureName = false) ->
     i = 0
 
-    while i < @data.slides.length
-      if (!byLectureName and @data.slides[i].name == name) or
-          (byLectureName and @data.slides[i].lecture.name == name)
-        return @data.slides[i]
+    while i < @course.slides.length
+      if (!byLectureName and @course.slides[i].name == name) or
+          (byLectureName and @course.slides[i].lecture.name == name)
+        return @course.slides[i]
       i++
 
     false

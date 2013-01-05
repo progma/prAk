@@ -1,0 +1,195 @@
+{
+    "mediaRoot": "/media/turtle1b/",
+    "lectures": [
+        {
+            "name": "intro",
+            "readableName": "Úvodem",
+            "type": "html",
+            "source": "intro.html",
+            "preview": "http://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Kturtle_side_view.svg/474px-Kturtle_side_view.svg.png"
+        },
+        {
+            "name": "ctverec",
+            "readableName": "Základní příkazy",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "CTVEREC",
+                    "time": 72408
+                },
+                {
+                    "keyboard": "CTVEREC-KR",
+                    "time": 10000
+                }
+            ]
+        },
+        {
+            "name": "sestiuhelnik",
+            "readableName": "Úkol: Šestiúhelník",
+            "help": "right",
+            "type": "turtleTask"
+        },
+        {
+            "name": "function",
+            "readableName": "Vytváření příkazů",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "FUNKCE-1",
+                    "time": 27785
+                },
+                {
+                    "keyboard": "FUNKCE-KR12",
+                    "time": 10000
+                },
+                {
+                    "file": "FUNKCE-2",
+                    "time": 31386
+                },
+                {
+                    "keyboard": "FUNKCE-KR23",
+                    "time": 10000
+                },
+                {
+                    "file": "FUNKCE-3",
+                    "time": 86621
+                },
+                {
+                    "keyboard": "FUNKCE-KR34",
+                    "time": 10000
+                },
+                {
+                    "file": "FUNKCE-4",
+                    "time": 32611
+                }
+            ]
+        },
+        {
+            "name": "argument",
+            "readableName": "Argumenty příkazů",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "FUNKCE-S-ARGUMENTY",
+                    "time": 86272
+                }
+            ]
+        },
+        {
+            "name": "obdelnik",
+            "readableName": "Úkol: Obdélník",
+            "type": "turtleTask"
+        },
+        {
+            "name": "podminky",
+            "readableName": "Podmínky",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "PODMINKY-1",
+                    "time": 60120
+                },
+                {
+                    "keyboard": "PODMINKY-KR12",
+                    "time": 10000
+                },
+                {
+                    "file": "PODMINKY-2",
+                    "time": 26002
+                },
+                {
+                    "keyboard": "PODMINKY-KR23",
+                    "time": 10000
+                },
+                {
+                    "file": "PODMINKY-3",
+                    "time": 59498
+                }
+            ]
+        },
+        {
+            "name": "promenne",
+            "readableName": "Proměnné",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "PROMENNE-1",
+                    "time": 33876
+                },
+                {
+                    "keyboard": "PROMENNE-KR12",
+                    "time": 10000
+                },
+                {
+                    "file": "PROMENNE-2",
+                    "time": 25117
+                },
+                {
+                    "keyboard": "PROMENNE-KR23",
+                    "time": 10000
+                },
+                {
+                    "file": "PROMENNE-3",
+                    "time": 41558
+                },
+                {
+                    "keyboard": "PROMENNE-KR34",
+                    "time": 10000
+                },
+                {
+                    "file": "PROMENNE-4",
+                    "time": 32555
+                }
+            ]
+        },
+        {
+            "name": "cykly",
+            "readableName": "Cykly",
+            "type": "turtleTalk",
+            "talk": [
+                {
+                    "file": "CYKLY-1",
+                    "time": 11084
+                },
+                {
+                    "keyboard": "CYKLY-KR12",
+                    "time": 10000
+                },
+                {
+                    "file": "CYKLY-2",
+                    "time": 69476
+                },
+                {
+                    "keyboard": "CYKLY-KR23",
+                    "time": 10000
+                },
+                {
+                    "file": "CYKLY-3",
+                    "time": 13921
+                },
+                {
+                    "keyboard": "CYKLY-KR34",
+                    "time": 10000
+                },
+                {
+                    "file": "CYKLY-4",
+                    "time": 39657
+                },
+                {
+                    "keyboard": "CYKLY-45",
+                    "time": 10000
+                },
+                {
+                    "file": "CYKLY-5",
+                    "time": 24835
+                }
+            ]
+        },
+        {
+            "name": "wellDone",
+            "readableName": "Závěrem",
+            "type": "html",
+            "source": "wellDone.html"
+        }
+    ]
+}

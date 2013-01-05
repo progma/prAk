@@ -8,17 +8,17 @@ html(lang="en")
     meta(name="description", content="")
     meta(name="author", content="")
 
+    link(href="/stylesheets/font-awesome.css", rel="stylesheet")
     link(href="/stylesheets/bootstrap.min.css", rel="stylesheet")
-    link(href="/stylesheets/bootstrap-responsive.min.css", rel="stylesheet")
     link(href="/stylesheets/css-social-buttons/zocial.css", rel="stylesheet")
     link(href="/stylesheets/style.css", rel="stylesheet")
-    link(href="/stylesheets/course.js/style.css", rel="stylesheet")
+    link(href="/stylesheets/course.css", rel="stylesheet")
     link(href="/javascripts/CodeMirror/lib/codemirror.css", rel="stylesheet")
 
     block styles
 
   body
-    .navbar.navbar-fixed-top
+    .navbar.navbar-fixed-top.navbar-inverse
       .navbar-inner
         .container
           a.btn.btn-navbar(data-toggle="collapse", data-target=".nav-collapse")
@@ -29,9 +29,14 @@ html(lang="en")
           .nav-collapse
             ul.nav
               if page == 'course/turtle1'
-                li.active: a(href="/course/turtle1") Želví grafika
+                li.active: a(href="/course/turtle1") Želví grafika (OLD)
               else
-                li: a(href="/course/turtle1") Želví grafika
+                li: a(href="/course/turtle1") Želví grafika (OLD)
+
+              if page == 'course/turtle1b'
+                li.active: a(href="/course/turtle1b") Želví grafika
+              else
+                li: a(href="/course/turtle1b") Želví grafika
 
               if page == 'course/turtle2'
                 li.active: a(href="/course/turtle2") Želví grafika 2: stromy
@@ -43,7 +48,7 @@ html(lang="en")
                 li: a(href="/account") #{user.displayName}
                 li: a(href="/logout") logout
             else
-              ul.nav.pull-right(style="background-color: #222")
+              ul.nav.pull-right
                 li.dropdown#loginMenu
                   a.dropdown-toggle(data-toggle="dropdown", href="#loginMenu").
                     Sign in <b class="caret"></b>
@@ -79,6 +84,9 @@ html(lang="en")
           button.close(data-dismiss="alert") ×
           span #{error}
       block body
+
+      div.
+        <div id="disqus_thread"></div>
 
       hr
 
@@ -117,9 +125,21 @@ html(lang="en")
       $('.dropdown-menu').find('form').click(function (e) {
         e.stopPropagation();
       });
+
+      function require(name) {
+        throw new Error("Cannot require " + name);
+      }
+      require.extensions = {};
+
+      window.serverURL = "!{settings.URL}";
+      window.disqus_shortname = "prak";
+      window.disqus_developer = true; // turns off URL check
+      window.disqus_language = "cs";
+
     script(src="/javascripts/raphael-min.js")
     script(src="/javascripts/three.min.js")
-    script(src="/javascripts/jshint.js")
+    script(src="/javascripts/esprima.js")
+    script(src="/javascripts/escodegen.js")
     script(src="/javascripts/underscore-min.js")
     script(src="/javascripts/CodeMirror/lib/codemirror.js")
     script(src="/javascripts/CodeMirror/mode/javascript/javascript.js")
@@ -130,6 +150,7 @@ html(lang="en")
     script(src="/javascripts/course.js/turtle2d.js")
     script(src="/javascripts/course.js/turtle3d.js")
     script(src="/javascripts/course.js/pagedesign.js")
+    script(src="/javascripts/course.js/evaluation.js")
     script(src="/javascripts/course.js/connection.js")
 
     block scripts

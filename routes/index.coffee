@@ -14,28 +14,38 @@ exports.index = (req, res) ->
 #
 # Sandbox
 #
-renderSandbox = (req, res, code, mode) ->
+renderSandbox = (req, res, code, mode, warn, codeID) ->
   res.render 'sandbox',
     title: 'prAk – programátorská akademie'
     page: 'sandbox'
     code: code
     mode: mode
+    warn: warn
+    codeID: codeID
     user: req.user
     errors: req.flash 'error'
 
 exports.sandbox = (req, res) ->
   codeID = req.param "codeID"
-  console.dir codeID
 
   if codeID? && codeID != ""
-    userCodeCollection.findOne { _id: db.ObjectID.createFromHexString(codeID) }
-    , (err, codeObj) ->
-      if err?
-        return res.redirect 404
+    try
+      maybeID = db.ObjectID.createFromHexString(codeID)
+    catch e
+      return res.send 404
 
-      renderSandbox req, res, codeObj.code, codeObj.mode
+    userCodeCollection.findOne { _id: maybeID }, (err, codeObj) ->
+      return res.send 500   if err?
+      return res.send 404   if codeObj == null
+
+      # Show warning for code from other users.
+      warn = not req.user? ||
+             codeObj.user_id != req.user.id ||
+             codeObj.user_id == ""
+
+      renderSandbox req, res, codeObj.code, codeObj.mode, warn, codeID
   else
-    renderSandbox req, res, "", ""
+    renderSandbox req, res, "", "", false, ""
 #
 # Course page
 #
@@ -58,15 +68,13 @@ renderCourse = (req, res, codes) ->
     user: req.user
     codes: codes
     lecturesDone: JSON.stringify(lecturesDone)
-    serverURL: settings.URL
     courseName: courseName
     errors: req.flash 'error'
 
 exports.course = (req, res) ->
-  console.log "requesting course"
   if req.user?
     userCodeCollection.group ["lecture"]
-      , { course: req.param('courseName') }
+      , { course: req.param('courseName'), user_id: req.user.id }
       , { code: "", date: 0 }
       , reduceUC.toString()
       , true

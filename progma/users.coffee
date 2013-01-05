@@ -95,47 +95,9 @@ exports.checkPassword = (userId, password, callback) ->
       return callback(null, passwordHash == user.password)
 
 
-# Enroll user in course.
-exports.enrollUserInCourse = (user, courseId, callback) ->
-    # User is already enrolled in the course.
-    if courseId in user.courses
-      return callback(new errors.UserAlreadyEnrolledError(), user)
-
-    # Append the course id to the list of courses.
-    user.courses.push(courseId)
-
-    # Save the changes.
-    exports.updateUser(user)
-
-    callback(null, user)
-
-
-# Drop course.
-exports.dropCourse = (user, courseId, callback) ->
-  # User is not enrolled in the course.
-  unless courseId in user.courses
-    return callback(new errors.UserNotEnrolledError(), user)
-
-  # Remove the course from user's courses.
-  courseIndex = user.courses.indexOf(courseId)
-  user.courses[courseIndex..courseIndex] = []
-
-  # Save the changes.
-  exports.updateUser(user)
-
-  callback(null, user)
-
-
-# List courses in which the user is enrolled.
-exports.listCourses = (user, callback) ->
-  callback(null, user.courses)
-
-
 # Hash password with salt.
 exports.hashPassword = (salt, password, callback) ->
   shasum = crypto.createHash('sha1')
   shasum.update('' + salt)
   shasum.update(password)
   return shasum.digest('hex')
-
-

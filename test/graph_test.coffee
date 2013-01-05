@@ -26,7 +26,13 @@ repeat = (n, seq) ->
 
 check = (testObject) ->
   process.stdout.write "#{++testCount}. test: "
-  console.dir ex.test testObject
+  res = ex.test testObject
+  if res == true
+    console.log "OK"
+  else
+    console.dir res
+    console.log "Test failed."
+    process.exit 1
 
 graphDegree = ->
   g = new EmbeddedGraph 0, 0, 0
@@ -44,6 +50,7 @@ graphDegree = ->
   g.sequences().degreeSequence
 
 # Tests
+console.log "\t === Graph tests ==="
 check
   name: "graphDegree"
   property: graphDegree

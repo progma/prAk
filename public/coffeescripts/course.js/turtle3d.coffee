@@ -1,7 +1,10 @@
 ex = @examine ? require './examine'
 
 parameters =
-# These parameters are read only in init.
+  maxComputationTime: 5000
+  maxActions        : 10000
+
+  # These parameters are read only in init.
   WIDTH: 380
   HEIGHT: 480
 
@@ -12,7 +15,8 @@ parameters =
   FIELD_OF_VIEW: 75
   FRUSTUM_NEAR: 0.1
   FRUSTUM_FAR: 1000000
-# These parameters are also read in run.
+
+  # These parameters are also read in run.
   CAMERA_DISTANCE: 400
 
   TURTLE_START_POS: new THREE.Vector3(0, 0, 0)
@@ -184,11 +188,16 @@ init = (canvas) ->
     canvas: canvas
     clearColor: parameters.BACKGROUND_COLOR
     clearAlpha: 1
+
   try
     renderer = new THREE.WebGLRenderer(rendererParams)
-  catch e
-    console.log "loading WebGLRenderer failed, trying CanvasRenderer"
-    renderer = new THREE.CanvasRenderer(rendererParams)
+  catch e1
+    try
+      console.log "loading WebGLRenderer failed, trying CanvasRenderer"
+      renderer = new THREE.CanvasRenderer(rendererParams)
+    catch e2
+      pageDesign.flash "Failed loading 3D renderer.", "error"
+
 
   renderer.setSize parameters.WIDTH, parameters.HEIGHT
   #$(parentElement).append renderer.domElement
@@ -221,46 +230,58 @@ init = (canvas) ->
 # Since my Turtle3D is a nice object with its own fields and I
 # want to use its methods as global function in a global context,
 # I export them like this.
-environment = (myTurtle) ->
-  go: (distance) -> myTurtle.go(distance)
-  left: (angle) -> myTurtle.yaw(angle)
-  right: (angle) -> myTurtle.yaw(-angle)
-  up: (angle) -> myTurtle.pitch(angle)
-  down: (angle) -> myTurtle.pitch(-angle)
-  rollLeft: (angle) -> myTurtle.roll(-angle)
+environment = (myTurtle, config) ->
+  go:     (distance) -> myTurtle.go(distance)
+  left:      (angle) -> myTurtle.yaw(angle)
+  right:     (angle) -> myTurtle.yaw(-angle)
+  up:        (angle) -> myTurtle.pitch(angle)
+  down:      (angle) -> myTurtle.pitch(-angle)
+  rollLeft:  (angle) -> myTurtle.roll(-angle)
   rollRight: (angle) -> myTurtle.roll(angle)
-  penUp: -> myTurtle.penUp()
-  penDown: -> myTurtle.penDown()
-  color: (hex) -> myTurtle.setColor(hex)
-  width: (width) -> myTurtle.setWidth(width)
+  penUp:             -> myTurtle.penUp()
+  penDown:           -> myTurtle.penDown()
+  color:       (hex) -> myTurtle.setColor(hex)
+  width:     (width) -> myTurtle.setWidth(width)
 
   repeat: (n, f, args...) ->
     i = 0
     f args... while i++ < n
 
+  # Time
+  __bigBangTime: new Date()
+
+  __checkRunningTimeAndHaltIfNeeded: ->
+    if (new Date() - @__bigBangTime) > config.maxTime
+      throw new Error "Time exceeded." # TODO change error class
+
+
 constants =
-  white: 0xFFFFFF
-  yellow: 0xFFFF00
+  white:   0xFFFFFF
+  yellow:  0xFFFF00
   fuchsia: 0xFF00FF
-  aqua: 0x00FFFF
-  red: 0xFF0000
-  lime: 0x00FF00
-  blue: 0x0000FF
-  black: 0x000000
-  green: 0x008000
-  maroon: 0x800000
-  olive: 0x808000
-  purple: 0x800080
-  gray: 0x808080
-  navy: 0x000080
-  teal: 0x008080
-  silver: 0xC0C0C0
+  aqua:    0x00FFFF
+  red:     0xFF0000
+  lime:    0x00FF00
+  blue:    0x0000FF
+  black:   0x000000
+  green:   0x008000
+  maroon:  0x800000
+  olive:   0x808000
+  purple:  0x800080
+  gray:    0x808080
+  navy:    0x000080
+  teal:    0x008080
+  silver:  0xC0C0C0
 
-  brown: 0x552222
-  orange: 0xCC3232
+  brown:   0x552222
+  orange:  0xCC3232
 
 
-run = (turtleCode, shadow, draw = true) ->
+run = (turtleCode, config = {}) ->
+  config.shadow  ?= false
+  config.draw    ?= true
+  config.maxTime ?= parameters.maxComputationTime
+
   material = new THREE.MeshLambertMaterial({ color: parameters.TURTLE_START_COLOR
                                            , ambient: parameters.TURTLE_START_COLOR })
 
@@ -272,10 +293,10 @@ run = (turtleCode, shadow, draw = true) ->
 
   result = ex.test
     code: turtleCode
-    environment: environment(myTurtle)
+    environment: environment(myTurtle, config)
     constants: constants
   turtle3d.sequences = myTurtle.graph.sequences()
-  return   unless draw
+  return   unless config.draw
 
   try
 
@@ -321,6 +342,7 @@ run = (turtleCode, shadow, draw = true) ->
     return result
 
 @turtle3d = {
+  name: "turtle3d"
   sequences: null
   Turtle3D
   init

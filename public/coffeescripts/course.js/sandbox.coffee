@@ -1,50 +1,52 @@
-turtle = turtle2d
-mode = "turtle2d"
-
 $ ->
-  output = document.getElementById "turtleSpace"
-  errorDiv = $ "<div>", class: "errorOutput"
-  canvas = $("<div>", class: "canvasJacket")
-  canvas.append $ "<canvas>", id: "turtle3dCanvas"
-
-  myCodeMirror = CodeMirror.fromTextArea $('#editorArea').get(0),
-            lineNumbers: true
+  if warn  # send by server
+    $("#myWarning").modal "show"
 
   turtle2d.settings.defaultTotalTime = 2000
   turtle3d.parameters.BACKGROUND_COLOR = 0xFFFFFF
-  turtle.init output
-  errorDiv.prependTo output
 
-  $('#evalButton').click ->
-    currentCode = myCodeMirror.getValue()
+  editorDiv = document.getElementById "turtleEditor"
+  output    = document.getElementById "turtleSpace"
+  selectObj = $ "select[name='mode']"
 
-    connection.sendUserCode
-      code: currentCode
-      mode: mode
+  # Get mode from selected option
+  mode = selectObj.find(":selected").val()
 
-    errorDiv.html ""
-    result = turtle.run currentCode, false
+  evaluationContext =
+    editorTextareaID: "editorArea"
+    courseName: "sandbox"
+    codeObjectID: codeID  # send by server
 
-    unless result == true
-      console.log "error occured"
-      console.log result.errObj
-      errorDiv.html result.reason
+  lecture =
+    name: ""
+    help: mode
+    testProperties: []
 
-  $("select[name='mode']").change (obj) ->
-    $("#turtleSpace").html ""
+  runCode = (code) ->
+    evaluation.evaluate code, true, lecture, evaluationContext, (->)
 
-    switch obj.target.value
-      when "turtle2d"
-        console.log "turtle2d init"
-        turtle = turtle2d
-        turtle.init output
-        mode = "turtle2d"
-      when "turtle3d"
-        console.log "turtle3d init"
-        turtle = turtle3d
-        $("#turtleSpace").append canvas
-        turtle.init $('#turtle3dCanvas').get(0)
-        mode = "turtle3d"
+  initTD = ->
+    # Set help content depending on turtle mode
+    evaluationContext.lecture.help = mode
 
-    errorDiv.prependTo output
+    evaluation.initialiseTurtleDen mode, output, evaluationContext
 
+  # Initialise environment
+  evaluation.initialiseEditor editorDiv, false, evaluationContext, runCode
+  initTD()
+
+  evaluationContext.cm.setSize "100%", 390
+  evaluationContext.cm.refresh()
+
+  selectObj.change (obj) ->
+    output.innerHTML = ""
+    mode = obj.target.value
+    initTD()
+
+  $("#btnShare").click ->
+    window.open pageDesign.facebookShareUrl(evaluationContext.codeObjectID)
+
+  if codeID != ""  # Don't show discussion for empty sandbox.
+    window.disqus_config = ->
+      @page.url = "http://prak.mff.cuni.cz/sandbox/#{codeID}"
+    pageDesign.startDISQUS()
