@@ -85,6 +85,9 @@ html(lang="en")
           span #{error}
       block body
 
+      div.
+        <div id="disqus_thread"></div>
+
       hr
 
       footer
@@ -127,7 +130,11 @@ html(lang="en")
         throw new Error("Cannot require " + name);
       }
       require.extensions = {};
+
       window.serverURL = "!{settings.URL}";
+      window.disqus_shortname = "prak";
+      window.disqus_developer = true; // turns off URL check
+      window.disqus_language = "cs";
 
     script(src="/javascripts/raphael-min.js")
     script(src="/javascripts/three.min.js")
