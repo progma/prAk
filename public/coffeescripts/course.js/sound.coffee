@@ -98,9 +98,9 @@ totalTime = ->
   _.reduce slide.talk, ((memo, sound) -> memo+sound.time), 0
 
 seekSound  = (e) ->
-  xcord = e.pageX - slide.div.offset().left  # 22-420
+  xcord = e.pageX - slide.div.offset().left  # 22 (play icon width) -- 400 (whole slide width)
   tTime = totalTime()
-  totalPos   = (xcord - 22) / 400 * tTime
+  totalPos   = (xcord - 22) / (400-22) * tTime
 
   remaining = 0
   i = 0
