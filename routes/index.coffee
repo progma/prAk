@@ -85,6 +85,13 @@ exports.course = (req, res) ->
   else
     renderCourse req, res, "[]"
 
+exports.diskuze = (req, res) ->
+  res.render 'diskuze',
+    title: 'Diskuze'
+    page: 'diskuze'
+    user: req.user
+    errors: req.flash 'error'
+
 exports.login = (req, res) ->
   res.render 'login',
     title: 'Login'
