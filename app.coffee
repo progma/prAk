@@ -58,6 +58,14 @@ app.configure ->
   app.use app.router
   app.use express.static __dirname + '/public'
 
+  app.use (req, res) ->
+    res.status(404)
+    res.render '404',
+      title: 'prAk – Stránka nebyla nalezena'
+      page: '404'
+      user: req.user
+      errors: req.flash 'error'
+
 app.configure 'development', ->
   app.use express.errorHandler()
 
