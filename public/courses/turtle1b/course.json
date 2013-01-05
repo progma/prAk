@@ -19,7 +19,7 @@
                 },
                 {
                     "keyboard": "CTVEREC-KR",
-                    "time": 10000
+                    "time": 17000
                 }
             ]
         },
@@ -72,6 +72,10 @@
                 {
                     "file": "FUNKCE-S-ARGUMENTY",
                     "time": 86272
+                },
+                {
+                    "keyboard": "FUNKCE-S-ARGUMENTY-KR",
+                    "time": 24000
                 }
             ]
         },
@@ -91,7 +95,7 @@
                 },
                 {
                     "keyboard": "PODMINKY-KR12",
-                    "time": 10000
+                    "time": 16000
                 },
                 {
                     "file": "PODMINKY-2",
@@ -99,7 +103,7 @@
                 },
                 {
                     "keyboard": "PODMINKY-KR23",
-                    "time": 10000
+                    "time": 51000
                 },
                 {
                     "file": "PODMINKY-3",
@@ -118,15 +122,11 @@
                 },
                 {
                     "keyboard": "PROMENNE-KR12",
-                    "time": 10000
+                    "time": 47000
                 },
                 {
                     "file": "PROMENNE-2",
                     "time": 25117
-                },
-                {
-                    "keyboard": "PROMENNE-KR23",
-                    "time": 10000
                 },
                 {
                     "file": "PROMENNE-3",
@@ -134,7 +134,7 @@
                 },
                 {
                     "keyboard": "PROMENNE-KR34",
-                    "time": 10000
+                    "time": 14000
                 },
                 {
                     "file": "PROMENNE-4",
@@ -153,7 +153,7 @@
                 },
                 {
                     "keyboard": "CYKLY-KR12",
-                    "time": 10000
+                    "time": 6000
                 },
                 {
                     "file": "CYKLY-2",
@@ -168,16 +168,12 @@
                     "time": 13921
                 },
                 {
-                    "keyboard": "CYKLY-KR34",
-                    "time": 10000
-                },
-                {
                     "file": "CYKLY-4",
                     "time": 39657
                 },
                 {
-                    "keyboard": "CYKLY-45",
-                    "time": 10000
+                    "keyboard": "CYKLY-KR45",
+                    "time": 32000
                 },
                 {
                     "file": "CYKLY-5",
