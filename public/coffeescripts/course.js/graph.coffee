@@ -11,6 +11,12 @@ dist = (p1, p2) ->
   py = p1.y - p2.y
   px*px + py*py
 
+dist3 = (p1, p2) ->
+  px = p1.x - p2.x
+  py = p1.y - p2.y
+  pz = p1.z - p2.z
+  px*px + py*py + pz*pz
+
 computeCoords = (x,y,len,angle) ->
   newX = x + len * Math.sin(angle / 360 * Math.PI * 2)
   newY = y - len * Math.cos(angle / 360 * Math.PI * 2)
@@ -23,6 +29,7 @@ normalizeAngle = (a) ->
   a
 
 # We assume positive length of neighs
+# TODO discard zero angles?
 computeAngles = ({x,y}, neighs) ->
   return [0] if neighs.length == 1
   angles = []
@@ -36,6 +43,95 @@ computeAngles = ({x,y}, neighs) ->
   angles.push normalizeAngle(fst - last)
   angles
 
+class QuadTree
+  constructor: (points) ->
+    if points.length < 10 # TODO some constant
+      @points = points
+      return
+
+    # compute center
+    pointsSum = { x: 0, y: 0, z: 0 }
+
+    for p in points
+      pointsSum.x += p.x ? 0
+      pointsSum.y += p.y ? 0
+      pointsSum.z += p.z ? 0
+
+    @center =
+      x: pointsSum.x / points.length
+      y: pointsSum.y / points.length
+      z: pointsSum.z / points.length
+
+    # divide to sublists
+    segments =
+      true:
+        true:
+          true:  [] # East North Front
+          false: [] # East North Back
+        false:
+          true:  [] # West North Front
+          false: [] # West North Back
+      false:
+        true:
+          true:  [] # East South Front
+          false: [] # East South Back
+        false:
+          true:  [] # West South Front
+          false: [] # West South Back
+
+    for p in points
+      segments[p.x > @center.x][p.y > @center.y][p.z > @center.z].push p
+
+    # generate subtrees
+    @branches =
+      true:
+        true:
+          true:  new QuadTree segments[true][true][true]
+          false: new QuadTree segments[true][true][false]
+        false:
+          true:  new QuadTree segments[true][false][true]
+          false: new QuadTree segments[true][false][false]
+      false:
+        true:
+          true:  new QuadTree segments[false][true][true]
+          false: new QuadTree segments[false][true][false]
+        false:
+          true:  new QuadTree segments[false][false][true]
+          false: new QuadTree segments[false][false][false]
+
+  findPoints: (point) ->
+    storage = []
+    @_findPoints point, storage
+    storage
+
+  _findPoints: (point, storage) ->
+    # no branches from this node
+    if @points
+      (storage.push p) for p in @points when approxZero dist3(p, point)
+      return
+
+    # find quadron
+    bx1 = point.x > @center.x - PRECISION
+    bx2 = point.x > @center.x + PRECISION
+    by1 = point.y > @center.y - PRECISION
+    by2 = point.y > @center.y + PRECISION
+    bz1 = point.z > @center.z - PRECISION
+    bz2 = point.z > @center.z + PRECISION
+    bools = [bx1, bx2, by1, by2, bz1, bz2]
+
+    findInQuadron = (node, i) ->
+      if i == 6 # == bools.length
+        # search in quadron
+        node._findPoints point, storage
+      else
+        [b1, b2] = [bools[i], bools[i+1]]
+        i1 = i + 2
+
+        # select quadron by the next criterion
+        findInQuadron node[b1], i1
+        findInQuadron node[b2], i1  if b1 != b2
+
+    findInQuadron @branches, 0
 
 class Position
   constructor: (@x, @y, @angle, @penDown = true) ->
@@ -117,40 +213,42 @@ class EmbeddedGraph
     dists   = []
     hashObj = {}
 
-    # Adds vertex to hashObj
-    addVert = (v,vAdd) ->
-      # Normalize (point bucketing)
-      x = v.x - (v.x % PRECISION)
-      y = v.y - (v.y % PRECISION)
-      vAdd =
-        x: vAdd.x - (vAdd.x % PRECISION)
-        y: vAdd.y - (vAdd.y % PRECISION)
-
-      unless hashObj[x]?
-        hashObj[x] = {}
-
-      if hashObj[x][y]?
-        hashObj[x][y].push vAdd
-      else
-        hashObj[x][y] = [vAdd]
-
     # Collect all vertices
+    points = []
+
+    addVertNeigh = (p, neigh) ->
+      # Initialise structures
+      hashObj[p.x] = {}
+      points.push
+        x: p.x
+        y: p.y
+        z: 0
+        neigh: neigh
+
     for l in @lineSegments
-      addVert l.p1, l.p2
-      addVert l.p2, l.p1
+      addVertNeigh l.p1, l.p2
+      addVertNeigh l.p2, l.p1
 
-    for x of hashObj
-      for y of hashObj[x]
-        neighs = hashObj[x][y]
+    qt = new QuadTree points
 
-        # Eliminate point on a line
-        if  neighs.length == 2 &&
-            (new LineSegment neighs[0], neighs[1]).containsPoint {x,y}
-          continue
+    for p1 in points
+      continue  if hashObj[p1.x][p1.y]
 
-        degrees.push hashObj[x][y].length
-        angles = angles.concat computeAngles {x,y}, neighs
-        dists.push Math.sqrt dist {x,y}, p for p in neighs
+      ps = qt.findPoints p1
+      neighs = []
+
+      for p2 in ps
+        hashObj[p2.x][p2.y] = true
+        neighs.push p2.neigh
+
+      # Discard points inside a line segment
+      if  neighs.length == 2 &&
+          (new LineSegment neighs[0], neighs[1]).containsPoint p1
+        continue
+
+      degrees.push neighs.length
+      angles = angles.concat computeAngles p1, neighs
+      dists.push Math.sqrt dist p1, p for p in neighs
 
     return {
       angleSequence: angles.sort()
@@ -315,6 +413,9 @@ sequencesEqual = (expected, given,
 ## Exports
 ##
 @graph = {
+  PRECISION
+
+  QuadTree
   Position
   LineSegment
   EmbeddedGraph

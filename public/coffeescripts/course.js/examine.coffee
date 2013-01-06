@@ -127,6 +127,8 @@ test = (settings) ->
 
     if 'testCases' of settings
       for tc in settings.testCases
+        resObj.name = tc.name
+
         # Set user environment so that all inner functions/variables are
         # accessible in testedFunction or tested property via @user
         logObj = user: user
@@ -139,7 +141,6 @@ test = (settings) ->
           resObj.testRes   = res
           resObj.epected   = tc.expected
           resObj.args      = tc.args
-          resObj.name      = tc.name
           resObj.logObj    = logObj
           return resObj
 
