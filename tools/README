@@ -1,0 +1,7 @@
+== shift-kr ==
+Shifts events in given JSON keyboard recording by given number of ms.
+
+Usage:
+ ./shift-kr.coffee -- the.json -1200 > new.json
+ # every event now happens 1.2 s earlier
+ # do not forget "--", you want to interpret negative number as a negative number
