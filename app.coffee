@@ -73,6 +73,8 @@ app.get '/course/:courseName', routes.course
 app.get '/sandbox', routes.sandbox
 app.get '/sandbox/:codeID', routes.sandbox
 
+app.get '/diskuze', routes.diskuze
+
 app.get '/login', routes.login
 app.post '/login', passport.authenticate 'local',
   successRedirect: '/'

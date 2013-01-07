@@ -28,21 +28,15 @@ html(lang="en")
           a.brand(href="/") prAk
           .nav-collapse
             ul.nav
-              if page == 'course/turtle1'
-                li.active: a(href="/course/turtle1") Želví grafika (OLD)
-              else
-                li: a(href="/course/turtle1") Želví grafika (OLD)
-
-              if page == 'course/turtle1b'
-                li.active: a(href="/course/turtle1b") Želví grafika
-              else
-                li: a(href="/course/turtle1b") Želví grafika
-
-              if page == 'course/turtle2'
-                li.active: a(href="/course/turtle2") Želví grafika 2: stromy
-              else
-                li: a(href="/course/turtle2") Želví grafika 2: stromy
-
+              li.dropdown
+                a.dropdown-toggle(data-toggle="dropdown")
+                  | Kurzy
+                  b.caret
+                ul.dropdown-menu
+                  li: a(href="/course/turtle1b") Želví grafika
+                  li: a(href="/course/turtle2") Želví grafika 2: Stromy
+              li: a(href="/diskuze") Diskuze
+              li: a(href="/projekt") O projektu
             if user
               ul.nav.pull-right
                 li: a(href="/account") #{user.displayName}
@@ -125,6 +119,7 @@ html(lang="en")
     script(src="/javascripts/underscore-min.js")
     script(src="/javascripts/CodeMirror/lib/codemirror.js")
     script(src="/javascripts/CodeMirror/mode/javascript/javascript.js")
+    script(src="//twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js")
 
     script(src="/javascripts/course.js/quickcheck.js")
     script(src="/javascripts/course.js/examine.js")
