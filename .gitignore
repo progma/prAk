@@ -1,7 +1,10 @@
-public/media/*
+*.mp3
 public/javascripts/course.js/*
 public/stylesheets/course.css
 node_modules/*
+progma/*.js
+tests.js
+start
 
 *.py[co]
 
