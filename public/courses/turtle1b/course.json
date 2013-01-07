@@ -65,6 +65,12 @@
             ]
         },
         {
+            "name": "cell",
+            "readableName": "Úkol: Plástev",
+            "code": "function.turtle",
+            "type": "turtleTask"
+        },
+        {
             "name": "argument",
             "readableName": "Argumenty příkazů",
             "type": "turtleTalk",

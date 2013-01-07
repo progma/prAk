@@ -1,0 +1,10 @@
+function sestiuhelnik() {
+  go(50);
+  right(60);
+  go(50);
+  right(60);
+  // ... tenhle radek smazte a rozepiste sem sve reseni
+}
+
+sestiuhelnik();
+// ... tenhle taktez
