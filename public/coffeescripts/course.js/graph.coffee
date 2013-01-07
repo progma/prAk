@@ -1,5 +1,6 @@
-PRECISION    = 0.000001
+PRECISION    = 0.0000005
 PREC_3D      = 0.0001 # TODO fix
+QUAD_TREE_CELL_CAPACITY = 10
 
 
 approxZero = (num, prec = PRECISION) ->
@@ -28,8 +29,14 @@ normalizeAngle = (a) ->
     a += 2*Math.PI
   a
 
+findBucket = (p) ->
+  mod = p % PRECISION
+  if mod < PRECISION/2
+    return p - mod
+  else
+    return p + PRECISION - mod
+
 # We assume positive length of neighs
-# TODO discard zero angles?
 computeAngles = ({x,y}, neighs) ->
   return [0] if neighs.length == 1
   angles = []
@@ -45,7 +52,7 @@ computeAngles = ({x,y}, neighs) ->
 
 class QuadTree
   constructor: (points) ->
-    if points.length < 10 # TODO some constant
+    if points.length < QUAD_TREE_CELL_CAPACITY
       @points = points
       return
 
@@ -216,39 +223,61 @@ class EmbeddedGraph
     # Collect all vertices
     points = []
 
-    addVertNeigh = (p, neigh) ->
-      # Initialise structures
-      hashObj[p.x] = {}
-      points.push
-        x: p.x
-        y: p.y
-        z: 0
-        neigh: neigh
-
     for l in @lineSegments
-      addVertNeigh l.p1, l.p2
-      addVertNeigh l.p2, l.p1
+      # Initialise structures
+      p1 = x: l.p1.x, y: l.p1.y, z: 0
+      p2 = x: l.p2.x, y: l.p2.y, z: 0
+
+      hashObj[findBucket p1.x] = {}
+      hashObj[findBucket p2.x] = {}
+
+      points.push p1
+      points.push p2
+
+      p1.neigh = p2
+      p2.neigh = p1
 
     qt = new QuadTree points
 
-    for p1 in points
-      continue  if hashObj[p1.x][p1.y]
+    # Discard points inside a line segment
+    for p1 in points when p1.discarded != true
+      nearPoints = qt.findPoints p1
+      continue  unless nearPoints.length == 2
 
-      ps = qt.findPoints p1
-      neighs = []
+      [neigh1,neigh2] = [nearPoints[0].neigh, nearPoints[1].neigh]
 
-      for p2 in ps
-        hashObj[p2.x][p2.y] = true
+      if (new LineSegment neigh1, neigh2).containsPoint p1
+        # p1's neighbours should be neighbours of themselves
+        fixNeighs = (n1, n2) ->
+          neigh2.neigh = neigh1
+          neigh1.neigh = neigh2
+
+        fixNeighs neigh1, neigh2
+        fixNeighs neigh2, neigh1
+
+        nearPoints[0].discarded = true
+        nearPoints[1].discarded = true
+
+    for p1 in points when p1.discarded != true
+      {x,y} =
+        x: findBucket p1.x
+        y: findBucket p1.y
+
+      continue  if hashObj[x][y]
+
+      pointsNear = qt.findPoints p1
+      neighs = hashObj[x][y] = []
+
+      for p2 in pointsNear
         neighs.push p2.neigh
 
-      # Discard points inside a line segment
-      if  neighs.length == 2 &&
-          (new LineSegment neighs[0], neighs[1]).containsPoint p1
-        continue
+    for x of hashObj
+      for y of hashObj[x] when hashObj[x][y] != null
+        neighs = hashObj[x][y]
 
-      degrees.push neighs.length
-      angles = angles.concat computeAngles p1, neighs
-      dists.push Math.sqrt dist p1, p for p in neighs
+        degrees.push neighs.length
+        angles = angles.concat computeAngles({x,y}, neighs)
+        dists.push Math.sqrt(dist({x,y}, p)) for p in neighs
 
     return {
       angleSequence: angles.sort()
