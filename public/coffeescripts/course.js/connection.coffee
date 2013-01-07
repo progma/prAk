@@ -3,15 +3,22 @@ url = window.serverURL ? "http://localhost:3000/"
 # Example of usage:
 #
 # sendUsersCode
-#   code: "var a = 1 + 1;"
-#   course: "turtle1"
-#   lecture: "sestiuhelnik"
-sendUserCode = (data) ->
+#     code: "var a = 1 + 1;"
+#     course: "turtle1"
+#     lecture: "sestiuhelnik"
+#     mode: "turtle2d"
+#   , (savedObjectID) -> ...  # on complete
+sendUserCode = (data, callback) ->
   $.ajax
     type: 'POST'
     url: url + "/ajax/userCode"
     data: data
     dataType: "json"
+    success: (resData) ->
+      callback resData.objectID
+    error: ->
+      pageDesign.flash pageDesign.connectionError, "error"
+      callback()
 
 giveBadget = (name) ->
   $.ajax

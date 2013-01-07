@@ -51,9 +51,6 @@ lectureAdd = (newLecture, container, slideList, infoPanel) ->
 
     slideList.appendTo newLecture.div
     container.appendTo newLecture.div
-    infoPanel.appendTo newLecture.div
-
-    showFeedback infoPanel
 
 # TODO .alert-block?
 flash = (message, type) ->
@@ -174,41 +171,6 @@ addPlayer = (div, clickHandler, seekHandler) ->
     click: seekHandler
   ).appendTo(seek)
 
-showFeedback = (div) ->
-  pp = $("<p>",
-    text: "Rychlá zpětná vazba: "
-    style: "display: inline-block"
-  ).appendTo(div)
-  thumbUp = $("<button>",
-    class: "btn"
-    click: ->
-      connection.log "feedback",
-        thumb: true
-  ).appendTo(div)
-  thumbUpIcon = $("<i>",
-    class: "icon-thumbs-up"
-  ).appendTo(thumbUp)
-  thumbDown = $("<button>",
-    class: "btn"
-    click: ->
-      connection.log "feedback",
-        thumb: false
-  ).appendTo(div)
-  thumbDownIcon = $("<i>",
-    class: "icon-thumbs-down"
-  ).appendTo(thumbDown)
-  commentary = $("<input>",
-    type: "text"
-    class: "commentary"
-    placeholder: "Pište!"
-    keydown: (ev) ->
-      if ev.keyCode == 13
-        connection.log "feedback",
-          commentary: $(this).val()
-        $(this).val("")
-        $(this).attr("placeholder", "Díky! Ještě něco?")
-  ).appendTo(div)
-
 displayArrow = (arrow, display) ->
   if display?
     arrow.removeClass "hidden"
@@ -328,24 +290,37 @@ showHelp = (conf, hideCallback) ->
 
   container
 
+startDISQUS = ->
+  resetDisqus = ->
+    DISQUS?.reset
+      reload: true
+      config: disqus_config
 
-testDoneResultPage = """
+  $.getScript "http://#{disqus_shortname}.disqus.com/embed.js"
+  $(window).on "hashchange", resetDisqus
+
+facebookShareUrl = (id) ->
+    "https://www.facebook.com/dialog/feed?app_id=274343352671549&link=http://prak.mff.cuni.cz/sandbox/#{id}&picture=http://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Kturtle_side_view.svg/474px-Kturtle_side_view.svg.png&name=PrAk&caption=Programovací akademie&description=Programování vystavuje světu nesčetně tváří a některé z nich jsou opravdu přístupné. Třeba želví grafika. Dostanete želvu se štětcem na břichu a budete jí psát příkazy, složitějí a složitější, až budete umět kreslit vcelku složité a zvláštní útvary a, jen tak mimochodem, docela dobře programovat.&redirect_uri=http://prak.mff.cuni.cz"
+
+
+testDoneResultPage = (id) -> """
   <center>
   <h2 style='margin-top: 30px;'>Správné řešení</h2>
-    <img src='/images/checked.png' style='width: 200px; height: 143px; margin: 50px;'>
+    <img src='/images/checked.png' style='width: 200px; height: 143px; margin: 50px;' />
     <p>Nejen že jsi správně vyřešil/a danou úlohu &#8212 mimoděk jsi stvořil/a veliké
     umělecké dílo, jež bude svou nádherou a noblesou okouzlovat spatřující
-    stovky nadcházejících let.
-    <p>Nechceš ho sdílet na Facebooku?
-    <p style='margin-top: 30px; font-size: 1.2em;'>Pokračuj dál šipkou vpravo.
+    stovky nadcházejících let.</p>
+    <p>Nechceš ho sdílet na Facebooku? <a href="#{facebookShareUrl id}" class="btn" target="_blank"><i class="icon-facebook"></i></a></p>
+    <p style='margin-top: 30px; font-size: 1.2em;'>Pokračuj dál šipkou vpravo.</p>
   </center>
   """
 
-testNotDoneResultPage = """
+testNotDoneResultPage = (id) -> """
   <center>
-    <h2 style='margin-top: 30px;'>Ještě jsi neodeslal/a správné řešení.</h2>
+    <h2 style='margin-top: 20px;'>Ještě jsi neodeslal/a správné řešení.</h2>
     <img src='/images/questionmark.png' style='width: 138px; height: 200px; margin: 50px;'>
     <p>Chceš i přes to pokračovat dále v kurzu?</p>
+    <p style='padding: 10px 30px 0;'>Sdílet řešení na Facebooku: <a href="#{facebookShareUrl id}" class="btn" target="_blank"><i class="icon-facebook"></i></a></p>
   </center>
 """
 
@@ -365,6 +340,8 @@ wrongAnswer = """
   Program vrátil nesprávnou hodnotu při následujících argumentech:
   """
 
+connectionError = "Chyba v připojení"
+
 codeIsRunning = "Běží výpočet."
 
 @pageDesign = {
@@ -381,12 +358,15 @@ codeIsRunning = "Běží výpočet."
   displayArrow
 
   showHelp
+  startDISQUS
 
+  facebookShareUrl
   testDoneResultPage
   testNotDoneResultPage
   loadProblem
   soundManagerFailed
   courseNAProblem
   wrongAnswer
+  connectionError
   codeIsRunning
 }

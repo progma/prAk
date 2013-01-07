@@ -1,4 +1,7 @@
 $ ->
+  if warn  # send by server
+    $("#myWarning").modal "show"
+
   turtle2d.settings.defaultTotalTime = 2000
   turtle3d.parameters.BACKGROUND_COLOR = 0xFFFFFF
 
@@ -12,6 +15,7 @@ $ ->
   evaluationContext =
     editorTextareaID: "editorArea"
     courseName: "sandbox"
+    codeObjectID: codeID  # send by server
 
   lecture =
     name: ""
@@ -38,3 +42,11 @@ $ ->
     output.innerHTML = ""
     mode = obj.target.value
     initTD()
+
+  $("#btnShare").click ->
+    window.open pageDesign.facebookShareUrl(evaluationContext.codeObjectID)
+
+  if codeID != ""  # Don't show discussion for empty sandbox.
+    window.disqus_config = ->
+      @page.url = "http://prak.mff.cuni.cz/sandbox/#{codeID}"
+    pageDesign.startDISQUS()
