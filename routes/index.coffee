@@ -1,6 +1,7 @@
 crypto = require('crypto')
 settings = require('../progma/settings')
 db = require('../progma/mongo').db
+utils = require("../progma/utils")
 userCodeCollection = db.collection('userCode')
 
 
@@ -32,11 +33,11 @@ exports.sandbox = (req, res) ->
     try
       maybeID = db.ObjectID.createFromHexString(codeID)
     catch e
-      return res.send 404
+      return utils.return404 req, res
 
     userCodeCollection.findOne { _id: maybeID }, (err, codeObj) ->
-      return res.send 500   if err?
-      return res.send 404   if codeObj == null
+      return res.send 500               if err?
+      return utils.return404 req, res   if codeObj == null
 
       # Show warning for code from other users.
       warn = not req.user? ||

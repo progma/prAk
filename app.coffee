@@ -13,6 +13,7 @@ passportUtils = require('./progma/passport')
 routes = require('./routes')
 ajaxRoute = require('./routes/ajax')
 settings = require('./progma/settings')
+utils = require('./progma/utils')
 
 app = express()
 
@@ -57,6 +58,9 @@ app.configure ->
 
   app.use app.router
   app.use express.static __dirname + '/public'
+
+  app.use (req, res) ->
+    utils.return404 req, res
 
 app.configure 'development', ->
   app.use express.errorHandler()
