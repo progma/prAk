@@ -13,6 +13,7 @@ passportUtils = require('./progma/passport')
 routes = require('./routes')
 ajaxRoute = require('./routes/ajax')
 settings = require('./progma/settings')
+utils = require('./progma/utils')
 
 app = express()
 
@@ -59,12 +60,7 @@ app.configure ->
   app.use express.static __dirname + '/public'
 
   app.use (req, res) ->
-    res.status(404)
-    res.render '404',
-      title: 'prAk – Stránka nebyla nalezena'
-      page: '404'
-      user: req.user
-      errors: req.flash 'error'
+    utils.return404 req, res
 
 app.configure 'development', ->
   app.use express.errorHandler()
