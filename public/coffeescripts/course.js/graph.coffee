@@ -29,6 +29,7 @@ normalizeAngle = (a) ->
     a += 2*Math.PI
   a
 
+# Finds lattice point near given point (in one dimension).
 findBucket = (p) ->
   mod = p % PRECISION
   if mod < PRECISION/2
@@ -220,11 +221,10 @@ class EmbeddedGraph
     dists   = []
     hashObj = {}
 
-    # Collect all vertices
+    # Initialise data structures.
     points = []
 
     for l in @lineSegments
-      # Initialise structures
       p1 = x: l.p1.x, y: l.p1.y, z: 0
       p2 = x: l.p2.x, y: l.p2.y, z: 0
 
@@ -239,7 +239,7 @@ class EmbeddedGraph
 
     qt = new QuadTree points
 
-    # Discard points inside a line segment
+    # Discard points inside a line segment.
     for p1 in points when p1.discarded != true
       nearPoints = qt.findPoints p1
       continue  unless nearPoints.length == 2
@@ -247,7 +247,7 @@ class EmbeddedGraph
       [neigh1,neigh2] = [nearPoints[0].neigh, nearPoints[1].neigh]
 
       if (new LineSegment neigh1, neigh2).containsPoint p1
-        # p1's neighbours should be neighbours of themselves
+        # p1's neighbours should be neighbours of themselves.
         fixNeighs = (n1, n2) ->
           neigh2.neigh = neigh1
           neigh1.neigh = neigh2
@@ -255,10 +255,14 @@ class EmbeddedGraph
         fixNeighs neigh1, neigh2
         fixNeighs neigh2, neigh1
 
+        # Don't use this point anymore.
         nearPoints[0].discarded = true
         nearPoints[1].discarded = true
 
+    # Create graph of elements on plane lattice.
+    # (with PRECISION as distance between lattice points)
     for p1 in points when p1.discarded != true
+      # Fix point to some lattice point
       {x,y} =
         x: findBucket p1.x
         y: findBucket p1.y
@@ -271,6 +275,7 @@ class EmbeddedGraph
       for p2 in pointsNear
         neighs.push p2.neigh
 
+    # Collect data from graph.
     for x of hashObj
       for y of hashObj[x] when hashObj[x][y] != null
         neighs = hashObj[x][y]
