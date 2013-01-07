@@ -1,0 +1,31 @@
+{
+  "bufferContents": [
+    {
+      "time": 0,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n}"
+    }
+  ],
+  "cursorPosition": [
+    {
+      "time": 0,
+      "value": {
+        "line": 4,
+        "ch": 5
+      }
+    }
+  ],
+  "selectionRange": [],
+  "scrollPosition": [
+    {
+      "time": 0,
+      "value": {
+        "x": 0,
+        "y": 0,
+        "height": 0,
+        "width": 611
+      }
+    }
+  ],
+  "evaluatedCode": [],
+  "buttonPressed": []
+}
