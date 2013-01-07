@@ -1,0 +1,878 @@
+{
+  "bufferContents": [
+    {
+      "time": 0,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka . sqrt(2));\n  left(90);\n  go(sirka . sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 10752,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka  sqrt(2));\n  left(90);\n  go(sirka . sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 11190,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka . sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 12473,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka  sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 12722,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka * sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 13686,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka * sqrt(2) : 2);\n  left(90);\n  go(sirka  sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 13977,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka * sqrt(2) : 2);\n  left(90);\n  go(sirka * sqrt(2) : 2);\n  left(90);\n  go(sirka . sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 15196,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka * sqrt(2) : 2);\n  left(90);\n  go(sirka * sqrt(2) : 2);\n  left(90);\n  go(sirka  sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 15473,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka * sqrt(2) : 2);\n  left(90);\n  go(sirka * sqrt(2) : 2);\n  left(90);\n  go(sirka * sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 18152,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka * sqrt(2) : 2);\n  left(90);\n  go(sirka * sqrt(2)  2);\n  left(90);\n  go(sirka * sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 19094,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka * sqrt(2) : 2);\n  left(90);\n  go(sirka * sqrt(2) / 2);\n  left(90);\n  go(sirka * sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 20497,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka * sqrt(2)  2);\n  left(90);\n  go(sirka * sqrt(2) / 2);\n  left(90);\n  go(sirka * sqrt(2));\n}\n\ndomecek(50);"
+    },
+    {
+      "time": 20855,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka * sqrt(2) / 2);\n  left(90);\n  go(sirka * sqrt(2) / 2);\n  left(90);\n  go(sirka * sqrt(2));\n}\n\ndomecek(50);"
+    }
+  ],
+  "cursorPosition": [
+    {
+      "time": 0,
+      "value": {
+        "line": 13,
+        "ch": 12
+      }
+    },
+    {
+      "time": 4497,
+      "value": {
+        "line": 4,
+        "ch": 12
+      }
+    },
+    {
+      "time": 5609,
+      "value": {
+        "line": 4,
+        "ch": 11
+      }
+    },
+    {
+      "time": 6332,
+      "value": {
+        "line": 5,
+        "ch": 11
+      }
+    },
+    {
+      "time": 6645,
+      "value": {
+        "line": 6,
+        "ch": 11
+      }
+    },
+    {
+      "time": 7162,
+      "value": {
+        "line": 6,
+        "ch": 12
+      }
+    },
+    {
+      "time": 7802,
+      "value": {
+        "line": 5,
+        "ch": 11
+      }
+    },
+    {
+      "time": 8219,
+      "value": {
+        "line": 4,
+        "ch": 12
+      }
+    },
+    {
+      "time": 10752,
+      "value": {
+        "line": 4,
+        "ch": 11
+      }
+    },
+    {
+      "time": 11190,
+      "value": {
+        "line": 4,
+        "ch": 12
+      }
+    },
+    {
+      "time": 11541,
+      "value": {
+        "line": 5,
+        "ch": 11
+      }
+    },
+    {
+      "time": 11695,
+      "value": {
+        "line": 6,
+        "ch": 12
+      }
+    },
+    {
+      "time": 12473,
+      "value": {
+        "line": 6,
+        "ch": 11
+      }
+    },
+    {
+      "time": 12722,
+      "value": {
+        "line": 6,
+        "ch": 12
+      }
+    },
+    {
+      "time": 13034,
+      "value": {
+        "line": 7,
+        "ch": 11
+      }
+    },
+    {
+      "time": 13183,
+      "value": {
+        "line": 8,
+        "ch": 12
+      }
+    },
+    {
+      "time": 13686,
+      "value": {
+        "line": 8,
+        "ch": 11
+      }
+    },
+    {
+      "time": 13977,
+      "value": {
+        "line": 8,
+        "ch": 12
+      }
+    },
+    {
+      "time": 14266,
+      "value": {
+        "line": 9,
+        "ch": 11
+      }
+    },
+    {
+      "time": 14418,
+      "value": {
+        "line": 10,
+        "ch": 12
+      }
+    },
+    {
+      "time": 15196,
+      "value": {
+        "line": 10,
+        "ch": 11
+      }
+    },
+    {
+      "time": 15473,
+      "value": {
+        "line": 10,
+        "ch": 12
+      }
+    },
+    {
+      "time": 15756,
+      "value": {
+        "line": 9,
+        "ch": 11
+      }
+    },
+    {
+      "time": 15916,
+      "value": {
+        "line": 8,
+        "ch": 12
+      }
+    },
+    {
+      "time": 16255,
+      "value": {
+        "line": 8,
+        "ch": 13
+      }
+    },
+    {
+      "time": 16755,
+      "value": {
+        "line": 8,
+        "ch": 14
+      }
+    },
+    {
+      "time": 16789,
+      "value": {
+        "line": 8,
+        "ch": 15
+      }
+    },
+    {
+      "time": 16817,
+      "value": {
+        "line": 8,
+        "ch": 16
+      }
+    },
+    {
+      "time": 16848,
+      "value": {
+        "line": 8,
+        "ch": 17
+      }
+    },
+    {
+      "time": 16878,
+      "value": {
+        "line": 8,
+        "ch": 18
+      }
+    },
+    {
+      "time": 16912,
+      "value": {
+        "line": 8,
+        "ch": 19
+      }
+    },
+    {
+      "time": 16943,
+      "value": {
+        "line": 8,
+        "ch": 20
+      }
+    },
+    {
+      "time": 16971,
+      "value": {
+        "line": 8,
+        "ch": 21
+      }
+    },
+    {
+      "time": 17154,
+      "value": {
+        "line": 8,
+        "ch": 22
+      }
+    },
+    {
+      "time": 18152,
+      "value": {
+        "line": 8,
+        "ch": 21
+      }
+    },
+    {
+      "time": 19094,
+      "value": {
+        "line": 8,
+        "ch": 22
+      }
+    },
+    {
+      "time": 19529,
+      "value": {
+        "line": 7,
+        "ch": 11
+      }
+    },
+    {
+      "time": 19805,
+      "value": {
+        "line": 6,
+        "ch": 22
+      }
+    },
+    {
+      "time": 20497,
+      "value": {
+        "line": 6,
+        "ch": 21
+      }
+    },
+    {
+      "time": 20855,
+      "value": {
+        "line": 6,
+        "ch": 22
+      }
+    }
+  ],
+  "selectionRange": [
+    {
+      "time": 0,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 12
+        },
+        "to": {
+          "line": 13,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 4497,
+      "value": {
+        "from": {
+          "line": 4,
+          "ch": 12
+        },
+        "to": {
+          "line": 4,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 5609,
+      "value": {
+        "from": {
+          "line": 4,
+          "ch": 11
+        },
+        "to": {
+          "line": 4,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 6332,
+      "value": {
+        "from": {
+          "line": 5,
+          "ch": 11
+        },
+        "to": {
+          "line": 5,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 6645,
+      "value": {
+        "from": {
+          "line": 6,
+          "ch": 11
+        },
+        "to": {
+          "line": 6,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 7162,
+      "value": {
+        "from": {
+          "line": 6,
+          "ch": 11
+        },
+        "to": {
+          "line": 6,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 7802,
+      "value": {
+        "from": {
+          "line": 5,
+          "ch": 11
+        },
+        "to": {
+          "line": 5,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 8219,
+      "value": {
+        "from": {
+          "line": 4,
+          "ch": 12
+        },
+        "to": {
+          "line": 4,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 10752,
+      "value": {
+        "from": {
+          "line": 4,
+          "ch": 11
+        },
+        "to": {
+          "line": 4,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 11190,
+      "value": {
+        "from": {
+          "line": 4,
+          "ch": 12
+        },
+        "to": {
+          "line": 4,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 11541,
+      "value": {
+        "from": {
+          "line": 5,
+          "ch": 11
+        },
+        "to": {
+          "line": 5,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 11695,
+      "value": {
+        "from": {
+          "line": 6,
+          "ch": 12
+        },
+        "to": {
+          "line": 6,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 12473,
+      "value": {
+        "from": {
+          "line": 6,
+          "ch": 11
+        },
+        "to": {
+          "line": 6,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 12722,
+      "value": {
+        "from": {
+          "line": 6,
+          "ch": 12
+        },
+        "to": {
+          "line": 6,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 13034,
+      "value": {
+        "from": {
+          "line": 7,
+          "ch": 11
+        },
+        "to": {
+          "line": 7,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 13183,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 12
+        },
+        "to": {
+          "line": 8,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 13686,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 11
+        },
+        "to": {
+          "line": 8,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 13977,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 12
+        },
+        "to": {
+          "line": 8,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 14266,
+      "value": {
+        "from": {
+          "line": 9,
+          "ch": 11
+        },
+        "to": {
+          "line": 9,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 14418,
+      "value": {
+        "from": {
+          "line": 10,
+          "ch": 12
+        },
+        "to": {
+          "line": 10,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 15196,
+      "value": {
+        "from": {
+          "line": 10,
+          "ch": 11
+        },
+        "to": {
+          "line": 10,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 15473,
+      "value": {
+        "from": {
+          "line": 10,
+          "ch": 12
+        },
+        "to": {
+          "line": 10,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 15756,
+      "value": {
+        "from": {
+          "line": 9,
+          "ch": 11
+        },
+        "to": {
+          "line": 9,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 15916,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 12
+        },
+        "to": {
+          "line": 8,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 16255,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 13
+        },
+        "to": {
+          "line": 8,
+          "ch": 13
+        }
+      }
+    },
+    {
+      "time": 16755,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 14
+        },
+        "to": {
+          "line": 8,
+          "ch": 14
+        }
+      }
+    },
+    {
+      "time": 16789,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 15
+        },
+        "to": {
+          "line": 8,
+          "ch": 15
+        }
+      }
+    },
+    {
+      "time": 16817,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 16
+        },
+        "to": {
+          "line": 8,
+          "ch": 16
+        }
+      }
+    },
+    {
+      "time": 16848,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 17
+        },
+        "to": {
+          "line": 8,
+          "ch": 17
+        }
+      }
+    },
+    {
+      "time": 16878,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 18
+        },
+        "to": {
+          "line": 8,
+          "ch": 18
+        }
+      }
+    },
+    {
+      "time": 16912,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 19
+        },
+        "to": {
+          "line": 8,
+          "ch": 19
+        }
+      }
+    },
+    {
+      "time": 16943,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 20
+        },
+        "to": {
+          "line": 8,
+          "ch": 20
+        }
+      }
+    },
+    {
+      "time": 16971,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 21
+        },
+        "to": {
+          "line": 8,
+          "ch": 21
+        }
+      }
+    },
+    {
+      "time": 17154,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 22
+        },
+        "to": {
+          "line": 8,
+          "ch": 22
+        }
+      }
+    },
+    {
+      "time": 18152,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 21
+        },
+        "to": {
+          "line": 8,
+          "ch": 21
+        }
+      }
+    },
+    {
+      "time": 19094,
+      "value": {
+        "from": {
+          "line": 8,
+          "ch": 22
+        },
+        "to": {
+          "line": 8,
+          "ch": 22
+        }
+      }
+    },
+    {
+      "time": 19529,
+      "value": {
+        "from": {
+          "line": 7,
+          "ch": 11
+        },
+        "to": {
+          "line": 7,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 19805,
+      "value": {
+        "from": {
+          "line": 6,
+          "ch": 22
+        },
+        "to": {
+          "line": 6,
+          "ch": 22
+        }
+      }
+    },
+    {
+      "time": 20498,
+      "value": {
+        "from": {
+          "line": 6,
+          "ch": 21
+        },
+        "to": {
+          "line": 6,
+          "ch": 21
+        }
+      }
+    },
+    {
+      "time": 20855,
+      "value": {
+        "from": {
+          "line": 6,
+          "ch": 22
+        },
+        "to": {
+          "line": 6,
+          "ch": 22
+        }
+      }
+    }
+  ],
+  "scrollPosition": [
+    {
+      "time": 0,
+      "value": {
+        "x": 0,
+        "y": 0,
+        "height": 0,
+        "width": 327
+      }
+    }
+  ],
+  "evaluatedCode": [
+    {
+      "time": 23237,
+      "value": "function domecek(sirka)\n{\n  ctverec(sirka);\n  right(45);\n  go(sirka * sqrt(2));\n  left(90);\n  go(sirka * sqrt(2) / 2);\n  left(90);\n  go(sirka * sqrt(2) / 2);\n  left(90);\n  go(sirka * sqrt(2));\n}\n\ndomecek(50);"
+    }
+  ],
+  "buttonPressed": []
+}

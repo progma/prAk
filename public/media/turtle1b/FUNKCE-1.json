@@ -1,0 +1,31 @@
+{
+  "bufferContents": [
+    {
+      "time": 0,
+      "value": ""
+    }
+  ],
+  "cursorPosition": [
+    {
+      "time": 0,
+      "value": {
+        "line": 0,
+        "ch": 0
+      }
+    }
+  ],
+  "selectionRange": [],
+  "scrollPosition": [
+    {
+      "time": 0,
+      "value": {
+        "x": 0,
+        "y": 0,
+        "height": 0,
+        "width": 611
+      }
+    }
+  ],
+  "evaluatedCode": [],
+  "buttonPressed": []
+}

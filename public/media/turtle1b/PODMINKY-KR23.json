@@ -1,0 +1,3112 @@
+{
+  "bufferContents": [
+    {
+      "time": 0,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n}"
+    },
+    {
+      "time": 1554,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n}"
+    },
+    {
+      "time": 1825,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  \n}"
+    },
+    {
+      "time": 2747,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  i\n}"
+    },
+    {
+      "time": 2829,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if\n}"
+    },
+    {
+      "time": 3461,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if \n}"
+    },
+    {
+      "time": 6016,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (\n}"
+    },
+    {
+      "time": 6422,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (d\n}"
+    },
+    {
+      "time": 6587,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (de\n}"
+    },
+    {
+      "time": 6663,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (del\n}"
+    },
+    {
+      "time": 6808,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delk\n}"
+    },
+    {
+      "time": 6915,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delka\n}"
+    },
+    {
+      "time": 7273,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaS\n}"
+    },
+    {
+      "time": 7391,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaSt\n}"
+    },
+    {
+      "time": 7545,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStr\n}"
+    },
+    {
+      "time": 7844,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStra\n}"
+    },
+    {
+      "time": 8071,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStran\n}"
+    },
+    {
+      "time": 8174,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany\n}"
+    },
+    {
+      "time": 8898,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany \n}"
+    },
+    {
+      "time": 9449,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany <\n}"
+    },
+    {
+      "time": 9902,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < \n}"
+    },
+    {
+      "time": 10162,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0\n}"
+    },
+    {
+      "time": 10634,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n}"
+    },
+    {
+      "time": 11121,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n    \n}"
+    },
+    {
+      "time": 11547,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n    {\n}"
+    },
+    {
+      "time": 11597,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n}"
+    },
+    {
+      "time": 12075,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n    \n}"
+    },
+    {
+      "time": 12221,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n    \n    \n}"
+    },
+    {
+      "time": 12499,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n    \n    }\n}"
+    },
+    {
+      "time": 12553,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n    \n  }\n}"
+    },
+    {
+      "time": 13309,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \t \n  }\n}"
+    },
+    {
+      "time": 14546,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tr \n  }\n}"
+    },
+    {
+      "time": 14625,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tri \n  }\n}"
+    },
+    {
+      "time": 15036,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \trig \n  }\n}"
+    },
+    {
+      "time": 15064,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \trigh \n  }\n}"
+    },
+    {
+      "time": 15495,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright \n  }\n}"
+    },
+    {
+      "time": 15611,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright \n  }\n}"
+    },
+    {
+      "time": 16027,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright( \n  }\n}"
+    },
+    {
+      "time": 16232,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(1 \n  }\n}"
+    },
+    {
+      "time": 16909,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(18 \n  }\n}"
+    },
+    {
+      "time": 17033,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180 \n  }\n}"
+    },
+    {
+      "time": 17967,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180) \n  }\n}"
+    },
+    {
+      "time": 18573,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180); \n  }\n}"
+    },
+    {
+      "time": 19099,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    \n  }\n}"
+    },
+    {
+      "time": 20952,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    c\n  }\n}"
+    },
+    {
+      "time": 21140,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ct\n  }\n}"
+    },
+    {
+      "time": 21305,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctv\n  }\n}"
+    },
+    {
+      "time": 21485,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctve\n  }\n}"
+    },
+    {
+      "time": 21600,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctver\n  }\n}"
+    },
+    {
+      "time": 21710,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctvere\n  }\n}"
+    },
+    {
+      "time": 21904,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec\n  }\n}"
+    },
+    {
+      "time": 22305,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(\n  }\n}"
+    },
+    {
+      "time": 22814,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-\n  }\n}"
+    },
+    {
+      "time": 23103,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-d\n  }\n}"
+    },
+    {
+      "time": 23297,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-de\n  }\n}"
+    },
+    {
+      "time": 23416,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-del\n  }\n}"
+    },
+    {
+      "time": 23553,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delk\n  }\n}"
+    },
+    {
+      "time": 23624,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delka\n  }\n}"
+    },
+    {
+      "time": 23934,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaS\n  }\n}"
+    },
+    {
+      "time": 24072,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaSt\n  }\n}"
+    },
+    {
+      "time": 24224,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStr\n  }\n}"
+    },
+    {
+      "time": 24331,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStra\n  }\n}"
+    },
+    {
+      "time": 24477,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStran\n  }\n}"
+    },
+    {
+      "time": 24551,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany\n  }\n}"
+    },
+    {
+      "time": 25017,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany)\n  }\n}"
+    },
+    {
+      "time": 25404,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n  }\n}"
+    },
+    {
+      "time": 25684,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    \n  }\n}"
+    },
+    {
+      "time": 26048,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    r\n  }\n}"
+    },
+    {
+      "time": 26138,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    rig\n  }\n}"
+    },
+    {
+      "time": 26530,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(\n  }\n}"
+    },
+    {
+      "time": 27124,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(1\n  }\n}"
+    },
+    {
+      "time": 27263,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(18\n  }\n}"
+    },
+    {
+      "time": 27378,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180\n  }\n}"
+    },
+    {
+      "time": 27733,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180)\n  }\n}"
+    },
+    {
+      "time": 28106,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}"
+    },
+    {
+      "time": 31833,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n"
+    },
+    {
+      "time": 31959,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\n"
+    },
+    {
+      "time": 33926,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nc"
+    },
+    {
+      "time": 34107,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nct"
+    },
+    {
+      "time": 34273,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctv"
+    },
+    {
+      "time": 34421,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctve"
+    },
+    {
+      "time": 34543,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctver"
+    },
+    {
+      "time": 34669,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctvere"
+    },
+    {
+      "time": 34852,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec"
+    },
+    {
+      "time": 35176,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec("
+    },
+    {
+      "time": 35669,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(1"
+    },
+    {
+      "time": 36194,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(18"
+    },
+    {
+      "time": 37086,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(1"
+    },
+    {
+      "time": 37305,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(10"
+    },
+    {
+      "time": 37480,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100"
+    },
+    {
+      "time": 37804,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100)"
+    },
+    {
+      "time": 38146,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);"
+    },
+    {
+      "time": 38523,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\n"
+    },
+    {
+      "time": 38830,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nc"
+    },
+    {
+      "time": 39013,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nct"
+    },
+    {
+      "time": 39176,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctv"
+    },
+    {
+      "time": 39327,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctve"
+    },
+    {
+      "time": 39431,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctver"
+    },
+    {
+      "time": 39569,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctvere"
+    },
+    {
+      "time": 39781,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec"
+    },
+    {
+      "time": 40149,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec("
+    },
+    {
+      "time": 40683,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-"
+    },
+    {
+      "time": 41580,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-6"
+    },
+    {
+      "time": 41936,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60"
+    },
+    {
+      "time": 42301,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60)"
+    },
+    {
+      "time": 42805,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);"
+    },
+    {
+      "time": 43179,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\n"
+    },
+    {
+      "time": 43551,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nc"
+    },
+    {
+      "time": 43725,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nct"
+    },
+    {
+      "time": 43877,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctv"
+    },
+    {
+      "time": 44013,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctve"
+    },
+    {
+      "time": 44117,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctver"
+    },
+    {
+      "time": 44224,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctvere"
+    },
+    {
+      "time": 44414,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctverec"
+    },
+    {
+      "time": 44691,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctverec)"
+    },
+    {
+      "time": 45046,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctverec)9"
+    },
+    {
+      "time": 45312,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctverec)"
+    },
+    {
+      "time": 45452,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctverec"
+    },
+    {
+      "time": 46067,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctverec("
+    },
+    {
+      "time": 46533,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctverec(0"
+    },
+    {
+      "time": 47126,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctverec(0)"
+    },
+    {
+      "time": 47505,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctverec(0);"
+    }
+  ],
+  "cursorPosition": [
+    {
+      "time": 0,
+      "value": {
+        "line": 9,
+        "ch": 20
+      }
+    },
+    {
+      "time": 517,
+      "value": {
+        "line": 10,
+        "ch": 14
+      }
+    },
+    {
+      "time": 682,
+      "value": {
+        "line": 11,
+        "ch": 3
+      }
+    },
+    {
+      "time": 825,
+      "value": {
+        "line": 12,
+        "ch": 1
+      }
+    },
+    {
+      "time": 1140,
+      "value": {
+        "line": 11,
+        "ch": 3
+      }
+    },
+    {
+      "time": 1554,
+      "value": {
+        "line": 12,
+        "ch": 2
+      }
+    },
+    {
+      "time": 1825,
+      "value": {
+        "line": 13,
+        "ch": 2
+      }
+    },
+    {
+      "time": 2747,
+      "value": {
+        "line": 13,
+        "ch": 3
+      }
+    },
+    {
+      "time": 2829,
+      "value": {
+        "line": 13,
+        "ch": 4
+      }
+    },
+    {
+      "time": 3461,
+      "value": {
+        "line": 13,
+        "ch": 5
+      }
+    },
+    {
+      "time": 6016,
+      "value": {
+        "line": 13,
+        "ch": 6
+      }
+    },
+    {
+      "time": 6422,
+      "value": {
+        "line": 13,
+        "ch": 7
+      }
+    },
+    {
+      "time": 6587,
+      "value": {
+        "line": 13,
+        "ch": 8
+      }
+    },
+    {
+      "time": 6663,
+      "value": {
+        "line": 13,
+        "ch": 9
+      }
+    },
+    {
+      "time": 6808,
+      "value": {
+        "line": 13,
+        "ch": 10
+      }
+    },
+    {
+      "time": 6915,
+      "value": {
+        "line": 13,
+        "ch": 11
+      }
+    },
+    {
+      "time": 7273,
+      "value": {
+        "line": 13,
+        "ch": 12
+      }
+    },
+    {
+      "time": 7391,
+      "value": {
+        "line": 13,
+        "ch": 13
+      }
+    },
+    {
+      "time": 7545,
+      "value": {
+        "line": 13,
+        "ch": 14
+      }
+    },
+    {
+      "time": 7844,
+      "value": {
+        "line": 13,
+        "ch": 15
+      }
+    },
+    {
+      "time": 8071,
+      "value": {
+        "line": 13,
+        "ch": 16
+      }
+    },
+    {
+      "time": 8174,
+      "value": {
+        "line": 13,
+        "ch": 17
+      }
+    },
+    {
+      "time": 8898,
+      "value": {
+        "line": 13,
+        "ch": 18
+      }
+    },
+    {
+      "time": 9449,
+      "value": {
+        "line": 13,
+        "ch": 19
+      }
+    },
+    {
+      "time": 9902,
+      "value": {
+        "line": 13,
+        "ch": 20
+      }
+    },
+    {
+      "time": 10162,
+      "value": {
+        "line": 13,
+        "ch": 21
+      }
+    },
+    {
+      "time": 10634,
+      "value": {
+        "line": 13,
+        "ch": 22
+      }
+    },
+    {
+      "time": 11121,
+      "value": {
+        "line": 14,
+        "ch": 4
+      }
+    },
+    {
+      "time": 11547,
+      "value": {
+        "line": 14,
+        "ch": 5
+      }
+    },
+    {
+      "time": 11597,
+      "value": {
+        "line": 14,
+        "ch": 3
+      }
+    },
+    {
+      "time": 12075,
+      "value": {
+        "line": 15,
+        "ch": 4
+      }
+    },
+    {
+      "time": 12221,
+      "value": {
+        "line": 16,
+        "ch": 4
+      }
+    },
+    {
+      "time": 12499,
+      "value": {
+        "line": 16,
+        "ch": 5
+      }
+    },
+    {
+      "time": 12553,
+      "value": {
+        "line": 16,
+        "ch": 3
+      }
+    },
+    {
+      "time": 12923,
+      "value": {
+        "line": 15,
+        "ch": 3
+      }
+    },
+    {
+      "time": 13309,
+      "value": {
+        "line": 15,
+        "ch": 4
+      }
+    },
+    {
+      "time": 14546,
+      "value": {
+        "line": 15,
+        "ch": 5
+      }
+    },
+    {
+      "time": 14625,
+      "value": {
+        "line": 15,
+        "ch": 6
+      }
+    },
+    {
+      "time": 15036,
+      "value": {
+        "line": 15,
+        "ch": 7
+      }
+    },
+    {
+      "time": 15064,
+      "value": {
+        "line": 15,
+        "ch": 8
+      }
+    },
+    {
+      "time": 15495,
+      "value": {
+        "line": 15,
+        "ch": 7
+      }
+    },
+    {
+      "time": 15611,
+      "value": {
+        "line": 15,
+        "ch": 6
+      }
+    },
+    {
+      "time": 16028,
+      "value": {
+        "line": 15,
+        "ch": 7
+      }
+    },
+    {
+      "time": 16232,
+      "value": {
+        "line": 15,
+        "ch": 8
+      }
+    },
+    {
+      "time": 16909,
+      "value": {
+        "line": 15,
+        "ch": 9
+      }
+    },
+    {
+      "time": 17033,
+      "value": {
+        "line": 15,
+        "ch": 10
+      }
+    },
+    {
+      "time": 17967,
+      "value": {
+        "line": 15,
+        "ch": 11
+      }
+    },
+    {
+      "time": 18574,
+      "value": {
+        "line": 15,
+        "ch": 12
+      }
+    },
+    {
+      "time": 19099,
+      "value": {
+        "line": 16,
+        "ch": 4
+      }
+    },
+    {
+      "time": 20952,
+      "value": {
+        "line": 16,
+        "ch": 5
+      }
+    },
+    {
+      "time": 21140,
+      "value": {
+        "line": 16,
+        "ch": 6
+      }
+    },
+    {
+      "time": 21305,
+      "value": {
+        "line": 16,
+        "ch": 7
+      }
+    },
+    {
+      "time": 21485,
+      "value": {
+        "line": 16,
+        "ch": 8
+      }
+    },
+    {
+      "time": 21600,
+      "value": {
+        "line": 16,
+        "ch": 9
+      }
+    },
+    {
+      "time": 21710,
+      "value": {
+        "line": 16,
+        "ch": 10
+      }
+    },
+    {
+      "time": 21904,
+      "value": {
+        "line": 16,
+        "ch": 11
+      }
+    },
+    {
+      "time": 22305,
+      "value": {
+        "line": 16,
+        "ch": 12
+      }
+    },
+    {
+      "time": 22814,
+      "value": {
+        "line": 16,
+        "ch": 13
+      }
+    },
+    {
+      "time": 23103,
+      "value": {
+        "line": 16,
+        "ch": 14
+      }
+    },
+    {
+      "time": 23297,
+      "value": {
+        "line": 16,
+        "ch": 15
+      }
+    },
+    {
+      "time": 23416,
+      "value": {
+        "line": 16,
+        "ch": 16
+      }
+    },
+    {
+      "time": 23553,
+      "value": {
+        "line": 16,
+        "ch": 17
+      }
+    },
+    {
+      "time": 23624,
+      "value": {
+        "line": 16,
+        "ch": 18
+      }
+    },
+    {
+      "time": 23934,
+      "value": {
+        "line": 16,
+        "ch": 19
+      }
+    },
+    {
+      "time": 24072,
+      "value": {
+        "line": 16,
+        "ch": 20
+      }
+    },
+    {
+      "time": 24224,
+      "value": {
+        "line": 16,
+        "ch": 21
+      }
+    },
+    {
+      "time": 24331,
+      "value": {
+        "line": 16,
+        "ch": 22
+      }
+    },
+    {
+      "time": 24477,
+      "value": {
+        "line": 16,
+        "ch": 23
+      }
+    },
+    {
+      "time": 24551,
+      "value": {
+        "line": 16,
+        "ch": 24
+      }
+    },
+    {
+      "time": 25017,
+      "value": {
+        "line": 16,
+        "ch": 25
+      }
+    },
+    {
+      "time": 25404,
+      "value": {
+        "line": 16,
+        "ch": 26
+      }
+    },
+    {
+      "time": 25684,
+      "value": {
+        "line": 17,
+        "ch": 4
+      }
+    },
+    {
+      "time": 26048,
+      "value": {
+        "line": 17,
+        "ch": 5
+      }
+    },
+    {
+      "time": 26138,
+      "value": {
+        "line": 17,
+        "ch": 6
+      }
+    },
+    {
+      "time": 26530,
+      "value": {
+        "line": 17,
+        "ch": 7
+      }
+    },
+    {
+      "time": 27124,
+      "value": {
+        "line": 17,
+        "ch": 8
+      }
+    },
+    {
+      "time": 27263,
+      "value": {
+        "line": 17,
+        "ch": 9
+      }
+    },
+    {
+      "time": 27378,
+      "value": {
+        "line": 17,
+        "ch": 10
+      }
+    },
+    {
+      "time": 27733,
+      "value": {
+        "line": 17,
+        "ch": 11
+      }
+    },
+    {
+      "time": 28106,
+      "value": {
+        "line": 17,
+        "ch": 12
+      }
+    },
+    {
+      "time": 31155,
+      "value": {
+        "line": 18,
+        "ch": 3
+      }
+    },
+    {
+      "time": 31292,
+      "value": {
+        "line": 19,
+        "ch": 1
+      }
+    },
+    {
+      "time": 31833,
+      "value": {
+        "line": 20,
+        "ch": 0
+      }
+    },
+    {
+      "time": 31959,
+      "value": {
+        "line": 21,
+        "ch": 0
+      }
+    },
+    {
+      "time": 33926,
+      "value": {
+        "line": 21,
+        "ch": 1
+      }
+    },
+    {
+      "time": 34107,
+      "value": {
+        "line": 21,
+        "ch": 2
+      }
+    },
+    {
+      "time": 34273,
+      "value": {
+        "line": 21,
+        "ch": 3
+      }
+    },
+    {
+      "time": 34421,
+      "value": {
+        "line": 21,
+        "ch": 4
+      }
+    },
+    {
+      "time": 34543,
+      "value": {
+        "line": 21,
+        "ch": 5
+      }
+    },
+    {
+      "time": 34669,
+      "value": {
+        "line": 21,
+        "ch": 6
+      }
+    },
+    {
+      "time": 34852,
+      "value": {
+        "line": 21,
+        "ch": 7
+      }
+    },
+    {
+      "time": 35176,
+      "value": {
+        "line": 21,
+        "ch": 8
+      }
+    },
+    {
+      "time": 35669,
+      "value": {
+        "line": 21,
+        "ch": 9
+      }
+    },
+    {
+      "time": 36194,
+      "value": {
+        "line": 21,
+        "ch": 10
+      }
+    },
+    {
+      "time": 37086,
+      "value": {
+        "line": 21,
+        "ch": 9
+      }
+    },
+    {
+      "time": 37306,
+      "value": {
+        "line": 21,
+        "ch": 10
+      }
+    },
+    {
+      "time": 37481,
+      "value": {
+        "line": 21,
+        "ch": 11
+      }
+    },
+    {
+      "time": 37804,
+      "value": {
+        "line": 21,
+        "ch": 12
+      }
+    },
+    {
+      "time": 38146,
+      "value": {
+        "line": 21,
+        "ch": 13
+      }
+    },
+    {
+      "time": 38523,
+      "value": {
+        "line": 22,
+        "ch": 0
+      }
+    },
+    {
+      "time": 38830,
+      "value": {
+        "line": 22,
+        "ch": 1
+      }
+    },
+    {
+      "time": 39013,
+      "value": {
+        "line": 22,
+        "ch": 2
+      }
+    },
+    {
+      "time": 39176,
+      "value": {
+        "line": 22,
+        "ch": 3
+      }
+    },
+    {
+      "time": 39327,
+      "value": {
+        "line": 22,
+        "ch": 4
+      }
+    },
+    {
+      "time": 39431,
+      "value": {
+        "line": 22,
+        "ch": 5
+      }
+    },
+    {
+      "time": 39569,
+      "value": {
+        "line": 22,
+        "ch": 6
+      }
+    },
+    {
+      "time": 39781,
+      "value": {
+        "line": 22,
+        "ch": 7
+      }
+    },
+    {
+      "time": 40149,
+      "value": {
+        "line": 22,
+        "ch": 8
+      }
+    },
+    {
+      "time": 40683,
+      "value": {
+        "line": 22,
+        "ch": 9
+      }
+    },
+    {
+      "time": 41580,
+      "value": {
+        "line": 22,
+        "ch": 10
+      }
+    },
+    {
+      "time": 41936,
+      "value": {
+        "line": 22,
+        "ch": 11
+      }
+    },
+    {
+      "time": 42302,
+      "value": {
+        "line": 22,
+        "ch": 12
+      }
+    },
+    {
+      "time": 42805,
+      "value": {
+        "line": 22,
+        "ch": 13
+      }
+    },
+    {
+      "time": 43179,
+      "value": {
+        "line": 23,
+        "ch": 0
+      }
+    },
+    {
+      "time": 43551,
+      "value": {
+        "line": 23,
+        "ch": 1
+      }
+    },
+    {
+      "time": 43725,
+      "value": {
+        "line": 23,
+        "ch": 2
+      }
+    },
+    {
+      "time": 43877,
+      "value": {
+        "line": 23,
+        "ch": 3
+      }
+    },
+    {
+      "time": 44013,
+      "value": {
+        "line": 23,
+        "ch": 4
+      }
+    },
+    {
+      "time": 44117,
+      "value": {
+        "line": 23,
+        "ch": 5
+      }
+    },
+    {
+      "time": 44224,
+      "value": {
+        "line": 23,
+        "ch": 6
+      }
+    },
+    {
+      "time": 44414,
+      "value": {
+        "line": 23,
+        "ch": 7
+      }
+    },
+    {
+      "time": 44691,
+      "value": {
+        "line": 23,
+        "ch": 8
+      }
+    },
+    {
+      "time": 45046,
+      "value": {
+        "line": 23,
+        "ch": 9
+      }
+    },
+    {
+      "time": 45312,
+      "value": {
+        "line": 23,
+        "ch": 8
+      }
+    },
+    {
+      "time": 45452,
+      "value": {
+        "line": 23,
+        "ch": 7
+      }
+    },
+    {
+      "time": 46067,
+      "value": {
+        "line": 23,
+        "ch": 8
+      }
+    },
+    {
+      "time": 46533,
+      "value": {
+        "line": 23,
+        "ch": 9
+      }
+    },
+    {
+      "time": 47126,
+      "value": {
+        "line": 23,
+        "ch": 10
+      }
+    },
+    {
+      "time": 47505,
+      "value": {
+        "line": 23,
+        "ch": 11
+      }
+    }
+  ],
+  "selectionRange": [
+    {
+      "time": 0,
+      "value": {
+        "from": {
+          "line": 9,
+          "ch": 20
+        },
+        "to": {
+          "line": 9,
+          "ch": 20
+        }
+      }
+    },
+    {
+      "time": 517,
+      "value": {
+        "from": {
+          "line": 10,
+          "ch": 14
+        },
+        "to": {
+          "line": 10,
+          "ch": 14
+        }
+      }
+    },
+    {
+      "time": 682,
+      "value": {
+        "from": {
+          "line": 11,
+          "ch": 3
+        },
+        "to": {
+          "line": 11,
+          "ch": 3
+        }
+      }
+    },
+    {
+      "time": 825,
+      "value": {
+        "from": {
+          "line": 12,
+          "ch": 1
+        },
+        "to": {
+          "line": 12,
+          "ch": 1
+        }
+      }
+    },
+    {
+      "time": 1140,
+      "value": {
+        "from": {
+          "line": 11,
+          "ch": 3
+        },
+        "to": {
+          "line": 11,
+          "ch": 3
+        }
+      }
+    },
+    {
+      "time": 1554,
+      "value": {
+        "from": {
+          "line": 12,
+          "ch": 2
+        },
+        "to": {
+          "line": 12,
+          "ch": 2
+        }
+      }
+    },
+    {
+      "time": 1825,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 2
+        },
+        "to": {
+          "line": 13,
+          "ch": 2
+        }
+      }
+    },
+    {
+      "time": 2747,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 3
+        },
+        "to": {
+          "line": 13,
+          "ch": 3
+        }
+      }
+    },
+    {
+      "time": 2829,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 4
+        },
+        "to": {
+          "line": 13,
+          "ch": 4
+        }
+      }
+    },
+    {
+      "time": 3461,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 5
+        },
+        "to": {
+          "line": 13,
+          "ch": 5
+        }
+      }
+    },
+    {
+      "time": 6016,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 6
+        },
+        "to": {
+          "line": 13,
+          "ch": 6
+        }
+      }
+    },
+    {
+      "time": 6422,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 7
+        },
+        "to": {
+          "line": 13,
+          "ch": 7
+        }
+      }
+    },
+    {
+      "time": 6587,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 8
+        },
+        "to": {
+          "line": 13,
+          "ch": 8
+        }
+      }
+    },
+    {
+      "time": 6663,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 9
+        },
+        "to": {
+          "line": 13,
+          "ch": 9
+        }
+      }
+    },
+    {
+      "time": 6808,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 10
+        },
+        "to": {
+          "line": 13,
+          "ch": 10
+        }
+      }
+    },
+    {
+      "time": 6915,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 11
+        },
+        "to": {
+          "line": 13,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 7274,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 12
+        },
+        "to": {
+          "line": 13,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 7391,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 13
+        },
+        "to": {
+          "line": 13,
+          "ch": 13
+        }
+      }
+    },
+    {
+      "time": 7546,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 14
+        },
+        "to": {
+          "line": 13,
+          "ch": 14
+        }
+      }
+    },
+    {
+      "time": 7844,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 15
+        },
+        "to": {
+          "line": 13,
+          "ch": 15
+        }
+      }
+    },
+    {
+      "time": 8071,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 16
+        },
+        "to": {
+          "line": 13,
+          "ch": 16
+        }
+      }
+    },
+    {
+      "time": 8174,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 17
+        },
+        "to": {
+          "line": 13,
+          "ch": 17
+        }
+      }
+    },
+    {
+      "time": 8898,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 18
+        },
+        "to": {
+          "line": 13,
+          "ch": 18
+        }
+      }
+    },
+    {
+      "time": 9449,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 19
+        },
+        "to": {
+          "line": 13,
+          "ch": 19
+        }
+      }
+    },
+    {
+      "time": 9902,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 20
+        },
+        "to": {
+          "line": 13,
+          "ch": 20
+        }
+      }
+    },
+    {
+      "time": 10162,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 21
+        },
+        "to": {
+          "line": 13,
+          "ch": 21
+        }
+      }
+    },
+    {
+      "time": 10634,
+      "value": {
+        "from": {
+          "line": 13,
+          "ch": 22
+        },
+        "to": {
+          "line": 13,
+          "ch": 22
+        }
+      }
+    },
+    {
+      "time": 11121,
+      "value": {
+        "from": {
+          "line": 14,
+          "ch": 4
+        },
+        "to": {
+          "line": 14,
+          "ch": 4
+        }
+      }
+    },
+    {
+      "time": 11547,
+      "value": {
+        "from": {
+          "line": 14,
+          "ch": 5
+        },
+        "to": {
+          "line": 14,
+          "ch": 5
+        }
+      }
+    },
+    {
+      "time": 11597,
+      "value": {
+        "from": {
+          "line": 14,
+          "ch": 3
+        },
+        "to": {
+          "line": 14,
+          "ch": 3
+        }
+      }
+    },
+    {
+      "time": 12075,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 4
+        },
+        "to": {
+          "line": 15,
+          "ch": 4
+        }
+      }
+    },
+    {
+      "time": 12221,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 4
+        },
+        "to": {
+          "line": 16,
+          "ch": 4
+        }
+      }
+    },
+    {
+      "time": 12499,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 5
+        },
+        "to": {
+          "line": 16,
+          "ch": 5
+        }
+      }
+    },
+    {
+      "time": 12553,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 3
+        },
+        "to": {
+          "line": 16,
+          "ch": 3
+        }
+      }
+    },
+    {
+      "time": 12923,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 3
+        },
+        "to": {
+          "line": 15,
+          "ch": 3
+        }
+      }
+    },
+    {
+      "time": 13309,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 4
+        },
+        "to": {
+          "line": 15,
+          "ch": 4
+        }
+      }
+    },
+    {
+      "time": 14546,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 5
+        },
+        "to": {
+          "line": 15,
+          "ch": 5
+        }
+      }
+    },
+    {
+      "time": 14625,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 6
+        },
+        "to": {
+          "line": 15,
+          "ch": 6
+        }
+      }
+    },
+    {
+      "time": 15036,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 7
+        },
+        "to": {
+          "line": 15,
+          "ch": 7
+        }
+      }
+    },
+    {
+      "time": 15064,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 8
+        },
+        "to": {
+          "line": 15,
+          "ch": 8
+        }
+      }
+    },
+    {
+      "time": 15495,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 7
+        },
+        "to": {
+          "line": 15,
+          "ch": 7
+        }
+      }
+    },
+    {
+      "time": 15612,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 6
+        },
+        "to": {
+          "line": 15,
+          "ch": 6
+        }
+      }
+    },
+    {
+      "time": 16028,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 7
+        },
+        "to": {
+          "line": 15,
+          "ch": 7
+        }
+      }
+    },
+    {
+      "time": 16232,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 8
+        },
+        "to": {
+          "line": 15,
+          "ch": 8
+        }
+      }
+    },
+    {
+      "time": 16910,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 9
+        },
+        "to": {
+          "line": 15,
+          "ch": 9
+        }
+      }
+    },
+    {
+      "time": 17033,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 10
+        },
+        "to": {
+          "line": 15,
+          "ch": 10
+        }
+      }
+    },
+    {
+      "time": 17967,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 11
+        },
+        "to": {
+          "line": 15,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 18574,
+      "value": {
+        "from": {
+          "line": 15,
+          "ch": 12
+        },
+        "to": {
+          "line": 15,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 19099,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 4
+        },
+        "to": {
+          "line": 16,
+          "ch": 4
+        }
+      }
+    },
+    {
+      "time": 20953,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 5
+        },
+        "to": {
+          "line": 16,
+          "ch": 5
+        }
+      }
+    },
+    {
+      "time": 21140,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 6
+        },
+        "to": {
+          "line": 16,
+          "ch": 6
+        }
+      }
+    },
+    {
+      "time": 21305,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 7
+        },
+        "to": {
+          "line": 16,
+          "ch": 7
+        }
+      }
+    },
+    {
+      "time": 21485,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 8
+        },
+        "to": {
+          "line": 16,
+          "ch": 8
+        }
+      }
+    },
+    {
+      "time": 21600,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 9
+        },
+        "to": {
+          "line": 16,
+          "ch": 9
+        }
+      }
+    },
+    {
+      "time": 21710,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 10
+        },
+        "to": {
+          "line": 16,
+          "ch": 10
+        }
+      }
+    },
+    {
+      "time": 21905,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 11
+        },
+        "to": {
+          "line": 16,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 22305,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 12
+        },
+        "to": {
+          "line": 16,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 22814,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 13
+        },
+        "to": {
+          "line": 16,
+          "ch": 13
+        }
+      }
+    },
+    {
+      "time": 23103,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 14
+        },
+        "to": {
+          "line": 16,
+          "ch": 14
+        }
+      }
+    },
+    {
+      "time": 23297,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 15
+        },
+        "to": {
+          "line": 16,
+          "ch": 15
+        }
+      }
+    },
+    {
+      "time": 23416,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 16
+        },
+        "to": {
+          "line": 16,
+          "ch": 16
+        }
+      }
+    },
+    {
+      "time": 23553,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 17
+        },
+        "to": {
+          "line": 16,
+          "ch": 17
+        }
+      }
+    },
+    {
+      "time": 23624,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 18
+        },
+        "to": {
+          "line": 16,
+          "ch": 18
+        }
+      }
+    },
+    {
+      "time": 23934,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 19
+        },
+        "to": {
+          "line": 16,
+          "ch": 19
+        }
+      }
+    },
+    {
+      "time": 24072,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 20
+        },
+        "to": {
+          "line": 16,
+          "ch": 20
+        }
+      }
+    },
+    {
+      "time": 24224,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 21
+        },
+        "to": {
+          "line": 16,
+          "ch": 21
+        }
+      }
+    },
+    {
+      "time": 24331,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 22
+        },
+        "to": {
+          "line": 16,
+          "ch": 22
+        }
+      }
+    },
+    {
+      "time": 24477,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 23
+        },
+        "to": {
+          "line": 16,
+          "ch": 23
+        }
+      }
+    },
+    {
+      "time": 24551,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 24
+        },
+        "to": {
+          "line": 16,
+          "ch": 24
+        }
+      }
+    },
+    {
+      "time": 25017,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 25
+        },
+        "to": {
+          "line": 16,
+          "ch": 25
+        }
+      }
+    },
+    {
+      "time": 25404,
+      "value": {
+        "from": {
+          "line": 16,
+          "ch": 26
+        },
+        "to": {
+          "line": 16,
+          "ch": 26
+        }
+      }
+    },
+    {
+      "time": 25685,
+      "value": {
+        "from": {
+          "line": 17,
+          "ch": 4
+        },
+        "to": {
+          "line": 17,
+          "ch": 4
+        }
+      }
+    },
+    {
+      "time": 26048,
+      "value": {
+        "from": {
+          "line": 17,
+          "ch": 5
+        },
+        "to": {
+          "line": 17,
+          "ch": 5
+        }
+      }
+    },
+    {
+      "time": 26138,
+      "value": {
+        "from": {
+          "line": 17,
+          "ch": 6
+        },
+        "to": {
+          "line": 17,
+          "ch": 6
+        }
+      }
+    },
+    {
+      "time": 26530,
+      "value": {
+        "from": {
+          "line": 17,
+          "ch": 7
+        },
+        "to": {
+          "line": 17,
+          "ch": 7
+        }
+      }
+    },
+    {
+      "time": 27124,
+      "value": {
+        "from": {
+          "line": 17,
+          "ch": 8
+        },
+        "to": {
+          "line": 17,
+          "ch": 8
+        }
+      }
+    },
+    {
+      "time": 27263,
+      "value": {
+        "from": {
+          "line": 17,
+          "ch": 9
+        },
+        "to": {
+          "line": 17,
+          "ch": 9
+        }
+      }
+    },
+    {
+      "time": 27378,
+      "value": {
+        "from": {
+          "line": 17,
+          "ch": 10
+        },
+        "to": {
+          "line": 17,
+          "ch": 10
+        }
+      }
+    },
+    {
+      "time": 27733,
+      "value": {
+        "from": {
+          "line": 17,
+          "ch": 11
+        },
+        "to": {
+          "line": 17,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 28106,
+      "value": {
+        "from": {
+          "line": 17,
+          "ch": 12
+        },
+        "to": {
+          "line": 17,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 31156,
+      "value": {
+        "from": {
+          "line": 18,
+          "ch": 3
+        },
+        "to": {
+          "line": 18,
+          "ch": 3
+        }
+      }
+    },
+    {
+      "time": 31292,
+      "value": {
+        "from": {
+          "line": 19,
+          "ch": 1
+        },
+        "to": {
+          "line": 19,
+          "ch": 1
+        }
+      }
+    },
+    {
+      "time": 31833,
+      "value": {
+        "from": {
+          "line": 20,
+          "ch": 0
+        },
+        "to": {
+          "line": 20,
+          "ch": 0
+        }
+      }
+    },
+    {
+      "time": 31959,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 0
+        },
+        "to": {
+          "line": 21,
+          "ch": 0
+        }
+      }
+    },
+    {
+      "time": 33926,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 1
+        },
+        "to": {
+          "line": 21,
+          "ch": 1
+        }
+      }
+    },
+    {
+      "time": 34107,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 2
+        },
+        "to": {
+          "line": 21,
+          "ch": 2
+        }
+      }
+    },
+    {
+      "time": 34273,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 3
+        },
+        "to": {
+          "line": 21,
+          "ch": 3
+        }
+      }
+    },
+    {
+      "time": 34421,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 4
+        },
+        "to": {
+          "line": 21,
+          "ch": 4
+        }
+      }
+    },
+    {
+      "time": 34543,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 5
+        },
+        "to": {
+          "line": 21,
+          "ch": 5
+        }
+      }
+    },
+    {
+      "time": 34669,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 6
+        },
+        "to": {
+          "line": 21,
+          "ch": 6
+        }
+      }
+    },
+    {
+      "time": 34852,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 7
+        },
+        "to": {
+          "line": 21,
+          "ch": 7
+        }
+      }
+    },
+    {
+      "time": 35176,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 8
+        },
+        "to": {
+          "line": 21,
+          "ch": 8
+        }
+      }
+    },
+    {
+      "time": 35669,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 9
+        },
+        "to": {
+          "line": 21,
+          "ch": 9
+        }
+      }
+    },
+    {
+      "time": 36194,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 10
+        },
+        "to": {
+          "line": 21,
+          "ch": 10
+        }
+      }
+    },
+    {
+      "time": 37086,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 9
+        },
+        "to": {
+          "line": 21,
+          "ch": 9
+        }
+      }
+    },
+    {
+      "time": 37306,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 10
+        },
+        "to": {
+          "line": 21,
+          "ch": 10
+        }
+      }
+    },
+    {
+      "time": 37481,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 11
+        },
+        "to": {
+          "line": 21,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 37804,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 12
+        },
+        "to": {
+          "line": 21,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 38146,
+      "value": {
+        "from": {
+          "line": 21,
+          "ch": 13
+        },
+        "to": {
+          "line": 21,
+          "ch": 13
+        }
+      }
+    },
+    {
+      "time": 38523,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 0
+        },
+        "to": {
+          "line": 22,
+          "ch": 0
+        }
+      }
+    },
+    {
+      "time": 38830,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 1
+        },
+        "to": {
+          "line": 22,
+          "ch": 1
+        }
+      }
+    },
+    {
+      "time": 39013,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 2
+        },
+        "to": {
+          "line": 22,
+          "ch": 2
+        }
+      }
+    },
+    {
+      "time": 39176,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 3
+        },
+        "to": {
+          "line": 22,
+          "ch": 3
+        }
+      }
+    },
+    {
+      "time": 39327,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 4
+        },
+        "to": {
+          "line": 22,
+          "ch": 4
+        }
+      }
+    },
+    {
+      "time": 39431,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 5
+        },
+        "to": {
+          "line": 22,
+          "ch": 5
+        }
+      }
+    },
+    {
+      "time": 39569,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 6
+        },
+        "to": {
+          "line": 22,
+          "ch": 6
+        }
+      }
+    },
+    {
+      "time": 39781,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 7
+        },
+        "to": {
+          "line": 22,
+          "ch": 7
+        }
+      }
+    },
+    {
+      "time": 40149,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 8
+        },
+        "to": {
+          "line": 22,
+          "ch": 8
+        }
+      }
+    },
+    {
+      "time": 40683,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 9
+        },
+        "to": {
+          "line": 22,
+          "ch": 9
+        }
+      }
+    },
+    {
+      "time": 41580,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 10
+        },
+        "to": {
+          "line": 22,
+          "ch": 10
+        }
+      }
+    },
+    {
+      "time": 41936,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 11
+        },
+        "to": {
+          "line": 22,
+          "ch": 11
+        }
+      }
+    },
+    {
+      "time": 42302,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 12
+        },
+        "to": {
+          "line": 22,
+          "ch": 12
+        }
+      }
+    },
+    {
+      "time": 42805,
+      "value": {
+        "from": {
+          "line": 22,
+          "ch": 13
+        },
+        "to": {
+          "line": 22,
+          "ch": 13
+        }
+      }
+    },
+    {
+      "time": 43179,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 0
+        },
+        "to": {
+          "line": 23,
+          "ch": 0
+        }
+      }
+    },
+    {
+      "time": 43551,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 1
+        },
+        "to": {
+          "line": 23,
+          "ch": 1
+        }
+      }
+    },
+    {
+      "time": 43725,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 2
+        },
+        "to": {
+          "line": 23,
+          "ch": 2
+        }
+      }
+    },
+    {
+      "time": 43877,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 3
+        },
+        "to": {
+          "line": 23,
+          "ch": 3
+        }
+      }
+    },
+    {
+      "time": 44013,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 4
+        },
+        "to": {
+          "line": 23,
+          "ch": 4
+        }
+      }
+    },
+    {
+      "time": 44117,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 5
+        },
+        "to": {
+          "line": 23,
+          "ch": 5
+        }
+      }
+    },
+    {
+      "time": 44224,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 6
+        },
+        "to": {
+          "line": 23,
+          "ch": 6
+        }
+      }
+    },
+    {
+      "time": 44414,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 7
+        },
+        "to": {
+          "line": 23,
+          "ch": 7
+        }
+      }
+    },
+    {
+      "time": 44691,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 8
+        },
+        "to": {
+          "line": 23,
+          "ch": 8
+        }
+      }
+    },
+    {
+      "time": 45046,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 9
+        },
+        "to": {
+          "line": 23,
+          "ch": 9
+        }
+      }
+    },
+    {
+      "time": 45312,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 8
+        },
+        "to": {
+          "line": 23,
+          "ch": 8
+        }
+      }
+    },
+    {
+      "time": 45452,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 7
+        },
+        "to": {
+          "line": 23,
+          "ch": 7
+        }
+      }
+    },
+    {
+      "time": 46067,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 8
+        },
+        "to": {
+          "line": 23,
+          "ch": 8
+        }
+      }
+    },
+    {
+      "time": 46533,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 9
+        },
+        "to": {
+          "line": 23,
+          "ch": 9
+        }
+      }
+    },
+    {
+      "time": 47126,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 10
+        },
+        "to": {
+          "line": 23,
+          "ch": 10
+        }
+      }
+    },
+    {
+      "time": 47505,
+      "value": {
+        "from": {
+          "line": 23,
+          "ch": 11
+        },
+        "to": {
+          "line": 23,
+          "ch": 11
+        }
+      }
+    }
+  ],
+  "scrollPosition": [
+    {
+      "time": 0,
+      "value": {
+        "x": 0,
+        "y": 0,
+        "height": 0,
+        "width": 327
+      }
+    },
+    {
+      "time": 38523,
+      "value": {
+        "x": 0,
+        "y": 9,
+        "height": 309,
+        "width": 312
+      }
+    },
+    {
+      "time": 43179,
+      "value": {
+        "x": 0,
+        "y": 22,
+        "height": 322,
+        "width": 312
+      }
+    }
+  ],
+  "evaluatedCode": [
+    {
+      "time": 49949,
+      "value": "function ctverec(delkaStrany){\n  if (delkaStrany > 0)\n  {\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n    go(delkaStrany);\n    right(90);\n  }\n  \n  if (delkaStrany < 0)\n  {\n   \tright(180);\n    ctverec(-delkaStrany);\n    right(180);\n  }\n}\n\nctverec(100);\nctverec(-60);\nctverec(0);"
+    }
+  ],
+  "buttonPressed": []
+}
