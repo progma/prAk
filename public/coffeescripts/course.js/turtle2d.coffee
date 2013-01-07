@@ -243,7 +243,9 @@ clearPaper = ->
       .rect(0, 0, settings.paperWidth, settings.paperHeight)
       .attr fill: settings.paperBackgroundColor
 
-init = (canvas) ->
+init = (canvas, config) ->
+  @aftercleaningCallback = config.aftercleaningCallback ? (callback) => callback()
+
   turtle2d.paper.remove()  if turtle2d.paper?
   turtle2d.paper = Raphael(canvas, settings.paperWidth, settings.paperHeight)
   clearPaper()
@@ -264,22 +266,23 @@ run = (code, config = {}) ->
   activeTurtle.color =
     if config.shadow then settings.shadowTraceColor else settings.normalTraceColor
 
-  result = ex.test
-    code: code
-    environment: environment activeTurtle, config
-    constants: constants
+  @aftercleaningCallback =>
+    result = ex.test
+      code: code
+      environment: environment activeTurtle, config
+      constants: constants
 
-  try
-    turtle2d.sequences = activeTurtle.graph.sequences()
-    if config.draw
-      activeTurtle.countTime()
-      activeTurtle.runActions (->), config
-  catch e
-    turtle2d.sequences = null
-    console.log "Problem while turtle drawing."
-    console.log e.toString()
-  finally
-    return result
+    try
+      turtle2d.sequences = activeTurtle.graph.sequences()
+      if config.draw
+        activeTurtle.countTime()
+        activeTurtle.runActions (->), config
+    catch e
+      turtle2d.sequences = null
+      console.log "Problem while turtle drawing."
+      console.log e.toString()
+    finally
+      return result
 
 
 stash = ->
