@@ -1,4 +1,4 @@
-PRECISION    = 0.0000005
+PRECISION    = 0.000001
 PREC_3D      = 0.0001 # TODO fix
 QUAD_TREE_CELL_CAPACITY = 10
 
@@ -28,14 +28,6 @@ normalizeAngle = (a) ->
   if a < 0
     a += 2*Math.PI
   a
-
-# Finds lattice point near given point (in one dimension).
-findBucket = (p) ->
-  mod = p % PRECISION
-  if mod < PRECISION/2
-    return p - mod
-  else
-    return p + PRECISION - mod
 
 # We assume positive length of neighs
 computeAngles = ({x,y}, neighs) ->
@@ -194,7 +186,7 @@ class LineSegment
     "<<LS (#{@p1.x},#{@p1.y}) -- (#{@p2.x},#{@p2.y})>>"
 
 
-class EmbeddedGraph
+class PlanarGraph
   constructor: (startX, startY, startAngle) ->
     @lineSegments = []
     @vertices = []
@@ -228,8 +220,8 @@ class EmbeddedGraph
       p1 = x: l.p1.x, y: l.p1.y, z: 0
       p2 = x: l.p2.x, y: l.p2.y, z: 0
 
-      hashObj[findBucket p1.x] = {}
-      hashObj[findBucket p2.x] = {}
+      hashObj[p1.x] = {}
+      hashObj[p2.x] = {}
 
       points.push p1
       points.push p2
@@ -259,30 +251,21 @@ class EmbeddedGraph
         nearPoints[0].discarded = true
         nearPoints[1].discarded = true
 
-    # Create graph of elements on plane lattice.
-    # (with PRECISION as distance between lattice points)
+    # Create graph of elements on a plane.
     for p1 in points when p1.discarded != true
-      # Fix point to some lattice point
-      {x,y} =
-        x: findBucket p1.x
-        y: findBucket p1.y
-
-      continue  if hashObj[x][y]
+      continue  if hashObj[p1.x][p1.y]
 
       pointsNear = qt.findPoints p1
-      neighs = hashObj[x][y] = []
+      neighs = []
 
-      for p2 in pointsNear
+      for p2 in pointsNear when p2.discarded != true
+        hashObj[p2.x][p2.y] = true
         neighs.push p2.neigh
 
-    # Collect data from graph.
-    for x of hashObj
-      for y of hashObj[x] when hashObj[x][y] != null
-        neighs = hashObj[x][y]
-
-        degrees.push neighs.length
-        angles = angles.concat computeAngles({x,y}, neighs)
-        dists.push Math.sqrt(dist({x,y}, p)) for p in neighs
+      # Collect data from graph.
+      degrees.push neighs.length
+      angles = angles.concat computeAngles(p1, neighs)
+      dists.push Math.sqrt(dist(p1, p)) for p in neighs
 
     return {
       angleSequence: angles.sort()
@@ -452,7 +435,7 @@ sequencesEqual = (expected, given,
   QuadTree
   Position
   LineSegment
-  EmbeddedGraph
+  PlanarGraph
   Simple3DGraph
 
   # Compares two sorted sequences of distances or angles

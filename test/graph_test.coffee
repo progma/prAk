@@ -6,7 +6,7 @@ ex = require PATH + 'examine'
   QuadTree
   Position
   LineSegment
-  EmbeddedGraph
+  PlanarGraph
 } = require PATH + 'graph'
 
 {T, Tn} = ex
@@ -74,7 +74,7 @@ check = (testObject) ->
     process.exit 1
 
 graphSequences = ->
-  g = new EmbeddedGraph 0, 0, 0
+  g = new PlanarGraph 0, 0, 0
 
   for i in [0...arguments.length]
     switch arguments[i]
@@ -126,7 +126,7 @@ check
     T [go, 40, go, 40, right, 180, go, 80, go, 10], [1,1], "basic test 2"
     T [go, 60, penUp, right, 90, go, 30, right, 90, go, 30, right, 90,
       penDown, go, 60], [1,1,1,1,4], "cross"
-    T (repeat 7, [go, 50, right, 60]), [2,2,2,2,2,2], "hexagon"
+    T (repeat 8, [go, 50, right, 60]), [2,2,2,2,2,2], "hexagon"
     T (repeat 30, [go, 3, right, 360/30]), (repeat 30, [2]), "circle"
     T (repeat 20, [go, 30, right, 180, penUp, go, 30, right, 180+360/4, penDown]),
       [1,1,1,1,4], "cross 2"
