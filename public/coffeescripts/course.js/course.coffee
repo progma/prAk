@@ -23,7 +23,7 @@ $(document).ready ->
   # DISQUS
   window.disqus_config = ->
     hashString = window.location.hash.substring(1)
-    @page.url = "http://prak.mff.cuni.cz/courses/#{courseName}/#{hashString}"
+    @page.url = "http://prak.mff.cuni.cz/kurz/#{courseName}/#{hashString}"
 
   pageDesign.startDISQUS()
 

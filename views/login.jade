@@ -3,7 +3,7 @@ extends layout
 block body
   section#login
     .page-header
-      h1 Login
+      h1 Přihlášení
     .row
       .span4.offset4
         form.well(action="/login", method="post")
@@ -16,7 +16,7 @@ block body
                       name="username",
                       placeholder="email")
             .control-group
-              label.control-label(for="password") Password:
+              label.control-label(for="password") Heslo:
               .controls
                 input(style="height: 35px; box-sizing:border-box; width: 100%;",
                       type="password",
@@ -24,5 +24,5 @@ block body
                       placeholder="password")
             .control-group
               .controls
-                button.btn.btn-large.btn-primary(type="submit") Submit
-                a.btn.btn-large.pull-right(href="/register") Create new account
+                button.btn.btn-large.btn-primary(type="submit") Odeslat
+                a.btn.btn-large.pull-right(href="/register") Vytvořit nový účet

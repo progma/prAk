@@ -66,15 +66,15 @@ app.configure 'development', ->
 #
 
 app.get '/', routes.index
-app.get '/o-nas', routes.aboutUs
+app.get '/projekt', routes.aboutUs
 
 app.get '/user', routes.user
 app.post '/user/password', routes.user_password
 
-app.get '/course/:courseName', routes.course
+app.get '/kurz/:courseName', routes.course
 
-app.get '/sandbox', routes.sandbox
-app.get '/sandbox/:codeID', routes.sandbox
+app.get '/piskoviste', routes.sandbox
+app.get '/piskoviste/:codeID', routes.sandbox
 
 app.get '/diskuze', routes.diskuze
 
@@ -84,8 +84,8 @@ app.post '/login', passport.authenticate 'local',
   failureRedirect: '/login'
   failureFlash: true
 
-app.get '/register', routes.get_register
-app.post '/register', (req, res, next) ->
+app.get '/registrace', routes.get_register
+app.post '/registrace', (req, res, next) ->
   routes.post_register req, res, next, passport
 
 app.get '/logout', (req, res) ->

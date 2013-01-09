@@ -33,8 +33,8 @@ html(lang="en")
                   | Kurzy
                   b.caret
                 ul.dropdown-menu
-                  li: a(href="/course/turtle1b") Želví grafika
-                  li: a(href="/course/turtle2") Želví grafika 2: Stromy
+                  li: a(href="/kurz/turtle1b") Želví grafika
+                  li: a(href="/kurz/turtle2") Želví grafika 2: Stromy
               li: a(href="/diskuze") Diskuze
               li: a(href="/projekt") O projektu
             if user
@@ -45,7 +45,7 @@ html(lang="en")
               ul.nav.pull-right
                 li.dropdown#loginMenu
                   a.dropdown-toggle(data-toggle="dropdown", href="#loginMenu").
-                    Sign in <b class="caret"></b>
+                    Přihlášení <b class="caret"></b>
                   .dropdown-menu(style="padding: 15px; padding-bottom: 0px;")
                     form(action="/login", method="post")
                       input#username(style="margin-bottom: 15px;",
@@ -57,18 +57,18 @@ html(lang="en")
                                      type="password",
                                      name="password",
                                      size="30",
-                                     placeholder="Password")
+                                     placeholder="Heslo")
                       input#remember_me(style="float: left; margin-right: 10px;",
                                         type="checkbox",
                                         name="remember_me",
                                         value="1")
-                      label.string.optional(for="remember_me") Remember me
+                      label.string.optional(for="remember_me") Pamatuj si přihlášení
                       input.btn.btn-primary(style="clear: left; height: 32px; font-size: 13px;",
                                             type="submit",
                                             name="commit",
                                             value="Sign In")
                       a.btn(style="clear: left; height: 32px; font-size: 13px;",
-                                        href="/register") Create new account
+                                        href="/register") Vytvořit nový účet
                 li: span: a.zocial.icon.googleplus.login(href="/auth/google")
                 li: span: a.zocial.icon.facebook.login(href="/auth/facebook")
 
