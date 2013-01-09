@@ -184,7 +184,7 @@ disableEditor = (context) ->
 evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
   hideHelp context
   cleanCodeMirror context.cm
-  context.errorDiv.html pageDesign.codeIsRunning
+  pageDesign.toggleRunningComputationIndicator context.turtleDen
 
   shouldSendUserCode = isUserCode && !quickRun
 
@@ -196,6 +196,7 @@ evaluate = (code, isUserCode, lecture, context, callback, quickRun = false) ->
     evalResult = res  if evalResult == null
 
     if oneComputationDone
+      pageDesign.toggleRunningComputationIndicator context.turtleDen
       handleFailure evalResult, context
       callback evalResult
 

@@ -290,6 +290,15 @@ showHelp = (conf, hideCallback) ->
 
   container
 
+toggleRunningComputationIndicator = (turtleDen) ->
+  turtleDen = $(turtleDen)
+  rc = turtleDen.find(".runningComputation")
+  if rc.length
+    rc.remove()
+  else
+    $("<div class='runningComputation'><i class='icon-spinner icon-spin icon-2x'></i></div>").appendTo turtleDen
+    
+
 startDISQUS = ->
   resetDisqus = ->
     DISQUS?.reset
@@ -342,8 +351,6 @@ wrongAnswer = """
 
 connectionError = "Chyba v připojení"
 
-codeIsRunning = "Běží výpočet."
-
 @pageDesign = {
   lectureAdd
   flash
@@ -359,6 +366,7 @@ codeIsRunning = "Běží výpočet."
 
   showHelp
   startDISQUS
+  toggleRunningComputationIndicator
 
   facebookShareUrl
   testDoneResultPage
@@ -368,5 +376,4 @@ codeIsRunning = "Běží výpočet."
   courseNAProblem
   wrongAnswer
   connectionError
-  codeIsRunning
 }
