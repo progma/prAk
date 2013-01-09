@@ -91,7 +91,12 @@ initialiseTurtleDen = (mode, div, context) ->
     # when "game" ...
     else
       turtle = turtle2d
-      turtle.init div
+      turtle.init div, {
+        aftercleaningCallback: (callback) =>
+          context.turtleDiv.css "opacity", 0
+          context.turtleDiv.animate { "opacity": "+=1" }, 200, =>
+            callback()
+      }
 
   context.turtle = turtle
 
