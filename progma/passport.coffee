@@ -71,8 +71,10 @@ exports.localAuth = ->
 
         # Check password.
         shasum = crypto.createHash 'sha1'
+        shasum.update "" + user.salt
         shasum.update password
-        if shasum.digest('hex') != user.password
+        hash = shasum.digest('hex')
+        if hash != user.password
           return done null, false, { message: 'Invalid password' }
 
         # Return user profile.
