@@ -363,51 +363,61 @@ class PlanarGraph
 class Simple3DGraph
   constructor: ->
     @vertices = []
-    @edgeLengths = []
 
   # TODO cannot handle edge created from smaller edges
-  markEdge: (from, to) ->
-    fromV = @ensureVertex from
-    toV = @ensureVertex to
+  addEdge: (from, to) ->
+    v1 = x: from.x, y: from.y, z: from.z
+    v2 = x:   to.x, y:   to.y, z:   to.z
 
-    # no multiedges
-    for v in fromV.edges
-      if @closeEnough toV.pos, v.pos
-        return
+    v1.neigh = v2
+    v2.neigh = v1
 
-    fromV.edges.push toV
-    toV.edges.push fromV
-
-    distX = fromV.pos.x - toV.pos.x
-    distY = fromV.pos.y - toV.pos.y
-    distZ = fromV.pos.z - toV.pos.z
-    @edgeLengths.push Math.sqrt(distX*distX+distY*distY+distZ*distZ)
-
-  ensureVertex: (position) ->
-    for vertex in @vertices
-      if @closeEnough position, vertex.pos
-        return vertex
-
-    newVertex = { pos: position, edges: [] }
-    @vertices.push newVertex
-
-    return newVertex
-
-  closeEnough: (vPos, wPos) ->
-    (approxZero vPos.x - wPos.x, PREC_3D) and
-    (approxZero vPos.y - wPos.y, PREC_3D) and
-    (approxZero vPos.z - wPos.z, PREC_3D)
+    @vertices.push v1, v2
 
   sequences: ->
-    degreeSequence: (_.map @vertices, (vertex) -> vertex.edges.length).sort()
-    distanceSequence: @edgeLengths.sort()
+    distances = []
+    degrees   = []
+    qt = new QuadTree @vertices
 
+    # Eliminate duplicate edges.
+    for p1 in @vertices when p1.discarded != true
+      pointsNear = qt.findPoints p1
+
+      for p2 in pointsNear when p2.discarded != true
+        if p1 != p2 && approxZero dist3(p1.neigh, p2.neigh)
+          p2.discarded = true
+          p2.neigh.discarded = true
+
+    # Compute sequences.
+    for p1 in @vertices
+      continue  if p1.used || p1.discarded
+      p1.used = true
+      pointsNear = qt.findPoints p1
+
+      # Vertex degree is number of edges touching point (in our case).
+      degree = pointsNear.length
+
+      for p2 in pointsNear
+        p2.used = true
+
+        if p2.discarded
+          degree--
+          continue
+
+        distances.push Math.sqrt dist3(p2, p2.neigh)
+
+      degrees.push degree
+
+    return {
+      degreeSequence: degrees.sort()
+      distanceSequence: distances.sort()
+    }
 
 almostEqual = (s1, s2) ->
   return false unless s1.length == s2.length
 
   for i in [0...s1.length]
-    return false unless approxZero s1[i] - s2[i], PREC_3D
+    return false unless approxZero s1[i] - s2[i], PRECISION
 
   true
 
