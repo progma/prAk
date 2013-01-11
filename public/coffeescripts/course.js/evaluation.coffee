@@ -4,6 +4,7 @@ gen = @escodegen ? require "../escodegen"
 # Constants
 quickRunTime    = 500
 quickRunActions = 500
+delayTimeToEval = 800
 
 turtle3dDiv    = undefined
 turtle3dCanvas = undefined
@@ -25,7 +26,7 @@ codeMirrorChanged = (onlineCoding, context) -> (cm) ->
     # Start new attempt
     codeToRun = setTimeout ->
         evaluate cm.getValue(), false, null, context, (->), true
-      , 800
+      , delayTimeToEval
 
 highlightCodeMirror = (cm, line) ->
   cm.setLineClass line, "syntaxError"

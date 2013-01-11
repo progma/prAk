@@ -120,6 +120,9 @@ class Lecture
       if saveContext
         @evaluationContext.expectedResult = @evaluationContext.turtle.sequences
 
+      # Blink after eval.
+      pageDesign.appearEffect @evaluationContext.turtleDiv
+
     evaluation.evaluate code
       , isUserCode
       , slide.lecture
