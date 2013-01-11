@@ -177,6 +177,11 @@ displayArrow = (arrow, display) ->
   else
     arrow.addClass "hidden"
 
+appearEffect = (elem, callback = (->), time = 150) ->
+  elem.css "opacity", 0
+  elem.animate { "opacity": "+=1" }, time, ->
+    callback()
+
 apiHelp = [
     name: "go"
     title: "Želví příkazy"
@@ -356,6 +361,7 @@ codeIsRunning = "Běží výpočet."
   lectureDone
   addPlayer
   displayArrow
+  appearEffect
 
   showHelp
   startDISQUS

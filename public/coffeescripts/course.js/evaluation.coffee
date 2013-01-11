@@ -4,6 +4,7 @@ gen = @escodegen ? require "../escodegen"
 # Constants
 quickRunTime    = 500
 quickRunActions = 500
+delayTimeToEval = 800
 
 turtle3dDiv    = undefined
 turtle3dCanvas = undefined
@@ -25,7 +26,7 @@ codeMirrorChanged = (onlineCoding, context) -> (cm) ->
     # Start new attempt
     codeToRun = setTimeout ->
         evaluate cm.getValue(), false, null, context, (->), true
-      , 800
+      , delayTimeToEval
 
 highlightCodeMirror = (cm, line) ->
   cm.setLineClass line, "syntaxError"
@@ -91,12 +92,7 @@ initialiseTurtleDen = (mode, div, context) ->
     # when "game" ...
     else
       turtle = turtle2d
-      turtle.init div, {
-        aftercleaningCallback: (callback) =>
-          context.turtleDiv.css "opacity", 0
-          context.turtleDiv.animate { "opacity": "+=1" }, 200, =>
-            callback()
-      }
+      turtle.init div
 
   context.turtle = turtle
 
