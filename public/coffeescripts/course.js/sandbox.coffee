@@ -23,7 +23,8 @@ $ ->
     testProperties: []
 
   runCode = (code) ->
-    evaluation.evaluate code, true, lecture, evaluationContext, (->)
+    evaluation.evaluate code, true, lecture, evaluationContext, ->
+      pageDesign.appearEffect evaluationContext.turtleDiv
 
   initTD = ->
     # Set help content depending on turtle mode
