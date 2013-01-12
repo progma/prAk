@@ -16,7 +16,7 @@ exports.index = (req, res) ->
 
 exports.aboutUs  = (req, res) ->
   res.render 'about-us',
-    title: 'prAk » O nás'
+    title: 'prAk » O projektu'
     page: 'about-us'
     user: req.user
     errors: req.flash 'error'
@@ -199,6 +199,6 @@ exports.post_register = (req, res, next, passport) ->
       # Authenticate new user immediately.
       passport.authenticate('local',
         successRedirect: '/'
-        failureRedirect: '/register'
+        failureRedirect: '/registrace'
         failureFlash: true
       )(req, res, next)
