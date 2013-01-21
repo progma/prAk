@@ -2,7 +2,7 @@
 ## Imports
 ##
 ex = @examine ? require './examine'
-{Position, EmbeddedGraph} = @graph ? require './graph'
+{Position, PlanarGraph} = @graph ? require './graph'
 
 ##
 ## Settings
@@ -71,7 +71,7 @@ class Turtle
     @actions = []
 
     # Graph for actual relative coordinates
-    @graph = new EmbeddedGraph(0, 0, @angle)
+    @graph = new PlanarGraph(0, 0, @angle)
 
     @im = @paper.image settings.turtleImage
                            , @startX - settings.turtleImageCorrection.x

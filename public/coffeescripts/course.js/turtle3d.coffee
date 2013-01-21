@@ -76,7 +76,7 @@ class Turtle3D
                       , material: @material
                       , width: @width })
 
-    @graph.markEdge { x: @position.x, y: @position.y, z: @position.z }, { x: newPosition.x, y: newPosition.y, z: newPosition.z }
+    @graph.addEdge { x: @position.x, y: @position.y, z: @position.z }, { x: newPosition.x, y: newPosition.y, z: newPosition.z }
 
     @position = newPosition
 

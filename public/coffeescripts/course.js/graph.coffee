@@ -1,5 +1,5 @@
 PRECISION    = 0.000001
-PREC_3D      = 0.0001 # TODO fix
+QUAD_TREE_CELL_CAPACITY = 10
 
 
 approxZero = (num, prec = PRECISION) ->
@@ -10,6 +10,12 @@ dist = (p1, p2) ->
   px = p1.x - p2.x
   py = p1.y - p2.y
   px*px + py*py
+
+dist3 = (p1, p2) ->
+  px = p1.x - p2.x
+  py = p1.y - p2.y
+  pz = p1.z - p2.z
+  px*px + py*py + pz*pz
 
 computeCoords = (x,y,len,angle) ->
   newX = x + len * Math.sin(angle / 360 * Math.PI * 2)
@@ -36,6 +42,95 @@ computeAngles = ({x,y}, neighs) ->
   angles.push normalizeAngle(fst - last)
   angles
 
+class QuadTree
+  constructor: (points) ->
+    if points.length < QUAD_TREE_CELL_CAPACITY
+      @points = points
+      return
+
+    # compute center
+    pointsSum = { x: 0, y: 0, z: 0 }
+
+    for p in points
+      pointsSum.x += p.x ? 0
+      pointsSum.y += p.y ? 0
+      pointsSum.z += p.z ? 0
+
+    @center =
+      x: pointsSum.x / points.length
+      y: pointsSum.y / points.length
+      z: pointsSum.z / points.length
+
+    # divide to sublists
+    segments =
+      true:
+        true:
+          true:  [] # East North Front
+          false: [] # East North Back
+        false:
+          true:  [] # West North Front
+          false: [] # West North Back
+      false:
+        true:
+          true:  [] # East South Front
+          false: [] # East South Back
+        false:
+          true:  [] # West South Front
+          false: [] # West South Back
+
+    for p in points
+      segments[p.x > @center.x][p.y > @center.y][p.z > @center.z].push p
+
+    # generate subtrees
+    @branches =
+      true:
+        true:
+          true:  new QuadTree segments[true][true][true]
+          false: new QuadTree segments[true][true][false]
+        false:
+          true:  new QuadTree segments[true][false][true]
+          false: new QuadTree segments[true][false][false]
+      false:
+        true:
+          true:  new QuadTree segments[false][true][true]
+          false: new QuadTree segments[false][true][false]
+        false:
+          true:  new QuadTree segments[false][false][true]
+          false: new QuadTree segments[false][false][false]
+
+  findPoints: (point) ->
+    storage = []
+    @_findPoints point, storage
+    storage
+
+  _findPoints: (point, storage) ->
+    # no branches from this node
+    if @points
+      (storage.push p) for p in @points when approxZero dist3(p, point)
+      return
+
+    # find quadron
+    bx1 = point.x > @center.x - PRECISION
+    bx2 = point.x > @center.x + PRECISION
+    by1 = point.y > @center.y - PRECISION
+    by2 = point.y > @center.y + PRECISION
+    bz1 = point.z > @center.z - PRECISION
+    bz2 = point.z > @center.z + PRECISION
+    bools = [bx1, bx2, by1, by2, bz1, bz2]
+
+    findInQuadron = (node, i) ->
+      if i == 6 # == bools.length
+        # search in quadron
+        node._findPoints point, storage
+      else
+        [b1, b2] = [bools[i], bools[i+1]]
+        i1 = i + 2
+
+        # select quadron by the next criterion
+        findInQuadron node[b1], i1
+        findInQuadron node[b2], i1  if b1 != b2
+
+    findInQuadron @branches, 0
 
 class Position
   constructor: (@x, @y, @angle, @penDown = true) ->
@@ -90,7 +185,7 @@ class LineSegment
     "<<LS (#{@p1.x},#{@p1.y}) -- (#{@p2.x},#{@p2.y})>>"
 
 
-class EmbeddedGraph
+class PlanarGraph
   constructor: (startX, startY, startAngle) ->
     @lineSegments = []
     @vertices = []
@@ -117,40 +212,59 @@ class EmbeddedGraph
     dists   = []
     hashObj = {}
 
-    # Adds vertex to hashObj
-    addVert = (v,vAdd) ->
-      # Normalize (point bucketing)
-      x = v.x - (v.x % PRECISION)
-      y = v.y - (v.y % PRECISION)
-      vAdd =
-        x: vAdd.x - (vAdd.x % PRECISION)
-        y: vAdd.y - (vAdd.y % PRECISION)
+    # Initialise data structures.
+    points = []
 
-      unless hashObj[x]?
-        hashObj[x] = {}
-
-      if hashObj[x][y]?
-        hashObj[x][y].push vAdd
-      else
-        hashObj[x][y] = [vAdd]
-
-    # Collect all vertices
     for l in @lineSegments
-      addVert l.p1, l.p2
-      addVert l.p2, l.p1
+      p1 = x: l.p1.x, y: l.p1.y, z: 0
+      p2 = x: l.p2.x, y: l.p2.y, z: 0
 
-    for x of hashObj
-      for y of hashObj[x]
-        neighs = hashObj[x][y]
+      hashObj[p1.x] = {}
+      hashObj[p2.x] = {}
 
-        # Eliminate point on a line
-        if  neighs.length == 2 &&
-            (new LineSegment neighs[0], neighs[1]).containsPoint {x,y}
-          continue
+      points.push p1
+      points.push p2
 
-        degrees.push hashObj[x][y].length
-        angles = angles.concat computeAngles {x,y}, neighs
-        dists.push Math.sqrt dist {x,y}, p for p in neighs
+      p1.neigh = p2
+      p2.neigh = p1
+
+    qt = new QuadTree points
+
+    # Discard points inside a line segment.
+    for p1 in points when p1.discarded != true
+      nearPoints = qt.findPoints p1
+      continue  unless nearPoints.length == 2
+
+      [neigh1,neigh2] = [nearPoints[0].neigh, nearPoints[1].neigh]
+
+      if (new LineSegment neigh1, neigh2).containsPoint p1
+        # p1's neighbours should be neighbours of themselves.
+        fixNeighs = (n1, n2) ->
+          neigh2.neigh = neigh1
+          neigh1.neigh = neigh2
+
+        fixNeighs neigh1, neigh2
+        fixNeighs neigh2, neigh1
+
+        # Don't use this point anymore.
+        nearPoints[0].discarded = true
+        nearPoints[1].discarded = true
+
+    # Create graph of elements on a plane.
+    for p1 in points when p1.discarded != true
+      continue  if hashObj[p1.x][p1.y]
+
+      pointsNear = qt.findPoints p1
+      neighs = []
+
+      for p2 in pointsNear when p2.discarded != true
+        hashObj[p2.x][p2.y] = true
+        neighs.push p2.neigh
+
+      # Collect data from graph.
+      degrees.push neighs.length
+      angles = angles.concat computeAngles(p1, neighs)
+      dists.push Math.sqrt(dist(p1, p)) for p in neighs
 
     return {
       angleSequence: angles.sort()
@@ -248,51 +362,61 @@ class EmbeddedGraph
 class Simple3DGraph
   constructor: ->
     @vertices = []
-    @edgeLengths = []
 
   # TODO cannot handle edge created from smaller edges
-  markEdge: (from, to) ->
-    fromV = @ensureVertex from
-    toV = @ensureVertex to
+  addEdge: (from, to) ->
+    v1 = x: from.x, y: from.y, z: from.z
+    v2 = x:   to.x, y:   to.y, z:   to.z
 
-    # no multiedges
-    for v in fromV.edges
-      if @closeEnough toV.pos, v.pos
-        return
+    v1.neigh = v2
+    v2.neigh = v1
 
-    fromV.edges.push toV
-    toV.edges.push fromV
-
-    distX = fromV.pos.x - toV.pos.x
-    distY = fromV.pos.y - toV.pos.y
-    distZ = fromV.pos.z - toV.pos.z
-    @edgeLengths.push Math.sqrt(distX*distX+distY*distY+distZ*distZ)
-
-  ensureVertex: (position) ->
-    for vertex in @vertices
-      if @closeEnough position, vertex.pos
-        return vertex
-
-    newVertex = { pos: position, edges: [] }
-    @vertices.push newVertex
-
-    return newVertex
-
-  closeEnough: (vPos, wPos) ->
-    (approxZero vPos.x - wPos.x, PREC_3D) and
-    (approxZero vPos.y - wPos.y, PREC_3D) and
-    (approxZero vPos.z - wPos.z, PREC_3D)
+    @vertices.push v1, v2
 
   sequences: ->
-    degreeSequence: (_.map @vertices, (vertex) -> vertex.edges.length).sort()
-    distanceSequence: @edgeLengths.sort()
+    distances = []
+    degrees   = []
+    qt = new QuadTree @vertices
 
+    # Eliminate duplicate edges.
+    for p1 in @vertices when p1.discarded != true
+      pointsNear = qt.findPoints p1
+
+      for p2 in pointsNear when p2.discarded != true
+        if p1 != p2 && approxZero dist3(p1.neigh, p2.neigh)
+          p2.discarded = true
+          p2.neigh.discarded = true
+
+    # Compute sequences.
+    for p1 in @vertices
+      continue  if p1.used || p1.discarded
+      p1.used = true
+      pointsNear = qt.findPoints p1
+
+      # Vertex degree is number of edges touching point (in our case).
+      degree = pointsNear.length
+
+      for p2 in pointsNear
+        p2.used = true
+
+        if p2.discarded
+          degree--
+          continue
+
+        distances.push Math.sqrt dist3(p2, p2.neigh)
+
+      degrees.push degree
+
+    return {
+      degreeSequence: degrees.sort()
+      distanceSequence: distances.sort()
+    }
 
 almostEqual = (s1, s2) ->
   return false unless s1.length == s2.length
 
   for i in [0...s1.length]
-    return false unless approxZero s1[i] - s2[i], PREC_3D
+    return false unless approxZero s1[i] - s2[i], PRECISION
 
   true
 
@@ -315,9 +439,12 @@ sequencesEqual = (expected, given,
 ## Exports
 ##
 @graph = {
+  PRECISION
+
+  QuadTree
   Position
   LineSegment
-  EmbeddedGraph
+  PlanarGraph
   Simple3DGraph
 
   # Compares two sorted sequences of distances or angles
